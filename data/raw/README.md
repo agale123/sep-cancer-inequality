@@ -6,10 +6,8 @@
 
 This data is freely available for research purposes. Most of the datasets cover the time range from 2014 to 2018, and the data is broken down by county.
 
-* `Demographics_US_by_County_Crowding_Households_with__1_Person_per_Room_(Both_Sexes_-_2014_to_2018)_2014_-_2018.csv`
 * `Demographics_US_by_County_Income_Median_Household_Income_(Both_Sexes_-_2014_to_2018)_2014_-_2018.csv`
 * `Demographics_US_by_County_Non-English_Language_Language_Isolation_(Both_Sexes_-_2014_to_2018)_2014_-_2018.csv`
-* `Demographics_US_by_County_Population_Age_65_and_Over_(Both_Sexes_-_2014_to_2018)_2014_-_2018 (1).csv`
 * `Demographics_US_by_County_Population_Age_65_and_Over_(Both_Sexes_-_2014_to_2018)_2014_-_2018.csv`
 * `Demographics_US_by_County_Population_Asian_Pacific_Islander_(Both_Sexes_-_2014_to_2018)_2014_-_2018.csv`
 * `Demographics_US_by_County_Population_Black_(Both_Sexes_-_2014_to_2018)_2014_-_2018.csv`

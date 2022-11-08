@@ -1,5 +1,5 @@
 Incidence, US by County, All Races, All Cancer Sites (Both Sexes), 2013 - 2017
-Area,County FIPS,Age-Adjusted Rate per 100,000,Lower CI,Upper CI,Count
+Area,County FIPS,"Age-Adjusted Rate per 100,000",Lower CI,Upper CI,Count
 "Union, Florida","12125","1143.5","1072.7","1218.0","1065"
 "Logan, Nebraska","31113","739.4","500.0","1056.3","35"
 "Greer, Oklahoma","40055","710.4","624.4","805.3","259"
@@ -2000,5 +2000,3 @@ Area,County FIPS,Age-Adjusted Rate per 100,000,Lower CI,Upper CI,Count
 "Madison, Virginia","51113","431.4","389.3","477.4","421"
 "Butte, South Dakota","46019","431.4","381.1","486.8","296"
 "Mohave, Arizona","4015","431.2","420.6","441.9","7894"
-
-"undefined"

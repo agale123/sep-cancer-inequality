@@ -1,5 +1,5 @@
 Mortality, US by County, All Races, All Malignant Cancers (Both Sexes), 2014 - 2018
-Area,County FIPS,Age-Adjusted Rate per 100,000,Lower CI,Upper CI,Count
+Area,County FIPS,"Age-Adjusted Rate per 100,000",Lower CI,Upper CI,Count
 "Union, Florida","12125","454.48","409.29","503.49","406"
 "Galax, Virginia","51640","372.85","318.74","434.50","181"
 "Buffalo, South Dakota","46017","333.99","206.52","506.33","23"
@@ -2000,5 +2000,3 @@ Area,County FIPS,Age-Adjusted Rate per 100,000,Lower CI,Upper CI,Count
 "Jackson, Illinois","17077","158.88","144.87","173.93","502"
 "Lake, Oregon","41037","158.87","129.45","194.47","109"
 "Cumberland, Tennessee","47035","158.86","147.66","170.87","877"
-
-"undefined"
