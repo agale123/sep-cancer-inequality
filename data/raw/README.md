@@ -18,3 +18,35 @@ This data is freely available for research purposes. Most of the datasets cover 
 * `Incidence_US_by_County_All_Races_All_Cancer_Sites_(Both_Sexes)_2013_-_2017.csv`
 * `Mortality_US_by_County_All_Races_All_Malignant_Cancers_(Both_Sexes)_2014_-_2018.csv`
 * `Screening_and_Risk_Factors_US_by_County_(UV_Only)_UV_Exposure_Data_Ultraviolet_Exposure.csv`
+
+## Redlining
+
+TODO(Alison)
+
+## Social Vulnerability Index
+
+TODO(Danilo)
+
+## Access to Healthy Food
+
+TODO(Alison)
+
+## Insurance Rates
+
+TODO(Danilo)
+
+## Language Barriers
+
+TODO(Alison)
+
+## Pesticide Exposure
+
+TODO(Danilo)
+
+## Walkability & Access to Parks
+
+TODO(Alison)
+
+## Targeted Advertising for Tobacco
+
+TODO(Danilo)
