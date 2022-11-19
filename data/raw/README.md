@@ -50,3 +50,11 @@ TODO(Alison)
 ## Targeted Advertising for Tobacco
 
 TODO(Danilo)
+
+## Replacement for refineries dataset
+
+TODO(Alison)
+
+## Replacement for hospital locations dataset
+
+TODO(Danilo)
