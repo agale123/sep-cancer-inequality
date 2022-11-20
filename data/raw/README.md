@@ -31,7 +31,7 @@ TODO(Danilo)
 
 **Source**: https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/
 
-This data is freely available for research purposes. The data is from 2019 and is broken down by census tract to show the share of low income, low access residents. To find the proportion of low income, low access residents in each county, we divide the "Low access, low-income population at 1 mile for urban areas and 10 miles for rural areas, number" by the "Population count from 2010 census".
+This data is made freely available by the US Government. The data is from 2019 and is broken down by census tract to show the share of low income, low access residents. To find the proportion of low income, low access residents in each county, we divide the "Low access, low-income population at 1 mile for urban areas and 10 miles for rural areas, number" by the "Population count from 2010 census".
 
 * `FoodAccessResearchAtlasData2019.csv`
 
@@ -41,7 +41,11 @@ TODO(Danilo)
 
 ## Language Barriers
 
-TODO(Alison)
+**Source**: https://data.census.gov/table?q=DP02&g=0100000US$0500000&tid=ACSDP5Y2020.DP02
+
+This data is made freely available by the US Government. The data is from the 2020 5-year data profile. From this dataset we are gathering the percent of people over 5 years old who speak a language other than English at home and speak English less than "very well".
+
+* `ACSDP5Y2020.DP02-Data.csv`
 
 ## Pesticide Exposure
 
