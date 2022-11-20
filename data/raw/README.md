@@ -29,7 +29,11 @@ This data is made available through a Creative Commons license from the "Mapping
 
 ## Social Vulnerability Index
 
-TODO(Danilo)
+**Source**: https://www.atsdr.cdc.gov/placeandhealth/svi/index.html
+
+The SVI data contains metrics related to population vulnerability per county, such as socioeconomic status, household characteristics, racial and ethnic minority status, and housing type and transportation. Data from the Center for Disease Control and Prevention, Agency for Toxic Substances and Disease Registry (CDC/ATSDR) for 2020. Snapshots taken on November 20, 2022.
+
+* `Social_Vulnerability_Index_2020_US_COUNTY.csv`
 
 ## Access to Healthy Food
 
