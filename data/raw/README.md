@@ -67,9 +67,13 @@ This data is made available by the EPA. The data is from 2019. The National Walk
 
 TODO(Danilo)
 
-## Replacement for refineries dataset
+## Oil Pipeline Spills
 
-TODO(Alison)
+**Source**: https://www.kaggle.com/usdot/pipeline-accidents
+
+This data is made available from the Department of Transportation through Kaggle and is open for any use. It lists all oil spills, including the amount spilled and latitude and longitude of the spill.
+
+* `database.csv`
 
 ## Replacement for hospital locations dataset
 
