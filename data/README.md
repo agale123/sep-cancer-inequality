@@ -2,7 +2,7 @@
 
 ## Raw
 
-This folder contains raw datasets that are downloaded from a variety of sources. The notebooks that clean these files can be found in `notebooks/cleaning`. The README.md in that directory details the sources of all the datasets.
+This folder contains raw datasets that are downloaded from a variety of sources. The notebooks that clean these files can be found in `notebooks/cleaning`. The [README.md](raw/README.md) in that directory details the sources of all the datasets.
 
 ## Processed
 

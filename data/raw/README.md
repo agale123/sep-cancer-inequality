@@ -29,7 +29,11 @@ TODO(Danilo)
 
 ## Access to Healthy Food
 
-TODO(Alison)
+**Source**: https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/
+
+This data is freely available for research purposes. The data is from 2019 and is broken down by census tract to show the share of low income, low access residents.
+
+* `FoodAccessResearchAtlasData2019.csv`
 
 ## Insurance Rates
 
