@@ -21,7 +21,11 @@ This data is freely available for research purposes. Most of the datasets cover 
 
 ## Redlining
 
-TODO(Alison)
+**Source**: https://dsl.richmond.edu/panorama/redlining/#loc=11/47.594/-122.524&city=seattle-wa&area=C13&text=downloads
+
+This data is made available through a Creative Commons license from the "Mapping Inequaliy: Redlining in New Deal America" project. This data is generated from scans of HOLC maps. Each polygon has an associated grade from A to D with A being the highest and D being the lowest.
+
+* `fullDownload.geojson`
 
 ## Social Vulnerability Index
 
@@ -53,7 +57,11 @@ TODO(Danilo)
 
 ## Walkability & Access to Parks
 
-TODO(Alison)
+**Source**: https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid=%7B251AFDD9-23A7-4068-9B27-A3048A7E6012%7D
+
+This data is made available by the EPA. The data is from 2019. The National Walkability Index is a score that takes into account intersection density, proximity to transit, and the employment and household mix. Low scores indicate the least walkable areas while high scores indicate the most walkable areas. To fit within the GitHub limits, this file was pre-processed to remove unnecessary columns.
+
+* `EPA_SmartLocationDatabase_V3_Jan_2021_Final.csv`
 
 ## Targeted Advertising for Tobacco
 
