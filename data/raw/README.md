@@ -31,7 +31,7 @@ TODO(Danilo)
 
 **Source**: https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/
 
-This data is freely available for research purposes. The data is from 2019 and is broken down by census tract to show the share of low income, low access residents.
+This data is freely available for research purposes. The data is from 2019 and is broken down by census tract to show the share of low income, low access residents. To find the proportion of low income, low access residents in each county, we divide the "Low access, low-income population at 1 mile for urban areas and 10 miles for rural areas, number" by the "Population count from 2010 census".
 
 * `FoodAccessResearchAtlasData2019.csv`
 
