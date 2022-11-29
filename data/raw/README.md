@@ -43,10 +43,6 @@ This data is made freely available by the US Government. The data is from 2019 a
 
 * `FoodAccessResearchAtlasData2019.csv`
 
-## Insurance Rates
-
-TODO(Danilo)
-
 ## Language Barriers
 
 **Source**: https://data.census.gov/table?q=DP02&g=0100000US$0500000&tid=ACSDP5Y2020.DP02
