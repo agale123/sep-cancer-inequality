@@ -53,7 +53,11 @@ This data is made freely available by the US Government. The data is from the 20
 
 ## Pesticide Exposure
 
-TODO(Danilo)
+**Source**: https://www.sciencebase.gov/catalog/file/get/5e95c12282ce172707f2524e?f=__disk__62%2F83%2Fd3%2F6283d3501f1028b1ccc3976ea2e6de848bc2fef8&allowOpen=true
+
+This data release provides estimates of annual agricultural use of pesticide compounds in counties of the conterminous United States, for years 2013-17. See https://www.sciencebase.gov/catalog/item/5e95c12282ce172707f2524e for methodology details.
+
+* `EPest_county_estimates_2013_2017_v2.txt`
 
 ## Walkability & Access to Parks
 
