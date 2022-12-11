@@ -67,10 +67,6 @@ This data is made available by the EPA. The data is from 2019. The National Walk
 
 * `EPA_SmartLocationDatabase_V3_Jan_2021_Final.csv`
 
-## Targeted Advertising for Tobacco
-
-TODO(Danilo)
-
 ## Oil Pipeline Spills
 
 **Source**: https://www.kaggle.com/usdot/pipeline-accidents
@@ -79,6 +75,16 @@ This data is made available from the Department of Transportation through Kaggle
 
 * `database.csv`
 
+## Air Quality
+
+**Source**: https://aqs.epa.gov/aqsweb/airdata/download_files.html#Annual
+
+This data is provided by the Environmental Protection Agency. This dataset is for air quality in 2010 by county.
+
 ## Replacement for hospital locations dataset
+
+TODO(Danilo)
+
+## Replacement for Targeted Advertising for Tobacco
 
 TODO(Danilo)
