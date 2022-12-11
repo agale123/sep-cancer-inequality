@@ -81,9 +81,13 @@ This data is made available from the Department of Transportation through Kaggle
 
 This data is provided by the Environmental Protection Agency. This dataset is for air quality in 2010 by county.
 
-## Replacement for hospital locations dataset
+## Hospital Locations
 
-TODO(Danilo)
+***Source**: https://opendata.arcgis.com/api/v3/datasets/6ac5e325468c4cb9b905f1728d6fbf0f_0/downloads/data?format=csv&spatialRefId=4326
+
+This data is provided by the Oak Ridge National Laboratory (ORNL) and the National Geospatial-Intelligence Agency (NGA) Homeland Security Infrastructure Program (HSIP) Team.
+
+* `Hospitals.csv`
 
 ## Replacement for Targeted Advertising for Tobacco
 
