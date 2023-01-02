@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+            Fred Hutchinson Cancer Center - Science Education Outreach Program - Health Infrastructure Inequality and Implications for Cancer
+        </title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+        <style>
+            .dropdown {
+                width: 100%;
+            }
+            .dropdown-trigger {
+                width: 100%;
+            }
+            button {
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js"></script>
+    
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item" id="header-logo" href="#">
+                        <img src="images/logo-transparent.svg" width="152"/>
+                    </a>
+                </div>
+                <div id="navbarMenu" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item is-active">Tool</a>
+                        <a class="navbar-item">Data Sources</a>
+                        <a class="navbar-item">About</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    
+        <section class="section">
+            <div class="columns">
+                <div class="column">
+                    <section class="section">
+                        <!-- Dropdown for the first indicator -->
+                        <div class="dropdown level-item">
+                            <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-indicator-one">
+                                <span>Select first indicator</span>
+                                <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-indicator-one" role="menu">
+                            <div class="dropdown-content">
+                                <a href="#" class="dropdown-item">
+                                    Pesticide Emission
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    Smoking Prevalence
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    Uninsured Rate
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                        <section class="section">
+                            <!-- Create an SVG element where the first map will be rendered. -->
+                            <svg id="canvas_map_one" width="400" height="300"></svg>
+                        </section>
+                    </section>
+                    <section class="section">
+                        <!-- Dropdown for the second indicator -->
+                        <div class="dropdown">
+                            <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-indicator-two">
+                                <span>Select second indicator</span>
+                                <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-indicator-two" role="menu">
+                            <div class="dropdown-content">
+                                <a href="#" class="dropdown-item">
+                                    Pesticide Emission
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    Smoking Prevalence
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    Uninsured Rate
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                        <section class="section">
+                            <!-- Create an SVG element where the second map will be rendered. -->
+                            <svg id="canvas_map_two" width="400" height="300"></svg>
+                        </section>
+
+                    </section>
+                </div>
+                <div class="column">
+                    <section class="section">
+                        <!-- Create an element where the scatterplot and regression results will be rendered. -->
+                        <div id="canvas_regression"></div>
+                        <p>The {indicator-1} shows a positive relationship with {indicator-2} with p-value {x}.</p>
+                    </section>
+                    <section class="section">
+                        <!-- Create an element where additional insights will be rendered. -->
+                        <div id="canvas-histogram"></div>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <!-- Load d3.js for visualizations -->
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+        <!-- Render the visualizations -->
+        <script src="scripts/map-visualization.js"></script>
+        <script src="scripts/scatterplot-visualization.js"></script>
+        <script src="scripts/histogram-visualization.js"></script>
+
+        <!-- Setup callbacks for the dropdowns -->
+        <script>
+            document.querySelectorAll('.dropdown').forEach(item => {
+                item.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    item.classList.toggle('is-active');
+                });
+            });
+        </script>
+
+    </body>
+
+</html>
