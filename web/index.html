@@ -25,6 +25,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js"></script>
     
+        <!-- Top navigation bar -->
         <nav class="navbar">
             <div class="container">
                 <div class="navbar-brand">
@@ -42,8 +43,10 @@
             </div>
         </nav>
     
+        <!-- Main page content -->
         <section class="section">
             <div class="columns">
+                <!-- Left column -->
                 <div class="column">
                     <section class="section">
                         <!-- Dropdown for the first indicator -->
@@ -107,15 +110,22 @@
 
                     </section>
                 </div>
+                <!-- Right column -->
                 <div class="column">
                     <section class="section">
+                        <div>
+                            There is a strong positive correlation between these two variables as shown below.
+                        </div>
                         <!-- Create an element where the scatterplot and regression results will be rendered. -->
-                        <div id="canvas_regression"></div>
-                        <p>The {indicator-1} shows a positive relationship with {indicator-2} with p-value {x}.</p>
-                    </section>
-                    <section class="section">
-                        <!-- Create an element where additional insights will be rendered. -->
-                        <div id="canvas-histogram"></div>
+                        <div id="canvas_scatterplot"></div>
+                        <div>
+                            <b>Lung Cancer Incidence</b>: This is the age adjusted number of cases
+                            per 100,000 residents. This data comes from NCI.
+                        </div>
+                        <div>
+                            <b>Smoking Prevalence</b>: This is the percent of adults who have
+                            smoked over 50 cigarettes. This data comes from NCI.
+                        </div>
                     </section>
                 </div>
             </div>
@@ -125,6 +135,9 @@
         <script src="https://d3js.org/d3.v4.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+        <!-- Initialize the data needed for the visualizations -->
+        <script src="scripts/data-service.js"></script>
 
         <!-- Render the visualizations -->
         <script src="scripts/map-visualization.js"></script>

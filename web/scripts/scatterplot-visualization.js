@@ -1,44 +1,88 @@
-// Render the scatterplot.
 // Set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+const s_margin = { top: 30, right: 30, bottom: 60, left: 60 };
+const s_width = 460 - s_margin.left - s_margin.right;
+const s_height = 400 - s_margin.top - s_margin.bottom;
+const buffer = 0.05;
 
-// Attach an svg to the Append the svg object to the body of the page
-var graph_regression = d3.select("#canvas_regression")
-    .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-    .append("g")
+/**
+ * Update the scatterplot to show the relationship between the two variables.
+ * @param {string} xMetric 
+ * @param {string} yMetric 
+ */
+async function updateScatterplot(xMetric, yMetric) {
+    // Clear any past svg elements
+    d3.select("#canvas_scatterplot").selectAll("*").remove();
+
+    // Attach an svg to the Append the svg object to the body of the page
+    const scatterplot = d3.select("#canvas_scatterplot")
+        .append("svg")
+        .attr("width",
+            s_width + s_margin.left + s_margin.right)
+        .attr("height",
+            s_height + s_margin.top + s_margin.bottom)
+        .append("g")
         .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+            `translate(${s_margin.left}, ${s_margin.top})`);
 
-// Read the data
-d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNum.csv", function(data) {
+    // Read the data
+    let data = await getData();
 
-// Add X axis
-var x = d3.scaleLinear()
-    .domain([0, 4000])
-    .range([ 0, width ]);
-graph_regression.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
+    // Remove any missing datapoints    
+    data = data.filter(d => d[xMetric] && d[yMetric]);
 
-// Add Y axis
-var y = d3.scaleLinear()
-    .domain([0, 500000])
-    .range([ height, 0]);
-graph_regression.append("g")
-    .call(d3.axisLeft(y));
+    // Add X axis
+    const xMin = d3.min(data, (d) => d[xMetric]);
+    const xMax = d3.max(data, (d) => d[xMetric]);
+    const x = d3.scaleLinear()
+        .domain([
+            xMin - buffer * (xMax - xMin),
+            xMax + buffer * (xMax - xMin)
+        ])
+        .range([0, width]);
+    scatterplot.append("g")
+        .attr("transform", `translate(0,${s_height})`)
+        .call(d3.axisBottom(x));
+    scatterplot.append("text")
+        .attr("text-anchor", "middle")
+        .attr("x", s_width / 2)
+        .attr("y", s_height + s_margin.top + 15)
+        .text(getFormattedText(xMetric));
 
-// Add dots
-graph_regression.append('g')
-    .selectAll("dot")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", function (d) { return x(d.GrLivArea); } )
-    .attr("cy", function (d) { return y(d.SalePrice); } )
-    .attr("r", 1.5)
-    .style("fill", "#69b3a2")
-})
+    // Add Y axis
+    const yMin = d3.min(data, (d) => d[yMetric]);
+    const yMax = d3.max(data, (d) => d[yMetric]);
+    const y = d3.scaleLinear()
+        .domain([
+            yMin - buffer * (yMax - yMin),
+            yMax + buffer * (yMax - yMin)
+        ])
+        .range([s_height, 0]);
+    scatterplot.append("g").call(d3.axisLeft(y));
+    scatterplot.append("text")
+        .attr("text-anchor", "center")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -(s_margin.top + s_margin.bottom + s_height / 2))
+        .attr("y", -s_margin.left + 20)
+        .text(getFormattedText(yMetric))
+
+    // Add dots
+    scatterplot.append('g')
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", d => x(parseFloat(d[xMetric])))
+        .attr("cy", d => y(parseFloat(d[yMetric])))
+        .attr("r", 1.5)
+        .style("fill", "#69b3a2");
+}
+
+// Render with initial data
+updateScatterplot("cancer_incidence_rate_per_100000", "below_poverty_percent");
+
+// Demonstrates that the scatterplot can be updated
+setTimeout(() => {
+    updateScatterplot(
+        "cancer_incidence_rate_per_100000",
+        "cancer_mortality_rate_per_100000");
+}, 5000);
