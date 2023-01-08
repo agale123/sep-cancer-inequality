@@ -27,13 +27,13 @@ for (const [key, value] of Object.entries(METRIC_LABELS)) {
 }
 
 //Resize the d3 charts on a page resize
-window.addEventListener("resize", (event) => {
+window.addEventListener("resize", () => {
     updateCharts();
 });
 
 // Register listeners for the selects.
-document.querySelectorAll('select').forEach(item => {
-    item.addEventListener('change', updateCharts);
+document.querySelectorAll("select").forEach(item => {
+    item.addEventListener("change", updateCharts);
 });
 
 // Trigger an initial draw of the charts
