@@ -1,7 +1,5 @@
 // Set the dimensions and margins of the graph
 const s_margin = { top: 30, right: 30, bottom: 60, left: 60 };
-const s_width = 460 - s_margin.left - s_margin.right;
-const s_height = 400 - s_margin.top - s_margin.bottom;
 const buffer = 0.05;
 
 /**
@@ -12,6 +10,12 @@ const buffer = 0.05;
 async function updateScatterplot(xMetric, yMetric) {
     // Clear any past svg elements
     d3.select("#canvas_scatterplot").selectAll("*").remove();
+
+    // Get the width for the scatterplot element.
+    const clientWidth =
+        document.getElementById("canvas_scatterplot").clientWidth;
+    const s_width = clientWidth - s_margin.left - s_margin.right;
+    const s_height = 400 - s_margin.top - s_margin.bottom;
 
     // Attach an svg to the Append the svg object to the body of the page
     const scatterplot = d3.select("#canvas_scatterplot")
@@ -38,7 +42,7 @@ async function updateScatterplot(xMetric, yMetric) {
             xMin - buffer * (xMax - xMin),
             xMax + buffer * (xMax - xMin)
         ])
-        .range([0, width]);
+        .range([0, s_width]);
     scatterplot.append("g")
         .attr("transform", `translate(0,${s_height})`)
         .call(d3.axisBottom(x).tickFormat(d3.format("~s")));

@@ -26,6 +26,10 @@ for (const [key, value] of Object.entries(METRIC_LABELS)) {
     }
 }
 
+//Resize the d3 charts on a page resize
+window.addEventListener("resize", (event) => {
+    updateCharts();
+});
 
 // Register listeners for the selects.
 document.querySelectorAll('select').forEach(item => {
