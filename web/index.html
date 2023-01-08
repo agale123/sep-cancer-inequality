@@ -1,159 +1,148 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>
-            Fred Hutchinson Cancer Center - Science Education Outreach Program - Health Infrastructure Inequality and Implications for Cancer
-        </title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
-        <style>
-            .dropdown {
-                width: 100%;
-            }
-            .dropdown-trigger {
-                width: 100%;
-            }
-            button {
-                width: 100%;
-            }
-        </style>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        Cancer Inequality Data Explorer
+    </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
 
-    <body>
+<body>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js"></script>
-    
-        <!-- Top navigation bar -->
-        <nav class="navbar">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a class="navbar-item" id="header-logo" href="#">
-                        <img src="images/logo-transparent.svg" width="152"/>
-                    </a>
-                </div>
-                <div id="navbarMenu" class="navbar-menu">
-                    <div class="navbar-end">
-                        <a class="navbar-item is-active">Tool</a>
-                        <a class="navbar-item">Data Sources</a>
-                        <a class="navbar-item">About</a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js"></script>
+
+    <!-- Top navigation bar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" id="header-logo" href="#">
+                <img src="images/fred-hutch.svg" width="48px" />
+                <h1 class="subtitle">Cancer Inequality Data Explorer</h1>
+            </a>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item is-active">Visualization</a>
+                <a class="navbar-item">Data Sources</a>
+                <a class="navbar-item">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <hr>
+
+    <!-- Main page content -->
+    <div class="columns">
+        <!-- Left column -->
+        <div class="column">
+            <section class="section">
+                <!-- Dropdown for the first indicator -->
+                <div class="dropdown level-item">
+                    <div class="dropdown-trigger">
+                        <button class="button" aria-haspopup="true" aria-controls="dropdown-indicator-one">
+                            <span>Select first indicator</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-indicator-one" role="menu">
+                        <div class="dropdown-content">
+                            <a href="#" class="dropdown-item">
+                                Pesticide Emission
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                Smoking Prevalence
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                Uninsured Rate
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-    
-        <!-- Main page content -->
-        <section class="section">
-            <div class="columns">
-                <!-- Left column -->
-                <div class="column">
-                    <section class="section">
-                        <!-- Dropdown for the first indicator -->
-                        <div class="dropdown level-item">
-                            <div class="dropdown-trigger">
-                            <button class="button" aria-haspopup="true" aria-controls="dropdown-indicator-one">
-                                <span>Select first indicator</span>
-                                <span class="icon is-small">
+                <section class="section">
+                    <!-- Create an SVG element where the first map will be rendered. -->
+                    <svg id="canvas_map_one" width="400" height="300"></svg>
+                </section>
+            </section>
+            <section class="section">
+                <!-- Dropdown for the second indicator -->
+                <div class="dropdown">
+                    <div class="dropdown-trigger">
+                        <button class="button" aria-haspopup="true" aria-controls="dropdown-indicator-two">
+                            <span>Select second indicator</span>
+                            <span class="icon is-small">
                                 <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                            </div>
-                            <div class="dropdown-menu" id="dropdown-indicator-one" role="menu">
-                            <div class="dropdown-content">
-                                <a href="#" class="dropdown-item">
-                                    Pesticide Emission
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    Smoking Prevalence
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    Uninsured Rate
-                                </a>
-                            </div>
-                            </div>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-indicator-two" role="menu">
+                        <div class="dropdown-content">
+                            <a href="#" class="dropdown-item">
+                                Pesticide Emission
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                Smoking Prevalence
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                Uninsured Rate
+                            </a>
                         </div>
-                        <section class="section">
-                            <!-- Create an SVG element where the first map will be rendered. -->
-                            <svg id="canvas_map_one" width="400" height="300"></svg>
-                        </section>
-                    </section>
-                    <section class="section">
-                        <!-- Dropdown for the second indicator -->
-                        <div class="dropdown">
-                            <div class="dropdown-trigger">
-                            <button class="button" aria-haspopup="true" aria-controls="dropdown-indicator-two">
-                                <span>Select second indicator</span>
-                                <span class="icon is-small">
-                                <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                            </div>
-                            <div class="dropdown-menu" id="dropdown-indicator-two" role="menu">
-                            <div class="dropdown-content">
-                                <a href="#" class="dropdown-item">
-                                    Pesticide Emission
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    Smoking Prevalence
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    Uninsured Rate
-                                </a>
-                            </div>
-                            </div>
-                        </div>
-                        <section class="section">
-                            <!-- Create an SVG element where the second map will be rendered. -->
-                            <svg id="canvas_map_two" width="400" height="300"></svg>
-                        </section>
-
-                    </section>
+                    </div>
                 </div>
-                <!-- Right column -->
-                <div class="column">
-                    <section class="section">
-                        <div>
-                            There is a strong positive correlation between these two variables as shown below.
-                        </div>
-                        <!-- Create an element where the scatterplot and regression results will be rendered. -->
-                        <div id="canvas_scatterplot"></div>
-                        <div>
-                            <b>Lung Cancer Incidence</b>: This is the age adjusted number of cases
-                            per 100,000 residents. This data comes from NCI.
-                        </div>
-                        <div>
-                            <b>Smoking Prevalence</b>: This is the percent of adults who have
-                            smoked over 50 cigarettes. This data comes from NCI.
-                        </div>
-                    </section>
+                <section class="section">
+                    <!-- Create an SVG element where the second map will be rendered. -->
+                    <svg id="canvas_map_two" width="400" height="300"></svg>
+                </section>
+
+            </section>
+        </div>
+        <!-- Right column -->
+        <div class="column">
+            <section class="section">
+                <div>
+                    Use this scatterplot to understand how these two variables are related.
                 </div>
-            </div>
-        </section>
+                <!-- Create an element where the scatterplot and regression results will be rendered. -->
+                <div id="canvas_scatterplot"></div>
+                <div id="scatter_x">
+                    <b>Lung Cancer Incidence</b>: This is the age adjusted number of cases
+                    per 100,000 residents. This data comes from NCI.
+                </div>
+                <div id="scatter_y">
+                    <b>Smoking Prevalence</b>: This is the percent of adults who have
+                    smoked over 50 cigarettes. This data comes from NCI.
+                </div>
+            </section>
+        </div>
+    </div>
 
-        <!-- Load d3.js for visualizations -->
-        <script src="https://d3js.org/d3.v4.js"></script>
-        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <!-- Load d3.js for visualizations -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
-        <!-- Initialize the data needed for the visualizations -->
-        <script src="scripts/data-service.js"></script>
+    <!-- Initialize the data needed for the visualizations -->
+    <script src="scripts/data-service.js"></script>
 
-        <!-- Render the visualizations -->
-        <script src="scripts/map-visualization.js"></script>
-        <script src="scripts/scatterplot-visualization.js"></script>
-        <script src="scripts/histogram-visualization.js"></script>
+    <!-- Render the visualizations -->
+    <script src="scripts/map-visualization.js"></script>
+    <script src="scripts/scatterplot-visualization.js"></script>
+    <script src="scripts/histogram-visualization.js"></script>
 
-        <!-- Setup callbacks for the dropdowns -->
-        <script>
-            document.querySelectorAll('.dropdown').forEach(item => {
-                item.addEventListener('click', function(event) {
-                    event.stopPropagation();
-                    item.classList.toggle('is-active');
-                });
+    <!-- Setup callbacks for the dropdowns -->
+    <script>
+        document.querySelectorAll('.dropdown').forEach(item => {
+            item.addEventListener('click', event => {
+                event.stopPropagation();
+                item.classList.toggle('is-active');
             });
-        </script>
+        });
+    </script>
 
-    </body>
+</body>
 
 </html>
