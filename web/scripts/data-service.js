@@ -6,9 +6,12 @@
 let dataPromise;
 
 /**
+ * TODO: Right now this function just returns all the county level data. This
+ * will need to be augmented to handle state data and lat/long data.
+ * @param {string[]} metrics list of metrics to include in the result 
  * @returns a promise that resolves to the county level data.
  */
-function getData() {
+function getData(metrics) {
     if (!dataPromise) {
         dataPromise = new Promise((resolve, reject) => {
             d3.csv("https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/county_data.csv", (data) => {
@@ -40,7 +43,20 @@ const METRIC_LABELS = {
  * @param {string} metric 
  * @returns a formatted version of the metric name
  */
-function getFormattedText(metric) {
+function getMetricLabel(metric) {
     return METRIC_LABELS[metric];
 }
 
+const METRIC_DESCRIPTIONS = {
+    "cancer_incidence_rate_per_100000": "The age-adjusted number of cancer cases per 100,000 residents. This data comes from NCI.",
+    "cancer_mortality_rate_per_100000": "The age-adjusted number of cancer deaths per 100,000 residents. This data comes from NCI.",
+    "below_poverty_percent": "The percent of residents who live below the poverty level",
+};
+
+/**
+ * @param {string} metric 
+ * @returns a formatted description of the metric
+ */
+function getMetricDescription(metric) {
+    return METRIC_DESCRIPTIONS[metric];
+}
