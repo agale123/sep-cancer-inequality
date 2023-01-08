@@ -25,7 +25,7 @@ async function updateScatterplot(xMetric, yMetric) {
             `translate(${s_margin.left}, ${s_margin.top})`);
 
     // Read the data
-    let data = await getData();
+    let data = await getData([xMetric, yMetric]);
 
     // Remove any missing datapoints    
     data = data.filter(d => d[xMetric] && d[yMetric]);
@@ -46,7 +46,7 @@ async function updateScatterplot(xMetric, yMetric) {
         .attr("text-anchor", "middle")
         .attr("x", s_width / 2)
         .attr("y", s_height + s_margin.top + 15)
-        .text(getFormattedText(xMetric));
+        .text(getMetricLabel(xMetric));
 
     // Add Y axis
     const yMin = d3.min(data, (d) => d[yMetric]);
@@ -63,7 +63,7 @@ async function updateScatterplot(xMetric, yMetric) {
         .attr("transform", "rotate(-90)")
         .attr("x", -(s_margin.top + s_margin.bottom + s_height / 2))
         .attr("y", -s_margin.left + 20)
-        .text(getFormattedText(yMetric))
+        .text(getMetricLabel(yMetric))
 
     // Add dots
     scatterplot.append('g')
@@ -75,14 +75,13 @@ async function updateScatterplot(xMetric, yMetric) {
         .attr("cy", d => y(parseFloat(d[yMetric])))
         .attr("r", 1.5)
         .style("fill", "#69b3a2");
+
+    // Render metric descriptions
+    document.getElementById("scatter_x").innerHTML =
+        `<b>${getMetricLabel(xMetric)}</b>: ${getMetricDescription(xMetric)}`;
+    document.getElementById("scatter_y").innerHTML =
+        `<b>${getMetricLabel(yMetric)}</b>: ${getMetricDescription(yMetric)}`;
 }
 
 // Render with initial data
 updateScatterplot("cancer_incidence_rate_per_100000", "below_poverty_percent");
-
-// Demonstrates that the scatterplot can be updated
-setTimeout(() => {
-    updateScatterplot(
-        "cancer_incidence_rate_per_100000",
-        "cancer_mortality_rate_per_100000");
-}, 5000);
