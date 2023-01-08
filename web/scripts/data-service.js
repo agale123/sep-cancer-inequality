@@ -37,6 +37,7 @@ const METRIC_LABELS = {
     "cancer_incidence_rate_per_100000": "Cancer Incidence Rate",
     "cancer_mortality_rate_per_100000": "Cancer Mortality Rate",
     "below_poverty_percent": "Percent Below Poverty",
+    "median_household_income": "Median Household Income",
 };
 
 /**
@@ -50,7 +51,8 @@ function getMetricLabel(metric) {
 const METRIC_DESCRIPTIONS = {
     "cancer_incidence_rate_per_100000": "The age-adjusted number of cancer cases per 100,000 residents. This data comes from NCI.",
     "cancer_mortality_rate_per_100000": "The age-adjusted number of cancer deaths per 100,000 residents. This data comes from NCI.",
-    "below_poverty_percent": "The percent of residents who live below the poverty level",
+    "below_poverty_percent": "The percent of residents who live below the poverty level.",
+    "median_household_income": "The median household income for the area."
 };
 
 /**
