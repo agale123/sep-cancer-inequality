@@ -41,7 +41,7 @@ async function updateScatterplot(xMetric, yMetric) {
         .range([0, width]);
     scatterplot.append("g")
         .attr("transform", `translate(0,${s_height})`)
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x).tickFormat(d3.format("~s")));
     scatterplot.append("text")
         .attr("text-anchor", "middle")
         .attr("x", s_width / 2)
@@ -57,7 +57,7 @@ async function updateScatterplot(xMetric, yMetric) {
             yMax + buffer * (yMax - yMin)
         ])
         .range([s_height, 0]);
-    scatterplot.append("g").call(d3.axisLeft(y));
+    scatterplot.append("g").call(d3.axisLeft(y).tickFormat(d3.format("~s")));
     scatterplot.append("text")
         .attr("text-anchor", "center")
         .attr("transform", "rotate(-90)")
@@ -82,6 +82,3 @@ async function updateScatterplot(xMetric, yMetric) {
     document.getElementById("scatter_y").innerHTML =
         `<b>${getMetricLabel(yMetric)}</b>: ${getMetricDescription(yMetric)}`;
 }
-
-// Render with initial data
-updateScatterplot("cancer_incidence_rate_per_100000", "below_poverty_percent");
