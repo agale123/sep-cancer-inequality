@@ -37,8 +37,31 @@ function getData(metrics) {
 const METRIC_LABELS = {
     "cancer_incidence_rate_per_100000": "Cancer Incidence Rate",
     "cancer_mortality_rate_per_100000": "Cancer Mortality Rate",
-    "below_poverty_percent": "Percent Below Poverty",
+    "breast_cancer_incidence_rate_per_100000": "Breast Cancer Incidence Rate",
+    "breast_cancer_mortality_rate_per_100000": "Breast Cancer Mortality Rate",
+    "colorectal_cancer_incidence_rate_per_100000": "Colorectal Cancer Incidence Rate",
+    "colorectal_cancer_mortality_rate_per_100000": "Colorectal Cancer Mortality Rate",
+    "leukemia_cancer_incidence_rate_per_100000": "Leukemia Incidence Rate",
+    "leukemia_cancer_mortality_rate_per_100000": "Leukemia Mortality Rate",
+    "lung_cancer_incidence_rate_per_100000": "Lung Cancer Incidence Rate",
+    "lung_cancer_mortality_rate_per_100000": "Lung Cancer Mortality Rate",
+    "non_hodgkin_lymphoma_cancer_incidence_rate_per_100000": "Non-Hodgkin Lymphoma Incidence Rate",
+    "non_hodgkin_lymphoma_cancer_mortality_rate_per_100000": "Non-Hodgkin Lymphoma Mortality Rate",
+    "prostate_cancer_incidence_rate_per_100000": "Prostate Cancer Incidence Rate",
+    "prostate_cancer_mortality_rate_per_100000": "Prostate Cancer Mortality Rate",
     "median_household_income": "Median Household Income",
+    "language_isolation_percent": "Language Isolation Percent",
+    "over_65_percent": "Over 65 Percent",
+    "below_poverty_percent": "Below Poverty Percent",
+    "uninsured_percent": "Uninsured Percent",
+    "uv_exposure": "UV Exposure Index",
+    "low_income_low_access_share": "Low Income and Low Access to Food",
+    "non_english_speaking": "Non English Speaking Percent",
+    "population_in_poverty_percent": "Below Poverty Percent",
+    "population_over_25_no_high_school_diploma_percent": "Percent Without High School Diploma",
+    "population_uninsured_percent": "Uninsured Percent",
+    "population_minority_percent": "Minority Population Percent",
+    "walkability_index": "Walkability Index"
 };
 
 /**
@@ -52,8 +75,31 @@ function getMetricLabel(metric) {
 const METRIC_DESCRIPTIONS = {
     "cancer_incidence_rate_per_100000": "The age-adjusted number of cancer cases per 100,000 residents. This data comes from NCI.",
     "cancer_mortality_rate_per_100000": "The age-adjusted number of cancer deaths per 100,000 residents. This data comes from NCI.",
+    "breast_cancer_incidence_rate_per_100000": "Breast Cancer Incidence Rate",
+    "breast_cancer_mortality_rate_per_100000": "Breast Cancer Mortality Rate",
+    "colorectal_cancer_incidence_rate_per_100000": "Colorectal Cancer Incidence Rate",
+    "colorectal_cancer_mortality_rate_per_100000": "Colorectal Cancer Mortality Rate",
+    "leukemia_cancer_incidence_rate_per_100000": "Leukemia Incidence Rate",
+    "leukemia_cancer_mortality_rate_per_100000": "Leukemia Mortality Rate",
+    "lung_cancer_incidence_rate_per_100000": "Lung Cancer Incidence Rate",
+    "lung_cancer_mortality_rate_per_100000": "Lung Cancer Mortality Rate",
+    "non_hodgkin_lymphoma_cancer_incidence_rate_per_100000": "Non-Hodgkin Lymphoma Incidence Rate",
+    "non_hodgkin_lymphoma_cancer_mortality_rate_per_100000": "Non-Hodgkin Lymphoma Mortality Rate",
+    "prostate_cancer_incidence_rate_per_100000": "Prostate Cancer Incidence Rate",
+    "prostate_cancer_mortality_rate_per_100000": "Prostate Cancer Mortality Rate",
+    "median_household_income": "The median household income for the area.",
+    "language_isolation_percent": "Language Isolation Percent",
+    "over_65_percent": "Over 65 Percent",
     "below_poverty_percent": "The percent of residents who live below the poverty level.",
-    "median_household_income": "The median household income for the area."
+    "uninsured_percent": "Uninsured Percent",
+    "uv_exposure": "UV Exposure Index",
+    "low_income_low_access_share": "Low Income and Low Access to Food",
+    "non_english_speaking": "Non English Speaking Percent",
+    "population_in_poverty_percent": "The percent of residents who live below the poverty level.",
+    "population_over_25_no_high_school_diploma_percent": "Percent Without High School Diploma",
+    "population_uninsured_percent": "Uninsured Percent",
+    "population_minority_percent": "Minority Population Percent",
+    "walkability_index": "Walkability Index"
 };
 
 /**
