@@ -14,19 +14,20 @@ let dataPromise;
 function getData(metrics) {
     if (!dataPromise) {
         dataPromise = new Promise((resolve, reject) => {
-            d3.csv("https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/county_data.csv", (data) => {
-                if (data) {
-                    // Parse all values as floats
-                    data = data.map(d => {
-                        Object.keys(d).forEach((key) => {
-                            d[key] = d[key] ? parseFloat(d[key]) : undefined;
+            d3.csv("https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/county_data.csv")                
+                .then((data) => {
+                    if (data) {
+                        // Parse all values as floats
+                        data = data.map(d => {
+                            Object.keys(d).forEach((key) => {
+                                d[key] = d[key] ? parseFloat(d[key]) : undefined;
+                            });
+                            return d;
                         });
-                        return d;
-                    });
-                    resolve(data);
-                } else {
-                    reject("Failed to load data");
-                }
+                        resolve(data);
+                    } else {
+                        reject("Failed to load data");
+                    }
             });
         });
     }
