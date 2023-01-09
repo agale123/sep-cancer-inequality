@@ -1,57 +1,80 @@
-var graph_map_one = d3.select("#canvas_map_one"),
-    width = +graph_map_one.attr("width"),
-    height = +graph_map_one.attr("height");
+/**
+ * This file contains methods for rendering the map vizualizations.
+ */
 
-var graph_map_two = d3.select("#canvas_map_two"),
-    width = +graph_map_two.attr("width"),
-    height = +graph_map_two.attr("height");
+// Color Settings
+const default_color_for_missing_data = "#fff7f3";
+const palette = ["#fde0dd", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177", "#49006a"];
 
-// Map and projection
-var path = d3.geoPath();
-var projection = d3.geoMercator()
-    .scale(70)
-    .center([0,20])
-    .translate([width / 2, height / 2]);
+// County boarders
+const counties_outlines = d3.json(
+    "https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json");
 
-// Data and color scale
-var data = d3.map();
-var colorScale = d3.scaleThreshold()
-    .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-    .range(d3.schemeBlues[7]);
+/**
+ * Updates the map on the specified canvas element based on the specified data source.
+ * @param {string} canvas_name Name of the SVG element that will contain the map.
+ * @param {string} data_source_path Path to the data source of the indicator, keyed off of FIPS.
+ * @param {string} indicator_name Name of the indicator column.
+ */
+function updateMap(canvas_name, data_source_path, indicator_name) {
 
-// Load external data and refresh the visualization.
-d3.queue()
-    .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-    .defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv", function(d) { data.set(d.code, +d.pop); })
-    .await(callback_map_one_data_ready);
+    // Load indicator data and render the map when ready.
+    counties_outlines
+        .then((counties) => {
+            d3.csv(data_source_path)
+                .then((data) => {
+                    // Transform the CSV elements into a map FIPS -> indicator.
+                    let data_map = new Map();
+                    data.forEach(element => {
+                        data_map.set(element.fips, element[indicator_name]);    
+                    });
 
-d3.queue()
-    .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-    .defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv", function(d) { data.set(d.code, +d.pop); })
-    .await(callback_map_two_data_ready);
-
-function render_map(canvas, topo) {        
-    // Draw the map
-    canvas.append("g")
-        .selectAll("path")
-        .data(topo.features)
-        .enter()
-        .append("path")
-        // Draw each country
-        .attr("d", d3.geoPath()
-            .projection(projection)
-        )
-        // Set the color of each country
-        .attr("fill", function (d) {
-            d.total = data.get(d.id) || 0;
-            return colorScale(d.total);
+                    return data_map;
+                })
+                .then((indicators) => renderMap(canvas_name, counties, indicators));
         });
 }
 
-function callback_map_one_data_ready(error, topo) {
-    render_map(graph_map_one, topo)
-}
+/**
+ * Render a map on the specified canvas element, given the specified geographic boarders and
+ * the specified indicators.
+ * @param {string} canvas_name Name of the SVG element that will contain the map.
+ * @param {FeatureCollection} boarder_outlines Outlines of the geographic boards to draw on the map.
+ * @param {Map} indicators Map from FIPS to corresponding indicator.
+ */
+function renderMap(canvas_name, boarder_outlines, indicators) {
 
-function callback_map_two_data_ready(error, topo) {
-    render_map(graph_map_two, topo)
+    const width = document.getElementById(canvas_name).clientWidth;
+    const height = document.getElementById(canvas_name).clientHeight;
+
+    const indicator_min = Math.min(...indicators.values());
+    const indicator_max = Math.max(...indicators.values());
+
+    // Palette from https://colorbrewer2.org/#type=sequential&scheme=BuPu&n=9
+    let color = d3.scaleQuantize();
+    color.range(palette)
+    color.domain([indicator_min, indicator_max])
+
+    let projection = d3.geoAlbersUsa()
+        .scale(width)
+        .translate([width / 2, height / 2]);
+
+    // Draw the map
+    let canvas = d3.select('#' + canvas_name);
+    canvas.append("g")
+        .selectAll("path")
+        .data(boarder_outlines.features)
+        .enter()
+        .append("path")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("d", d3.geoPath()
+            .projection(projection)
+        )
+        .attr('stroke', 'black')
+        .attr('stroke-width','.2px')
+        .attr("fill", (county) =>
+            indicators.has(county.id) ? color(indicators.get(county.id)) : default_color_for_missing_data);
 }
