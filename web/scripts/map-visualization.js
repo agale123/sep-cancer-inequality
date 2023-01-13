@@ -3,6 +3,7 @@
  */
 
 // Color Settings
+// Palette from https://colorbrewer2.org/#type=sequential&scheme=BuPu&n=9
 const default_color_for_missing_data = "#fff7f3";
 const palette = ["#fde0dd", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177", "#49006a"];
 
@@ -13,20 +14,23 @@ const counties_outlines = d3.json(
 /**
  * Updates the map on the specified canvas element based on the specified data source.
  * @param {string} canvas_name Name of the SVG element that will contain the map.
- * @param {string} data_source_path Path to the data source of the indicator, keyed off of FIPS.
  * @param {string} indicator_name Name of the indicator column.
  */
-function updateMap(canvas_name, data_source_path, indicator_name) {
+function updateMap(canvas_name, indicator_name) {
 
     // Load indicator data and render the map when ready.
     counties_outlines
         .then((counties) => {
-            d3.csv(data_source_path)
+            getData(indicator_name)
                 .then((data) => {
                     // Transform the CSV elements into a map FIPS -> indicator.
                     let data_map = new Map();
                     data.forEach(element => {
-                        data_map.set(element.fips, element[indicator_name]);    
+                        let metric_value = element[indicator_name];
+                        if (metric_value)
+                        {
+                            data_map.set(element["fips"], metric_value);
+                        }
                     });
 
                     return data_map;
@@ -50,7 +54,6 @@ function renderMap(canvas_name, boarder_outlines, indicators) {
     const indicator_min = Math.min(...indicators.values());
     const indicator_max = Math.max(...indicators.values());
 
-    // Palette from https://colorbrewer2.org/#type=sequential&scheme=BuPu&n=9
     let color = d3.scaleQuantize();
     color.range(palette)
     color.domain([indicator_min, indicator_max])
@@ -75,6 +78,9 @@ function renderMap(canvas_name, boarder_outlines, indicators) {
         )
         .attr('stroke', 'black')
         .attr('stroke-width','.2px')
-        .attr("fill", (county) =>
-            indicators.has(county.id) ? color(indicators.get(county.id)) : default_color_for_missing_data);
+        .attr("fill", (county) => {
+            let fips = Number(county.id);
+
+            return indicators.has(fips) ? color(indicators.get(fips)) : default_color_for_missing_data
+        });
 }
