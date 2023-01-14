@@ -2,67 +2,105 @@
  * This file is responsible for providing data for rendering the plots.
  */
 
+/** Helper to create a promise to request a dataset. */
+function createDataPromise(url) {
+    return new Promise((resolve, reject) => {
+        d3.csv(url).then((data) => {
+            if (data) {
+                // Parse all values as floats
+                data = data.map(d => {
+                    Object.keys(d).forEach((key) => {
+                        d[key] = d[key] ? parseFloat(d[key]) : undefined;
+                    });
+                    return d;
+                });
+                resolve(data);
+            } else {
+                reject("Failed to load data");
+            }
+        });
+    });
+}
+
 // Stores the data promise once it is fetched.
 let dataPromise;
-
-/**
- * TODO: Right now this function just returns all the county level data. This
- * will need to be augmented to handle state data and lat/long data.
- * @param {string[]} metrics list of metrics to include in the result 
- * @returns a promise that resolves to the county level data.
- */
-function getData(metrics) {
+function getCountyData() {
     if (!dataPromise) {
-        dataPromise = new Promise((resolve, reject) => {
-            d3.csv("https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/county_data.csv")                
-                .then((data) => {
-                    if (data) {
-                        // Parse all values as floats
-                        data = data.map(d => {
-                            Object.keys(d).forEach((key) => {
-                                d[key] = d[key] ? parseFloat(d[key]) : undefined;
-                            });
-                            return d;
-                        });
-                        resolve(data);
-                    } else {
-                        reject("Failed to load data");
-                    }
-            });
-        });
+        dataPromise = createDataPromise(
+            "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/county_data.csv");
     }
     return dataPromise;
 }
 
-const METRIC_LABELS = {
-    "cancer_incidence_rate_per_100000": "Cancer Incidence Rate",
-    "cancer_mortality_rate_per_100000": "Cancer Mortality Rate",
-    "breast_cancer_incidence_rate_per_100000": "Breast Cancer Incidence Rate",
-    "breast_cancer_mortality_rate_per_100000": "Breast Cancer Mortality Rate",
-    "colorectal_cancer_incidence_rate_per_100000": "Colorectal Cancer Incidence Rate",
-    "colorectal_cancer_mortality_rate_per_100000": "Colorectal Cancer Mortality Rate",
-    "leukemia_cancer_incidence_rate_per_100000": "Leukemia Incidence Rate",
-    "leukemia_cancer_mortality_rate_per_100000": "Leukemia Mortality Rate",
-    "lung_cancer_incidence_rate_per_100000": "Lung Cancer Incidence Rate",
-    "lung_cancer_mortality_rate_per_100000": "Lung Cancer Mortality Rate",
-    "non_hodgkin_lymphoma_cancer_incidence_rate_per_100000": "Non-Hodgkin Lymphoma Incidence Rate",
-    "non_hodgkin_lymphoma_cancer_mortality_rate_per_100000": "Non-Hodgkin Lymphoma Mortality Rate",
-    "prostate_cancer_incidence_rate_per_100000": "Prostate Cancer Incidence Rate",
-    "prostate_cancer_mortality_rate_per_100000": "Prostate Cancer Mortality Rate",
-    "median_household_income": "Median Household Income",
-    "language_isolation_percent": "Language Isolation Percent",
-    "over_65_percent": "Over 65 Percent",
-    "below_poverty_percent": "Below Poverty Percent",
-    "uninsured_percent": "Uninsured Percent",
-    "uv_exposure": "UV Exposure Index",
-    "low_income_low_access_share": "Low Income and Low Access to Food",
-    "non_english_speaking": "Non English Speaking Percent",
-    "population_in_poverty_percent": "Below Poverty Percent",
-    "population_over_25_no_high_school_diploma_percent": "Percent Without High School Diploma",
-    "population_uninsured_percent": "Uninsured Percent",
-    "population_minority_percent": "Minority Population Percent",
-    "walkability_index": "Walkability Index"
-};
+let stateDataPromise;
+function getStateData() {
+    if (!stateDataPromise) {
+        stateDataPromise = createDataPromise(
+            "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/nci_state.csv");
+
+    }
+    return stateDataPromise;
+}
+
+/**
+ * @param {string} metric metric ID to fetch data for
+ * @returns a promise that resolves to the requested data
+ */
+function getData(metric) {
+    const type = getMetricType(metric);
+    if (type === "county") {
+        return getCountyData().then(data => data.map(d => {
+            return {"fips": d["fips"], [metric]: d[metric]};
+        }));
+    } else if (type === "state") {
+        return getStateData().then(data => data.map(d => {
+            return {"fips": d["fips"], [metric]: d[metric]};
+        }));
+    }
+    throw Error("Unknown metric type");
+}
+
+const METRICS = [
+    // County level
+    { "id": "cancer_incidence_rate_per_100000", "label": "Cancer Incidence Rate", "desc": "The age-adjusted number of cancer cases per 100,000 residents. This data comes from NCI.", "type": "county" },
+    { "id": "cancer_mortality_rate_per_100000", "label": "Cancer Mortality Rate", "desc": "The age-adjusted number of cancer deaths per 100,000 residents. This data comes from NCI.", "type": "county" },
+    { "id": "breast_cancer_incidence_rate_per_100000", "label": "Breast Cancer Incidence Rate", "desc": "Breast Cancer Incidence Rate", "type": "county" },
+    { "id": "breast_cancer_mortality_rate_per_100000", "label": "Breast Cancer Mortality Rate", "desc": "Breast Cancer Mortality Rate", "type": "county" },
+    { "id": "colorectal_cancer_incidence_rate_per_100000", "label": "Colorectal Cancer Incidence Rate", "desc": "Colorectal Cancer Incidence Rate", "type": "county" },
+    { "id": "colorectal_cancer_mortality_rate_per_100000", "label": "Colorectal Cancer Mortality Rate", "desc": "Colorectal Cancer Mortality Rate", "type": "county" },
+    { "id": "leukemia_cancer_incidence_rate_per_100000", "label": "Leukemia Incidence Rate", "desc": "Leukemia Incidence Rate", "type": "county" },
+    { "id": "leukemia_cancer_mortality_rate_per_100000", "label": "Leukemia Mortality Rate", "desc": "Leukemia Mortality Rate", "type": "county" },
+    { "id": "lung_cancer_incidence_rate_per_100000", "label": "Lung Cancer Incidence Rate", "desc": "Lung Cancer Incidence Rate", "type": "county" },
+    { "id": "lung_cancer_mortality_rate_per_100000", "label": "Lung Cancer Mortality Rate", "desc": "Lung Cancer Mortality Rate", "type": "county" },
+    { "id": "non_hodgkin_lymphoma_cancer_incidence_rate_per_100000", "label": "Non-Hodgkin Lymphoma Incidence Rate", "desc": "Non-Hodgkin Lymphoma Incidence Rate", "type": "county" },
+    { "id": "non_hodgkin_lymphoma_cancer_mortality_rate_per_100000", "label": "Non-Hodgkin Lymphoma Mortality Rate", "desc": "Non-Hodgkin Lymphoma Mortality Rate", "type": "county" },
+    { "id": "prostate_cancer_incidence_rate_per_100000", "label": "Prostate Cancer Incidence Rate", "desc": "Prostate Cancer Incidence Rate", "type": "county" },
+    { "id": "prostate_cancer_mortality_rate_per_100000", "label": "Prostate Cancer Mortality Rate", "desc": "Prostate Cancer Mortality Rate", "type": "county" },
+    { "id": "median_household_income", "label": "Median Household Income", "desc": "The median household income for the area.", "type": "county" },
+    { "id": "language_isolation_percent", "label": "Language Isolation Percent", "desc": "Language Isolation Percent", "type": "county" },
+    { "id": "over_65_percent", "label": "Over 65 Percent", "desc": "Over 65 Percent", "type": "county" },
+    { "id": "below_poverty_percent", "label": "Below Poverty Percent", "desc": "The percent of residents who live below the poverty level.", "type": "county" },
+    { "id": "uninsured_percent", "label": "Uninsured Percent", "desc": "Uninsured Percent", "type": "county" },
+    { "id": "uv_exposure", "label": "UV Exposure Index", "desc": "UV Exposure Index", "type": "county" },
+    { "id": "low_income_low_access_share", "label": "Low Income and Low Access to Food", "desc": "Low Income and Low Access to Food", "type": "county" },
+    { "id": "non_english_speaking", "label": "Non English Speaking Percent", "desc": "Non English Speaking Percent", "type": "county" },
+    { "id": "population_in_poverty_percent", "label": "Below Poverty Percent", "desc": "The percent of residents who live below the poverty level.", "type": "county" },
+    { "id": "population_over_25_no_high_school_diploma_percent", "label": "Percent Without High School Diploma", "desc": "Percent Without High School Diploma", "type": "county" },
+    { "id": "population_uninsured_percent", "label": "Uninsured Percent", "desc": "Uninsured Percent", "type": "county" },
+    { "id": "population_minority_percent", "label": "Minority Population Percent", "desc": "Minority Population Percent", "type": "county" },
+    { "id": "walkability_index", "label": "Walkability Index", "desc": "Walkability Index", "type": "county" },
+    // State level
+    { "id": "cervical_cancer_incidence_rate_per_100000", "label": "Cervical Incidence Rate", "desc": "Cervical Incidence Rate", "type": "state" },
+    { "id": "cervical_cancer_mortality_rate_per_100000", "label": "Cervical Mortality Rate", "desc": "Cervical Mortality Rate", "type": "state" },
+    { "id": "melanoma_cancer_incidence_rate_per_100000", "label": "Melanoma Incidence Rate", "desc": "Melanoma Incidence Rate", "type": "state" },
+    { "id": "melanoma_cancer_mortality_rate_per_100000", "label": "Melanoma Mortality Rate", "desc": "Melanoma Mortality Rate", "type": "state" },
+    { "id": "colorectal_screening_percent", "label": "Colon Cancer Screening Percent", "desc": "Colon Cancer Screening Percent", "type": "state" },
+    { "id": "hpv_vaccine_percent", "label": "HPV Vaccine Percent", "desc": "HPV Vaccine Percent", "type": "state" },
+];
+
+const METRIC_LABELS =
+    Object.fromEntries(new Map(METRICS.map(m => [m.id, m.label])));
+
 
 /**
  * @param {string} metric 
@@ -72,35 +110,8 @@ function getMetricLabel(metric) {
     return METRIC_LABELS[metric];
 }
 
-const METRIC_DESCRIPTIONS = {
-    "cancer_incidence_rate_per_100000": "The age-adjusted number of cancer cases per 100,000 residents. This data comes from NCI.",
-    "cancer_mortality_rate_per_100000": "The age-adjusted number of cancer deaths per 100,000 residents. This data comes from NCI.",
-    "breast_cancer_incidence_rate_per_100000": "Breast Cancer Incidence Rate",
-    "breast_cancer_mortality_rate_per_100000": "Breast Cancer Mortality Rate",
-    "colorectal_cancer_incidence_rate_per_100000": "Colorectal Cancer Incidence Rate",
-    "colorectal_cancer_mortality_rate_per_100000": "Colorectal Cancer Mortality Rate",
-    "leukemia_cancer_incidence_rate_per_100000": "Leukemia Incidence Rate",
-    "leukemia_cancer_mortality_rate_per_100000": "Leukemia Mortality Rate",
-    "lung_cancer_incidence_rate_per_100000": "Lung Cancer Incidence Rate",
-    "lung_cancer_mortality_rate_per_100000": "Lung Cancer Mortality Rate",
-    "non_hodgkin_lymphoma_cancer_incidence_rate_per_100000": "Non-Hodgkin Lymphoma Incidence Rate",
-    "non_hodgkin_lymphoma_cancer_mortality_rate_per_100000": "Non-Hodgkin Lymphoma Mortality Rate",
-    "prostate_cancer_incidence_rate_per_100000": "Prostate Cancer Incidence Rate",
-    "prostate_cancer_mortality_rate_per_100000": "Prostate Cancer Mortality Rate",
-    "median_household_income": "The median household income for the area.",
-    "language_isolation_percent": "Language Isolation Percent",
-    "over_65_percent": "Over 65 Percent",
-    "below_poverty_percent": "The percent of residents who live below the poverty level.",
-    "uninsured_percent": "Uninsured Percent",
-    "uv_exposure": "UV Exposure Index",
-    "low_income_low_access_share": "Low Income and Low Access to Food",
-    "non_english_speaking": "Non English Speaking Percent",
-    "population_in_poverty_percent": "The percent of residents who live below the poverty level.",
-    "population_over_25_no_high_school_diploma_percent": "Percent Without High School Diploma",
-    "population_uninsured_percent": "Uninsured Percent",
-    "population_minority_percent": "Minority Population Percent",
-    "walkability_index": "Walkability Index"
-};
+const METRIC_DESCRIPTIONS =
+    Object.fromEntries(new Map(METRICS.map(m => [m.id, m.desc])));
 
 /**
  * @param {string} metric 
@@ -108,4 +119,15 @@ const METRIC_DESCRIPTIONS = {
  */
 function getMetricDescription(metric) {
     return METRIC_DESCRIPTIONS[metric];
+}
+
+const METRIC_TYPES =
+    Object.fromEntries(new Map(METRICS.map(m => [m.id, m.type])));
+
+/**
+* @param {string} metric 
+* @returns a string representing the metric type (county or state)
+*/
+function getMetricType(metric) {
+    return METRIC_TYPES[metric];
 }

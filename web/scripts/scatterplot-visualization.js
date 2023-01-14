@@ -1,8 +1,10 @@
 // Set the dimensions and margins of the graph
 const MARGIN = { top: 30, right: 30, bottom: 60, left: 60 };
 
+// Max width, in pixels, for the scatterplot.
+const MAX_WIDTH = 600;
+
 /**
- * 
  * @param {Array<Object>} data 
  * @param {string} metric
  * @returns {number[]} A two-element array with the range that should be used.
@@ -15,6 +17,24 @@ function getDataRange(data, metric) {
 }
 
 /**
+ * Join the two datasets in preparation for rendering.
+ * @param {Array<Object>} data1 first list of data entries
+ * @param {string} metric2 metric for the second list of data entries
+ * @param {Array<Object>} data2 second list of data entries
+ * @param {boolean} adjustState whether the FIPS should be adjusted to state
+ * @returns 
+ */
+function joinData(data1, metric2, data2, adjustState) {
+    let joined = [...data1];
+    let map = new Map(data2.map(i => [i["fips"], i[metric2]]));
+    return joined.map(d => {
+        const key = adjustState ? Math.floor(d["fips"] / 1000) : d["fips"];
+        d[metric2] = map.get(key);
+        return d;
+    });
+}
+
+/**
  * Update the scatterplot to show the relationship between the two variables.
  * @param {string} xMetric 
  * @param {string} yMetric 
@@ -24,8 +44,10 @@ async function updateScatterplot(xMetric, yMetric) {
     d3.select("#canvas_scatterplot").selectAll("*").remove();
 
     // Get the width for the scatterplot element.
-    const clientWidth =
-        document.getElementById("canvas_scatterplot").clientWidth;
+    const clientWidth = Math.min(
+        document.getElementById("canvas_scatterplot").clientWidth,
+        MAX_WIDTH
+    );
     const w = clientWidth - MARGIN.left - MARGIN.right;
     const h = 400 - MARGIN.top - MARGIN.bottom;
 
@@ -38,7 +60,23 @@ async function updateScatterplot(xMetric, yMetric) {
         .attr("transform", `translate(${MARGIN.left}, ${MARGIN.top})`);
 
     // Read the data
-    let data = await getData([xMetric, yMetric]);
+    const [xData, yData] =
+        await Promise.all([getData(xMetric), getData(yMetric)]);
+
+    // Join the data
+    let data = [];
+    const xType = getMetricType(xMetric);
+    const yType = getMetricType(yMetric);
+    if ((xType === "county" && yType === "county")
+        || (xType === "state" && yType === "state")) {
+        data = joinData(xData, yMetric, yData, false);
+    } else if (xType === "county" && yType === "state") {
+        data = joinData(xData, yMetric, yData, true);
+    } else if (xType === "state" && yType === "county") {
+        data = joinData(yData, xMetric, xData, true);
+    } else {
+        throw Error("Unsupported metric combination");
+    }
 
     // Remove any missing datapoints    
     data = data.filter(d => d[xMetric] && d[yMetric]);

@@ -19,23 +19,12 @@ const counties_outlines = d3.json(
 function updateMap(canvas_name, indicator_name) {
 
     // Load indicator data and render the map when ready.
-    counties_outlines
-        .then((counties) => {
-            getData(indicator_name)
-                .then((data) => {
-                    // Transform the CSV elements into a map FIPS -> indicator.
-                    let data_map = new Map();
-                    data.forEach(element => {
-                        let metric_value = element[indicator_name];
-                        if (metric_value)
-                        {
-                            data_map.set(element["fips"], metric_value);
-                        }
-                    });
-
-                    return data_map;
-                })
-                .then((indicators) => renderMap(canvas_name, counties, indicators));
+    Promise.all([counties_outlines, getData(indicator_name)])
+        .then(([counties, data]) => {
+            const indicators = new Map(
+                data.filter(d => d[indicator_name])
+                    .map(m => [m["fips"], m[indicator_name]]));
+            renderMap(canvas_name, counties, indicators);
         });
 }
 
@@ -77,7 +66,7 @@ function renderMap(canvas_name, boarder_outlines, indicators) {
             .projection(projection)
         )
         .attr('stroke', 'black')
-        .attr('stroke-width','.2px')
+        .attr('stroke-width', '.2px')
         .attr("fill", (county) => {
             let fips = Number(county.id);
 
