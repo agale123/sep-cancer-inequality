@@ -36,7 +36,7 @@ let stateDataPromise;
 function getStateData() {
     if (!stateDataPromise) {
         stateDataPromise = createDataPromise(
-            "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/nci_state.csv");
+            "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/state_data.csv");
 
     }
     return stateDataPromise;
@@ -77,10 +77,7 @@ const METRICS = [
     { "id": "prostate_cancer_incidence_rate_per_100000", "label": "Prostate Cancer Incidence Rate", "desc": "Prostate Cancer Incidence Rate", "type": "county" },
     { "id": "prostate_cancer_mortality_rate_per_100000", "label": "Prostate Cancer Mortality Rate", "desc": "Prostate Cancer Mortality Rate", "type": "county" },
     { "id": "median_household_income", "label": "Median Household Income", "desc": "The median household income for the area.", "type": "county" },
-    { "id": "language_isolation_percent", "label": "Language Isolation Percent", "desc": "Language Isolation Percent", "type": "county" },
     { "id": "over_65_percent", "label": "Over 65 Percent", "desc": "Over 65 Percent", "type": "county" },
-    { "id": "below_poverty_percent", "label": "Below Poverty Percent", "desc": "The percent of residents who live below the poverty level.", "type": "county" },
-    { "id": "uninsured_percent", "label": "Uninsured Percent", "desc": "Uninsured Percent", "type": "county" },
     { "id": "uv_exposure", "label": "UV Exposure Index", "desc": "UV Exposure Index", "type": "county" },
     { "id": "low_income_low_access_share", "label": "Low Income and Low Access to Food", "desc": "Low Income and Low Access to Food", "type": "county" },
     { "id": "non_english_speaking", "label": "Non English Speaking Percent", "desc": "Non English Speaking Percent", "type": "county" },
@@ -89,12 +86,15 @@ const METRICS = [
     { "id": "population_uninsured_percent", "label": "Uninsured Percent", "desc": "Uninsured Percent", "type": "county" },
     { "id": "population_minority_percent", "label": "Minority Population Percent", "desc": "Minority Population Percent", "type": "county" },
     { "id": "walkability_index", "label": "Walkability Index", "desc": "Walkability Index", "type": "county" },
+    { "id": "hospital_beds_per_100000", "label": "Hospital Beds per 100,000", "desc": "Hospital beds per 100,000 residents", "type": "county" },
+    { "id": "median_aqi", "label": "Median AQI", "desc": "Median AQI", "type": "county" },
     // State level
     { "id": "cervical_cancer_incidence_rate_per_100000", "label": "Cervical Incidence Rate", "desc": "Cervical Incidence Rate", "type": "state" },
     { "id": "cervical_cancer_mortality_rate_per_100000", "label": "Cervical Mortality Rate", "desc": "Cervical Mortality Rate", "type": "state" },
     { "id": "melanoma_cancer_incidence_rate_per_100000", "label": "Melanoma Incidence Rate", "desc": "Melanoma Incidence Rate", "type": "state" },
     { "id": "melanoma_cancer_mortality_rate_per_100000", "label": "Melanoma Mortality Rate", "desc": "Melanoma Mortality Rate", "type": "state" },
     { "id": "colorectal_screening_percent", "label": "Colon Cancer Screening Percent", "desc": "Colon Cancer Screening Percent", "type": "state" },
+    { "id": "smoking_percent", "label": "Smoking Percent", "desc": "Smoking percent", "type": "state" },
     { "id": "hpv_vaccine_percent", "label": "HPV Vaccine Percent", "desc": "HPV Vaccine Percent", "type": "state" },
 ];
 
