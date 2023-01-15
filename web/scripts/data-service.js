@@ -22,42 +22,77 @@ function createDataPromise(url) {
     });
 }
 
-// Stores the data promise once it is fetched.
-let dataPromise;
+// Stores the data promises once they are fetched.
+let dataPromises = {};
+
 function getCountyData() {
-    if (!dataPromise) {
-        dataPromise = createDataPromise(
+    if (!dataPromises["county"]) {
+        dataPromises["county"] = createDataPromise(
             "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/county_data.csv");
     }
-    return dataPromise;
+    return dataPromises["county"];
 }
 
-let stateDataPromise;
 function getStateData() {
-    if (!stateDataPromise) {
-        stateDataPromise = createDataPromise(
+    if (!dataPromises["state"]) {
+        dataPromises["state"] = createDataPromise(
             "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/state_data.csv");
 
     }
-    return stateDataPromise;
+    return dataPromises["state"];
+}
+
+const COORDINATE_FILES = {
+    "oil_barrels_spilled": "oil_accidents.csv",
+};
+
+function getCoordinateData(metric) {
+    if (!dataPromises[metric]) {
+        dataPromises[metric] = createDataPromise(
+            "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/"
+            + COORDINATE_FILES[metric]);
+
+    }
+    return dataPromises[metric];
 }
 
 /**
  * @param {string} metric metric ID to fetch data for
- * @returns a promise that resolves to the requested data
+ * @returns a promise that resolves to an array of the requested data
  */
 function getData(metric) {
     const type = getMetricType(metric);
     if (type === "county") {
         return getCountyData().then(data => data.map(d => {
-            return {"fips": d["fips"], [metric]: d[metric]};
+            return { "fips": d["fips"], [metric]: d[metric] };
         }));
     } else if (type === "state") {
         return getStateData().then(data => data.map(d => {
-            return {"fips": d["fips"], [metric]: d[metric]};
+            return { "fips": d["fips"], [metric]: d[metric] };
         }));
+    } else if (type === "coordinate") {
+        return getCoordinateData(metric);
     }
     throw Error("Unknown metric type");
+}
+
+/**
+ * @param {string} metric metric ID to fetch data for
+ * @returns a promise that resolves to a map keyed on FIPS of the requested
+ * data. Filters out entries that don't have a value for the metric. If there
+ * are multiple values for the same key, they are added.
+ */
+function getDataMap(metric) {
+    return getData(metric).then(data =>
+        data.filter(d => d[metric] !== undefined)
+            .reduce((acc, val) => {
+                const fips = parseInt(val["fips"]);
+                if (!acc[fips]) {
+                    acc[fips] = 0;
+                }
+                acc[fips] += val[metric];
+                return acc;
+            }, {}));
 }
 
 const METRICS = [

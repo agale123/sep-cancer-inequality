@@ -24,12 +24,12 @@ function getDataRange(data, metric) {
  * @param {boolean} adjustState whether the FIPS should be adjusted to state
  * @returns 
  */
-function joinData(data1, metric2, data2, adjustState) {
-    let joined = [...data1];
-    let map = new Map(data2.map(i => [i["fips"], i[metric2]]));
+function joinData(metric1, data1, metric2, data2, adjustState) {
+    let joined = Object.entries(data1)
+        .map(([k, v]) => ({ "fips": k, [metric1]: v }));
     return joined.map(d => {
         const key = adjustState ? Math.floor(d["fips"] / 1000) : d["fips"];
-        d[metric2] = map.get(key);
+        d[metric2] = data2[key];
         return d;
     });
 }
@@ -61,21 +61,19 @@ async function updateScatterplot(xMetric, yMetric) {
 
     // Read the data
     const [xData, yData] =
-        await Promise.all([getData(xMetric), getData(yMetric)]);
+        await Promise.all([getDataMap(xMetric), getDataMap(yMetric)]);
 
     // Join the data
     let data = [];
     const xType = getMetricType(xMetric);
     const yType = getMetricType(yMetric);
-    if ((xType === "county" && yType === "county")
+    if ((xType !== "state" && yType !== "state")
         || (xType === "state" && yType === "state")) {
-        data = joinData(xData, yMetric, yData, false);
-    } else if (xType === "county" && yType === "state") {
-        data = joinData(xData, yMetric, yData, true);
-    } else if (xType === "state" && yType === "county") {
-        data = joinData(yData, xMetric, xData, true);
-    } else {
-        throw Error("Unsupported metric combination");
+        data = joinData(xMetric, xData, yMetric, yData, false);
+    } else if (xType !== "state" && yType === "state") {
+        data = joinData(xMetric, xData, yMetric, yData, true);
+    } else if (xType === "state" && yType !== "state") {
+        data = joinData(yMetric, yData, xMetric, xData, true);
     }
 
     // Remove any missing datapoints    

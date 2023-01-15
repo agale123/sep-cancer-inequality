@@ -19,12 +19,9 @@ const counties_outlines = d3.json(
 function updateMap(canvas_name, indicator_name) {
 
     // Load indicator data and render the map when ready.
-    Promise.all([counties_outlines, getData(indicator_name)])
+    Promise.all([counties_outlines, getDataMap(indicator_name)])
         .then(([counties, data]) => {
-            const indicators = new Map(
-                data.filter(d => d[indicator_name])
-                    .map(m => [m["fips"], m[indicator_name]]));
-            renderMap(canvas_name, counties, indicators);
+            renderMap(canvas_name, counties, data);
         });
 }
 
@@ -40,8 +37,8 @@ function renderMap(canvas_name, boarder_outlines, indicators) {
     const width = document.getElementById(canvas_name).clientWidth;
     const height = document.getElementById(canvas_name).clientHeight;
 
-    const indicator_min = Math.min(...indicators.values());
-    const indicator_max = Math.max(...indicators.values());
+    const indicator_min = Math.min(...Object.values(indicators));
+    const indicator_max = Math.max(...Object.values(indicators));
 
     let color = d3.scaleQuantize();
     color.range(palette)
@@ -74,6 +71,6 @@ function renderMap(canvas_name, boarder_outlines, indicators) {
         .attr("fill", (county) => {
             let fips = Number(county.id);
 
-            return indicators.has(fips) ? color(indicators.get(fips)) : default_color_for_missing_data
+            return fips in indicators ? color(indicators[fips]) : default_color_for_missing_data
         });
 }
