@@ -7,23 +7,8 @@ function updateCharts() {
     const secondMetric = document.getElementById("second-select").value;
 
     updateScatterplot(firstMetric, secondMetric);
-}
-
-/**
- * Updates the first map based on the first indicator.
- */
-function updateFirstMap() {
-    const firstMetric = document.getElementById("first-select").value;
 
     updateMap("canvas_map_one", firstMetric);
-}
-
-/**
- * Updates the first map based on the second indicator.
- */
-function updateSecondMap() {
-    const secondMetric = document.getElementById("second-select").value;
-
     updateMap("canvas_map_two", secondMetric);
 }
 
@@ -50,18 +35,7 @@ window.addEventListener("resize", () => {
 // Register listeners for the selects.
 document.querySelectorAll("select").forEach(item => {
     item.addEventListener("change", updateCharts);
-
-    switch (item.id) {
-        case "first-select":
-            item.addEventListener("change", updateFirstMap);
-            break;
-        case "second-select":
-            item.addEventListener("change", updateSecondMap);
-            break;
-    }
 });
 
 // Trigger an initial draw of the charts
-updateFirstMap();
-updateSecondMap();
 updateCharts();
