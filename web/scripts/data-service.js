@@ -126,6 +126,8 @@ const METRICS = [
     // State level
     { "id": "cervical_cancer_incidence_rate_per_100000", "label": "Cervical Incidence Rate", "desc": "Cervical Incidence Rate", "type": "state" },
     { "id": "cervical_cancer_mortality_rate_per_100000", "label": "Cervical Mortality Rate", "desc": "Cervical Mortality Rate", "type": "state" },
+    { "id": "hodgkins_lymphoma_cancer_incidence_rate_per_100000", "label": "Hodgkin's Lymphoma Incidence Rate", "desc": "Hodgkin's Lymphoma Incidence Rate", "type": "state" },
+    { "id": "hodgkins_lymphoma_cancer_mortality_rate_per_100000", "label": "Hodgkin's Lymphoma Mortality Rate", "desc": "Hodgkin's Lymphoma Mortality Rate", "type": "state" },
     { "id": "melanoma_cancer_incidence_rate_per_100000", "label": "Melanoma Incidence Rate", "desc": "Melanoma Incidence Rate", "type": "state" },
     { "id": "melanoma_cancer_mortality_rate_per_100000", "label": "Melanoma Mortality Rate", "desc": "Melanoma Mortality Rate", "type": "state" },
     { "id": "colorectal_screening_percent", "label": "Colon Cancer Screening Percent", "desc": "Colon Cancer Screening Percent", "type": "state" },
