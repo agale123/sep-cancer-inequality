@@ -96,6 +96,8 @@ const METRICS = [
     { "id": "colorectal_screening_percent", "label": "Colon Cancer Screening Percent", "desc": "Colon Cancer Screening Percent", "type": "state" },
     { "id": "smoking_percent", "label": "Smoking Percent", "desc": "Smoking percent", "type": "state" },
     { "id": "hpv_vaccine_percent", "label": "HPV Vaccine Percent", "desc": "HPV Vaccine Percent", "type": "state" },
+    // Coordinate data
+    { "id": "oil_barrels_spilled", "label": "Oil Barrels Spilled", "desc": "Oil barrels spilled", "type": "coordinate" },
 ];
 
 const METRIC_LABELS =

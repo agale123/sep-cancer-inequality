@@ -3,9 +3,9 @@
  */
 
 // Color Settings
-// Palette from https://colorbrewer2.org/#type=sequential&scheme=BuPu&n=9
+// Viridis palette from https://observablehq.com/@d3/color-schemes
 const default_color_for_missing_data = "#fff7f3";
-const palette = ["#fde0dd", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177", "#49006a"];
+const palette = ["#440154", "#46327e", "#365c8d", "#277f8e", "#1fa187", "#4ac16d", "#a0da39", "#fde725"].reverse();
 
 // County boarders
 const counties_outlines = d3.json(
@@ -51,8 +51,12 @@ function renderMap(canvas_name, boarder_outlines, indicators) {
         .scale(width)
         .translate([width / 2, height / 2]);
 
-    // Draw the map
     let canvas = d3.select('#' + canvas_name);
+
+    // Clear any past svg elements
+    canvas.selectAll("*").remove();
+
+    // Draw the map
     canvas.append("g")
         .selectAll("path")
         .data(boarder_outlines.features)
