@@ -19,6 +19,14 @@ This data is freely available for research purposes. Most of the datasets cover 
 * `Mortality_US_by_County_All_Races_All_Malignant_Cancers_(Both_Sexes)_2014_-_2018.csv`
 * `Screening_and_Risk_Factors_US_by_County_(UV_Only)_UV_Exposure_Data_Ultraviolet_Exposure.csv`
 
+## NAACCR
+
+**Source**: https://www.naaccr.org/interactive-data-on-line/
+
+This data is part of the publically available datasets that they make available to all users.
+
+* `Invasive-Cancer-Incidence-Rates-by-State-in-North-America-Hodgkin-Lymphoma-2015---2019.csv`
+
 ## Redlining
 
 **Source**: https://dsl.richmond.edu/panorama/redlining/#loc=11/47.594/-122.524&city=seattle-wa&area=C13&text=downloads
