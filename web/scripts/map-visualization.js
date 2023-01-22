@@ -7,9 +7,13 @@
 const default_color_for_missing_data = "#fff7f3";
 const palette = ["#440154", "#46327e", "#365c8d", "#277f8e", "#1fa187", "#4ac16d", "#a0da39", "#fde725"].reverse();
 
-// County boarders
+// County borders
 const counties_outlines = d3.json(
     "https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json");
+
+// State borders
+const states_outlines = d3.json(
+    "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json");
 
 /**
  * Updates the map on the specified canvas element based on the specified data source.
@@ -19,20 +23,22 @@ const counties_outlines = d3.json(
 function updateMap(canvas_name, indicator_name) {
 
     // Load indicator data and render the map when ready.
-    Promise.all([counties_outlines, getDataMap(indicator_name)])
-        .then(([counties, data]) => {
-            renderMap(canvas_name, counties, data);
-        });
+    Promise.all([
+        getMetricType(indicator_name) === "county" ? counties_outlines : states_outlines,
+        getDataMap(indicator_name)
+    ]).then(([outlines, data]) => {
+        renderMap(canvas_name, outlines, data);
+    });
 }
 
 /**
- * Render a map on the specified canvas element, given the specified geographic boarders and
+ * Render a map on the specified canvas element, given the specified geographic borders and
  * the specified indicators.
  * @param {string} canvas_name Name of the SVG element that will contain the map.
- * @param {FeatureCollection} boarder_outlines Outlines of the geographic boards to draw on the map.
+ * @param {FeatureCollection} border_outlines Outlines of the geographic boarders to draw on the map.
  * @param {Map} indicators Map from FIPS to corresponding indicator.
  */
-function renderMap(canvas_name, boarder_outlines, indicators) {
+function renderMap(canvas_name, border_outlines, indicators) {
 
     const width = document.getElementById(canvas_name).clientWidth;
     const height = document.getElementById(canvas_name).clientHeight;
@@ -56,7 +62,7 @@ function renderMap(canvas_name, boarder_outlines, indicators) {
     // Draw the map
     canvas.append("g")
         .selectAll("path")
-        .data(boarder_outlines.features)
+        .data(border_outlines.features)
         .enter()
         .append("path")
         .attr("width", width)
