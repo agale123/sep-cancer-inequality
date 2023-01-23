@@ -23,7 +23,7 @@ document.getElementById("copy-button").addEventListener("click", () => {
 function updateGeneratedURL() {
     const url = new URL(window.location.href);
     // Clear path
-    url.pathname = "";
+    url.pathname = url.pathname.replace("/walkthrough.html", "");
     // Add metrics
     const m1 = document.getElementById("first-select").value;
     const m2 = document.getElementById("second-select").value;

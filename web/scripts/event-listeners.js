@@ -27,6 +27,20 @@ for (const [key, value] of Object.entries(METRIC_LABELS)) {
     }
 }
 
+function showWalkthrough() {
+    document.getElementById("walkthrough").classList.remove("d-none");
+    const columns = document.querySelector(".columns.column");
+    columns.classList.add("is-three-quarters-desktop");
+    columns.classList.add("is-two-thirds-tablet");
+}
+
+function hideWalkthrough() {
+    document.getElementById("walkthrough").classList.add("d-none");
+    const columns = document.querySelector(".columns.column");
+    columns.classList.remove("is-three-quarters-desktop");
+    columns.classList.remove("is-two-thirds-tablet");
+}
+
 // Show the walkthrough if there are query parameters
 const url = new URL(window.location.href);
 const m1 = METRIC_LABELS[url.searchParams.get("m1")];
@@ -45,14 +59,14 @@ if (m1 && m2) {
     if (exp) {
         document.getElementById("exp").innerText = exp;
     }
-    document.getElementById("walkthrough").classList.remove("d-none");
+    showWalkthrough();
 }
 
 // Add the close walkthrough event listener
 document.getElementById("close-button").addEventListener("click", () => {
     url.search = "";
     window.history.replaceState({}, document.title, url.toString());
-    document.getElementById("walkthrough").classList.add("d-none");
+    hideWalkthrough();
 });
 
 //Resize the d3 charts on a page resize
