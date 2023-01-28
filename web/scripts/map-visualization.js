@@ -79,4 +79,29 @@ function renderMap(canvas_name, border_outlines, indicators) {
 
             return fips in indicators ? color(indicators[fips]) : default_color_for_missing_data
         });
+
+    // Draw the legend
+    let gradient_id = canvas_name + "_linear_gradient";
+    let legend = d3.select('#' + canvas_name + "_legend");
+    let defs = legend.append("defs");
+    let linearGradient = defs.append("linearGradient")
+        .attr("id", gradient_id);
+
+    let colorScale = d3.scaleLinear()
+        .range(palette);
+
+    linearGradient.selectAll("stop")
+        .data( colorScale.range() )
+        .enter().append("stop")
+        .attr("offset", (d, i) => i / (colorScale.range().length-1))
+        .attr("stop-color", (d) => d);
+
+    legend.append("rect")
+        .attr("width", "100%")
+        .attr("height", 10)
+        .style("fill", "url(#" + gradient_id + ")");
+
+    // Annotate the legend
+    document.getElementById(canvas_name + "_legend_left").innerHTML = `${Math.floor(indicator_min)}`;
+    document.getElementById(canvas_name + "_legend_right").innerHTML = `${Math.ceil(indicator_max)}`;
 }
