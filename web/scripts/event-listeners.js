@@ -6,7 +6,7 @@ function updateCharts() {
     const firstMetric = document.getElementById("first-select").value;
     const secondMetric = document.getElementById("second-select").value;
 
-    updateScatterplot(firstMetric, secondMetric);
+    updateScatterplot(secondMetric, firstMetric);
 
     updateMap("canvas_map_one", firstMetric);
     updateMap("canvas_map_two", secondMetric);
