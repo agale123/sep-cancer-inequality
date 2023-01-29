@@ -36,3 +36,8 @@ div.tooltip {
     opacity: 0.9;
     position: absolute;
 }
+
+p.legend-label {
+    font-size: 0.6em;
+    width: 100%;
+}
