@@ -117,7 +117,7 @@ async function updateScatterplot(xMetric, yMetric) {
         .attr("cx", d => x(d[xMetric]))
         .attr("cy", d => y(d[yMetric]))
         .attr("r", 1.5)
-        .style("fill", "#69b3a2")
+        .style("fill", "#aa4ac4")
         .on("mouseover", (d) => {
             const event = d3.event;
             getNameForFips(d["fips"]).then(label => {
