@@ -57,7 +57,12 @@ if (m1 && m2) {
     }
     const exp = url.searchParams.get("exp");
     if (exp) {
-        document.getElementById("exp").innerText = exp;
+        for (const el of JSON.parse(exp)) {
+            const li = document.createElement("li");
+            li.innerText = el;
+            document.getElementById("questions").appendChild(li);
+        }
+        
     }
     showWalkthrough();
 }
