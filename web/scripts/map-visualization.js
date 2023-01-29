@@ -4,7 +4,7 @@
 
 // Color Settings
 // Viridis palette from https://observablehq.com/@d3/color-schemes
-const default_color_for_missing_data = "#fff7f3";
+const default_color_for_missing_data = "#ffffff";
 const palette = ["#440154", "#46327e", "#365c8d", "#277f8e", "#1fa187", "#4ac16d", "#a0da39", "#fde725"].reverse();
 
 // County borders
@@ -18,16 +18,18 @@ const states_outlines = d3.json(
 /**
  * Updates the map on the specified canvas element based on the specified data source.
  * @param {string} canvas_name name of the SVG element that will contain the map.
- * @param {string} indicator_name name of the indicator column.
+ * @param {string} indicatorName name of the indicator column.
  */
-function updateMap(canvas_name, indicator_name) {
+function updateMap(canvas_name, indicatorName) {
 
     // Load indicator data and render the map when ready.
     Promise.all([
-        getMetricType(indicator_name) === "county" ? counties_outlines : states_outlines,
-        getDataMap(indicator_name)
+        getMetricType(indicatorName) === "county"
+            ? counties_outlines : states_outlines,
+        getMetricType(indicatorName) === "coordinate"
+            ? getData(indicatorName) : getDataMap(indicatorName)
     ]).then(([outlines, data]) => {
-        renderMap(canvas_name, indicator_name, outlines, data);
+        renderMap(canvas_name, indicatorName, outlines, data);
     });
 }
 
@@ -35,21 +37,24 @@ function updateMap(canvas_name, indicator_name) {
  * Render a map on the specified canvas element, given the specified geographic borders and
  * the specified indicators.
  * @param {string} canvas_name name of the SVG element that will contain the map.
- * @param {string} indicator_name name of the selected indicator.
+ * @param {string} indicatorName name of the selected indicator.
  * @param {FeatureCollection} border_outlines outlines of the geographic boarders to draw on the map.
- * @param {Map} indicators map from FIPS to corresponding indicator.
+ * @param {Map|Array} indicators map from FIPS to corresponding indicator.
  */
-function renderMap(canvas_name, indicator_name, border_outlines, indicators) {
+function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
 
     const width = document.getElementById(canvas_name).clientWidth;
     const height = document.getElementById(canvas_name).clientHeight;
 
-    const indicator_min = Math.min(...Object.values(indicators));
-    const indicator_max = Math.max(...Object.values(indicators));
+    const indicatorValues = getMetricType(indicatorName) === "coordinate"
+        ? indicators.map(v => v[indicatorName])
+        : Object.values(indicators);
+    const indicatorMin = Math.min(...indicatorValues);
+    const indicatorMax = Math.max(...indicatorValues);
 
     let color = d3.scaleQuantize();
     color.range(palette)
-    color.domain([indicator_min, indicator_max])
+    color.domain([indicatorMin, indicatorMax])
 
     let projection = d3.geoAlbersUsa()
         .scale(width)
@@ -81,9 +86,12 @@ function renderMap(canvas_name, indicator_name, border_outlines, indicators) {
         .attr('stroke', 'black')
         .attr('stroke-width', '.2px')
         .attr("fill", (county) => {
-            let fips = Number(county.id);
+            if (getMetricType(indicatorName) === "coordinate") {
+                return default_color_for_missing_data;
+            }
 
-            return fips in indicators ? color(indicators[fips]) : default_color_for_missing_data
+            let fips = Number(county.id);
+            return fips in indicators ? color(indicators[fips]) : default_color_for_missing_data;
         })
         .on("mousemove", (region, i) => {
             let fips = Number(region.id);
@@ -100,8 +108,22 @@ function renderMap(canvas_name, indicator_name, border_outlines, indicators) {
         })
         .on("mouseout", (d, i) => tooltip.classed("tooltip-hidden", true));
 
+    if (getMetricType(indicatorName) === "coordinate") {
+        canvas.selectAll("points")
+            .data(indicators.sort((a, b) => a[indicatorName] - b[indicatorName]))
+            .enter()
+            .append("circle")
+            .attr("cx", (d) => projection([d.longitude, d.latitude])?.[0])
+            .attr("cy", (d) => projection([d.longitude, d.latitude])?.[1])
+            .attr("fill", (d) => color(d[indicatorName]))
+            .attr("fill-opacity", 0.8)
+            .attr("r", (d) => {
+                return Math.ceil(d[indicatorName] / indicatorMax * 20);
+            });
+    }
+
     // Set the legend title
-    document.getElementById(canvas_name + "_legend_title").innerHTML = `${getMetricDescription(indicator_name)}`;
+    document.getElementById(canvas_name + "_legend_title").innerHTML = `${getMetricDescription(indicatorName)}`;
 
     // Draw the legend
     let gradient_id = canvas_name + "_linear_gradient";
@@ -125,6 +147,6 @@ function renderMap(canvas_name, indicator_name, border_outlines, indicators) {
         .style("fill", "url(#" + gradient_id + ")");
 
     // Annotate the legend
-    document.getElementById(canvas_name + "_legend_left").innerHTML = `${Math.floor(indicator_min)}`;
-    document.getElementById(canvas_name + "_legend_right").innerHTML = `${Math.ceil(indicator_max)}`;
+    document.getElementById(canvas_name + "_legend_left").innerHTML = `${Math.floor(indicatorMin)}`;
+    document.getElementById(canvas_name + "_legend_right").innerHTML = `${Math.ceil(indicatorMax)}`;
 }
