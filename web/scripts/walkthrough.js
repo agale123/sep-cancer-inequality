@@ -14,10 +14,39 @@ for (const [key, value] of Object.entries(METRIC_LABELS)) {
 }
 
 // Add button listener to copy the URL
-document.getElementById("copy-button").addEventListener("click", () => {
+document.getElementById("copy-button").addEventListener("click", (e) => {
+    e.preventDefault();
     // Write to the clipboard
     navigator.clipboard.writeText(
         document.getElementById("generated-url").value);
+});
+
+// Add button listener to the add exploration question button
+document.getElementById("exploration-add").addEventListener("click", (e) => {
+    e.preventDefault();
+    const div = document.createElement("div");
+    div.innerHTML = `
+        <div class="control is-expanded">
+            <input class="input exploration" type="text" placeholder="Text input">
+        </div>
+        <div class="control">
+            <button class="button">
+                <span class="icon">
+                    <i class="fa-solid fa-close"></i>
+                </span>
+            </button>
+        </div>
+    `;
+    div.className = "field has-addons mb-3";
+    // Remove the element when the close button is clicked.
+    div.querySelector("button").addEventListener("click", (e) => {
+        e.preventDefault();
+        document.getElementById("explorations").removeChild(div);
+        updateGeneratedURL();
+    });
+    // Add the element to the list of exploration questions.
+    document.getElementById("explorations").appendChild(div);
+
 });
 
 function updateGeneratedURL() {
@@ -31,12 +60,12 @@ function updateGeneratedURL() {
     url.searchParams.append('m2', m2);
     // Add motivation and exploration
     const motivation = document.getElementById("motivation").value;
-    const exploration = document.getElementById("exploration").value;
+    const explorations = [...document.getElementsByClassName("exploration")].map(el => el.value);
     if (motivation) {
         url.searchParams.append('mvn', motivation);
     }
-    if (exploration) {
-        url.searchParams.append('exp', exploration);
+    if (explorations.length > 0 && !!explorations[0]) {
+        url.searchParams.append('exp', JSON.stringify(explorations));
     }
     document.getElementById("generated-url").value = url.toString();
 }

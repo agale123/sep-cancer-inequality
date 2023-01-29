@@ -17,12 +17,16 @@ body > div:nth-child(2) {
     flex: 1 1 auto;
 }
 
-.tooltip-hidden { 
-    display: none; 
+#walkthrough {
+    border-left: 1px lightgray solid;
+}
+
+.tooltip-hidden {
+    display: none;
 }
 
 div.tooltip {
-    color: #222; 
+    color: #222;
     background: #fff;
     padding: .5em;
     text-shadow: #cecece 0 1px 0;

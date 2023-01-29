@@ -6,7 +6,7 @@ function updateCharts() {
     const firstMetric = document.getElementById("first-select").value;
     const secondMetric = document.getElementById("second-select").value;
 
-    updateScatterplot(firstMetric, secondMetric);
+    updateScatterplot(secondMetric, firstMetric);
 
     updateMap("canvas_map_one", firstMetric);
     updateMap("canvas_map_two", secondMetric);
@@ -57,7 +57,12 @@ if (m1 && m2) {
     }
     const exp = url.searchParams.get("exp");
     if (exp) {
-        document.getElementById("exp").innerText = exp;
+        for (const el of JSON.parse(exp)) {
+            const li = document.createElement("li");
+            li.innerText = el;
+            document.getElementById("questions").appendChild(li);
+        }
+        
     }
     showWalkthrough();
 }

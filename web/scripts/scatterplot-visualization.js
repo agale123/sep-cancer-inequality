@@ -100,7 +100,13 @@ async function updateScatterplot(xMetric, yMetric) {
         .attr("transform", "rotate(-90)")
         .attr("x", -(MARGIN.top + MARGIN.bottom + h / 2))
         .attr("y", -MARGIN.left + 20)
-        .text(getMetricLabel(yMetric))
+        .text(getMetricLabel(yMetric));
+
+    // Add tooltip
+    const tooltip = d3.select("#canvas_scatterplot")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
     // Add dots
     scatterplot.append("g")
@@ -111,7 +117,19 @@ async function updateScatterplot(xMetric, yMetric) {
         .attr("cx", d => x(d[xMetric]))
         .attr("cy", d => y(d[yMetric]))
         .attr("r", 1.5)
-        .style("fill", "#69b3a2");
+        .style("fill", "#69b3a2")
+        .on("mouseover", (d) => {
+            const event = d3.event;
+            getNameForFips(d["fips"]).then(label => {
+                tooltip.style("opacity", 1)
+                .style("left", (event.pageX + 15) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .html(label);
+            });
+        })
+        .on("mouseout", (d) => {
+            tooltip.style("opacity", 0);
+        });
 
     // Add a clipPath to prevent the regression from extending outside the axes.
     scatterplot.append("clipPath")

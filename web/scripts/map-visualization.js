@@ -92,13 +92,13 @@ function renderMap(canvas_name, indicator_name, border_outlines, indicators) {
             // Here we should lookup region details from the Data Service by FIPS. For now,
             // use the name provided by the county or state border data.
             let region_name = region.properties.name ? region.properties.name : region.properties.NAME;
-            
+
             tooltip
                 .classed("tooltip-hidden", false)
                 .attr("style", "left:" + (d3.event.pageX + 15) + "px;top:" + (d3.event.pageY + 20) + "px")
                 .html(`Name: ${region_name}, Metric: ${value}`)
         })
-        .on("mouseout",  (d, i) => tooltip.classed("tooltip-hidden", true));
+        .on("mouseout", (d, i) => tooltip.classed("tooltip-hidden", true));
 
     // Set the legend title
     document.getElementById(canvas_name + "_legend_title").innerHTML = `${getMetricDescription(indicator_name)}`;
@@ -114,9 +114,9 @@ function renderMap(canvas_name, indicator_name, border_outlines, indicators) {
         .range(palette);
 
     linearGradient.selectAll("stop")
-        .data( colorScale.range() )
+        .data(colorScale.range())
         .enter().append("stop")
-        .attr("offset", (d, i) => i / (colorScale.range().length-1))
+        .attr("offset", (d, i) => i / (colorScale.range().length - 1))
         .attr("stop-color", (d) => d);
 
     legend.append("rect")

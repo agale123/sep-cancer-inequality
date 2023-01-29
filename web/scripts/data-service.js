@@ -170,3 +170,12 @@ const METRIC_TYPES =
 function getMetricType(metric) {
     return METRIC_TYPES[metric];
 }
+
+/**
+ * @param {number} fips 
+ * @returns a promise that resolves to the name of a state (i.e. Washington) or
+ * county (i.e. King County, WA).
+ */
+function getNameForFips(fips) {
+    return Promise.resolve(`${fips}`);
+}
