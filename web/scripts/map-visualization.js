@@ -17,8 +17,8 @@ const states_outlines = d3.json(
 
 /**
  * Updates the map on the specified canvas element based on the specified data source.
- * @param {string} canvas_name Name of the SVG element that will contain the map.
- * @param {string} indicator_name Name of the indicator column.
+ * @param {string} canvas_name name of the SVG element that will contain the map.
+ * @param {string} indicator_name name of the indicator column.
  */
 function updateMap(canvas_name, indicator_name) {
 
@@ -27,18 +27,19 @@ function updateMap(canvas_name, indicator_name) {
         getMetricType(indicator_name) === "county" ? counties_outlines : states_outlines,
         getDataMap(indicator_name)
     ]).then(([outlines, data]) => {
-        renderMap(canvas_name, outlines, data);
+        renderMap(canvas_name, indicator_name, outlines, data);
     });
 }
 
 /**
  * Render a map on the specified canvas element, given the specified geographic borders and
  * the specified indicators.
- * @param {string} canvas_name Name of the SVG element that will contain the map.
- * @param {FeatureCollection} border_outlines Outlines of the geographic boarders to draw on the map.
- * @param {Map} indicators Map from FIPS to corresponding indicator.
+ * @param {string} canvas_name name of the SVG element that will contain the map.
+ * @param {string} indicator_name name of the selected indicator.
+ * @param {FeatureCollection} border_outlines outlines of the geographic boarders to draw on the map.
+ * @param {Map} indicators map from FIPS to corresponding indicator.
  */
-function renderMap(canvas_name, border_outlines, indicators) {
+function renderMap(canvas_name, indicator_name, border_outlines, indicators) {
 
     const width = document.getElementById(canvas_name).clientWidth;
     const height = document.getElementById(canvas_name).clientHeight;
@@ -98,6 +99,9 @@ function renderMap(canvas_name, border_outlines, indicators) {
                 .html(`Name: ${region_name}, Metric: ${value}`)
         })
         .on("mouseout",  (d, i) => tooltip.classed("tooltip-hidden", true));
+
+    // Set the legend title
+    document.getElementById(canvas_name + "_legend_title").innerHTML = `${getMetricDescription(indicator_name)}`;
 
     // Draw the legend
     let gradient_id = canvas_name + "_linear_gradient";
