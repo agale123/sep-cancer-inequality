@@ -59,6 +59,11 @@ function renderMap(canvas_name, border_outlines, indicators) {
     // Clear any past svg elements
     canvas.selectAll("*").remove();
 
+    // Add tooltips
+    let tooltip = d3.select('#' + canvas_name + '_container')
+        .append("div")
+        .attr("class", "tooltip");
+
     // Draw the map
     canvas.append("g")
         .selectAll("path")
@@ -78,7 +83,21 @@ function renderMap(canvas_name, border_outlines, indicators) {
             let fips = Number(county.id);
 
             return fips in indicators ? color(indicators[fips]) : default_color_for_missing_data
-        });
+        })
+        .on("mousemove", (region, i) => {
+            let fips = Number(region.id);
+            let value = fips in indicators ? Math.floor(indicators[fips]) : "N/A";
+
+            // Here we should lookup region details from the Data Service by FIPS. For now,
+            // use the name provided by the county or state border data.
+            let region_name = region.properties.name ? region.properties.name : region.properties.NAME;
+            
+            tooltip
+                .classed("tooltip-hidden", false)
+                .attr("style", "left:" + (d3.event.pageX + 15) + "px;top:" + (d3.event.pageY + 20) + "px")
+                .html(`Name: ${region_name}, Metric: ${value}`)
+        })
+        .on("mouseout",  (d, i) => tooltip.classed("tooltip-hidden", true));
 
     // Draw the legend
     let gradient_id = canvas_name + "_linear_gradient";
