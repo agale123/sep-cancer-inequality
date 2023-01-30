@@ -4,7 +4,7 @@
 
 // Color Settings
 // Viridis palette from https://observablehq.com/@d3/color-schemes
-const default_color_for_missing_data = "#ffffff";
+const defaultColor = "#ffffff";
 const palette = ["#440154", "#46327e", "#365c8d", "#277f8e", "#1fa187", "#4ac16d", "#a0da39", "#fde725"].reverse();
 
 // County borders
@@ -36,10 +36,10 @@ function quantile(input, q) {
 
 /**
  * Updates the map on the specified canvas element based on the specified data source.
- * @param {string} canvas_name name of the SVG element that will contain the map.
+ * @param {string} canvasName name of the SVG element that will contain the map.
  * @param {string} indicatorName name of the indicator column.
  */
-function updateMap(canvas_name, indicatorName) {
+function updateMap(canvasName, indicatorName) {
 
     // Load indicator data and render the map when ready.
     Promise.all([
@@ -48,24 +48,34 @@ function updateMap(canvas_name, indicatorName) {
         getMetricType(indicatorName) === "coordinate"
             ? getData(indicatorName) : getDataMap(indicatorName)
     ]).then(([outlines, data]) => {
-        renderMap(canvas_name, indicatorName, outlines, data);
+        renderMap(canvasName, indicatorName, outlines, data);
     });
 }
 
 /**
- * Render a map on the specified canvas element, given the specified geographic borders and
- * the specified indicators.
- * @param {string} canvas_name name of the SVG element that will contain the map.
+ * Render a map on the specified canvas element, given the specified geographic
+ * borders and the specified indicators.
+ * @param {string} canvasName name of the SVG element that will contain the map.
  * @param {string} indicatorName name of the selected indicator.
- * @param {FeatureCollection} border_outlines outlines of the geographic boarders to draw on the map.
+ * @param {FeatureCollection} borderOutlines outlines of the geographic borders
+ * to draw on the map.
  * @param {Map|Array} indicators map from FIPS to corresponding indicator.
  */
-function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
+function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
+    // Clear any past svg elements
+    d3.select("#" + canvasName).selectAll("*").remove();
 
-    const width = document.getElementById(canvas_name).clientWidth;
-    const height = document.getElementById(canvas_name).clientHeight;
+    const canvas = d3.select('#' + canvasName)
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "300px");
 
-    const indicatorValues = getMetricType(indicatorName) === "coordinate"
+    const width = document.getElementById(canvasName).clientWidth;
+    const height = document.getElementById(canvasName).clientHeight;
+
+    const indicatorType = getMetricType(indicatorName);
+
+    const indicatorValues = indicatorType === "coordinate"
         ? indicators.map(v => v[indicatorName])
         : Object.values(indicators);
 
@@ -74,63 +84,57 @@ function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
     const quantileMin = quantile(indicatorValues, 0.01);
     const quantileMax = quantile(indicatorValues, 0.99);
 
-    let color = d3.scaleQuantize();
+    const color = d3.scaleQuantize();
     color.range(palette)
     color.domain([quantileMin, quantileMax])
 
-    let projection = d3.geoAlbersUsa()
+    const projection = d3.geoAlbersUsa()
         .scale(width)
         .translate([width / 2, height / 2]);
 
-    let canvas = d3.select('#' + canvas_name);
-
-    // Clear any past svg elements
-    canvas.selectAll("*").remove();
-
     // Select the tooltip element
-    let tooltip = d3.select('#' + canvas_name + '_tooltip');
+    const tooltip = d3.select('#' + canvasName)
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
     // Draw the map
     canvas.append("g")
         .selectAll("path")
-        .data(border_outlines.features)
+        .data(borderOutlines.features)
         .enter()
         .append("path")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("preserveAspectRatio", "xMinYMin meet")
-        .attr("viewBox", `0 0 ${width} ${height}`)
-        .attr("d", d3.geoPath()
-            .projection(projection)
-        )
+        .attr("d", d3.geoPath().projection(projection))
         .attr('stroke', 'black')
         .attr('stroke-width', '.2px')
         .attr("fill", (county) => {
-            if (getMetricType(indicatorName) === "coordinate") {
-                return default_color_for_missing_data;
+            if (indicatorType === "coordinate") {
+                return defaultColor;
             }
 
             let fips = Number(county.id);
-            return fips in indicators ? color(indicators[fips]) : default_color_for_missing_data;
+            return fips in indicators ? color(indicators[fips]) : defaultColor;
         })
-        .on("mousemove", (region, i) => {
-            let fips = Number(region.id);
-            let value = fips in indicators ? Math.floor(indicators[fips]) : "N/A";
-
-            // Here we should lookup region details from the Data Service by FIPS. For now,
-            // use the name provided by the county or state border data.
-            let region_name = region.properties.name ? region.properties.name : region.properties.NAME;
-
-            tooltip
-                .classed("tooltip-hidden", false)
-                .attr("style", "left:" + (d3.event.pageX + 15) + "px;top:" + (d3.event.pageY + 20) + "px")
-                .html(`Name: ${region_name}, Metric: ${value}`)
+        .on("mouseover", (d) => {
+            const fips = Number(d["id"]);
+            const value =
+                fips in indicators ? Math.floor(indicators[fips]) : "N/A";
+            const event = d3.event;
+            getNameForFips(fips).then(label => {
+                tooltip.style("opacity", 1)
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY + 20) + "px")
+                    .html(`<b>${label} County, WA</b><br/>Value: ${value}`);
+            });
         })
-        .on("mouseout", (d, i) => tooltip.classed("tooltip-hidden", true));
+        .on("mouseout", (d) => {
+            tooltip.style("opacity", 0);
+        });
 
-    if (getMetricType(indicatorName) === "coordinate") {
+    if (indicatorType === "coordinate") {
         canvas.selectAll("points")
-            .data(indicators.sort((a, b) => a[indicatorName] - b[indicatorName]))
+            .data(indicators
+                .sort((a, b) => a[indicatorName] - b[indicatorName]))
             .enter()
             .append("circle")
             .attr("cx", (d) => projection([d.longitude, d.latitude])?.[0])
@@ -143,11 +147,11 @@ function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
     }
 
     // Set the legend title
-    document.getElementById(canvas_name + "_legend_title").innerHTML = `${getMetricDescription(indicatorName)}`;
+    document.getElementById(canvasName + "_legend_title").innerHTML = `${getMetricDescription(indicatorName)}`;
 
     // Draw the legend
-    let gradient_id = canvas_name + "_linear_gradient";
-    let legend = d3.select('#' + canvas_name + "_legend");
+    let gradient_id = canvasName + "_linear_gradient";
+    let legend = d3.select('#' + canvasName + "_legend");
     let defs = legend.append("defs");
     let linearGradient = defs.append("linearGradient")
         .attr("id", gradient_id);
@@ -168,6 +172,6 @@ function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
 
     // Annotate the legend
 
-    document.getElementById(canvas_name + "_legend_left").innerHTML = `${Math.floor(indicatorMin)}`;
-    document.getElementById(canvas_name + "_legend_right").innerHTML = `${Math.ceil(indicatorMax)}`;
+    document.getElementById(canvasName + "_legend_left").innerHTML = `${Math.floor(indicatorMin)}`;
+    document.getElementById(canvasName + "_legend_right").innerHTML = `${Math.ceil(indicatorMax)}`;
 }
