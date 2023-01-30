@@ -138,7 +138,7 @@ function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
             .attr("fill", (d) => color(d[indicatorName]))
             .attr("fill-opacity", 0.8)
             .attr("r", (d) => {
-                return Math.ceil(d[indicatorName] / indicatorMax * 20);
+                return 1 + Math.ceil(d[indicatorName] / indicatorMax * 20);
             });
     }
 
