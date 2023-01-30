@@ -21,8 +21,9 @@ body > div:nth-child(2) {
     border-left: 1px lightgray solid;
 }
 
-.tooltip-hidden {
-    display: none;
+.map-canvas {
+    width: 100%;
+    height: 300px;
 }
 
 div.tooltip {
