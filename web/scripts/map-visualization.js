@@ -69,6 +69,8 @@ function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
         ? indicators.map(v => v[indicatorName])
         : Object.values(indicators);
 
+    const indicatorMin = Math.min(...indicatorValues);
+    const indicatorMax = Math.max(...indicatorValues);
     const quantileMin = quantile(indicatorValues, 0.01);
     const quantileMax = quantile(indicatorValues, 0.99);
 
@@ -165,8 +167,7 @@ function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
         .style("fill", "url(#" + gradient_id + ")");
 
     // Annotate the legend
-    const indicatorMin = Math.min(...indicatorValues);
-    const indicatorMax = Math.max(...indicatorValues);
+
     document.getElementById(canvas_name + "_legend_left").innerHTML = `${Math.floor(indicatorMin)}`;
     document.getElementById(canvas_name + "_legend_right").innerHTML = `${Math.ceil(indicatorMax)}`;
 }
