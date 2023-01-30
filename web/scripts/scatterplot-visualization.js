@@ -98,7 +98,7 @@ async function updateScatterplot(xMetric, yMetric) {
     scatterplot.append("text")
         .attr("text-anchor", "center")
         .attr("transform", "rotate(-90)")
-        .attr("x", -(MARGIN.top + MARGIN.bottom + h / 2))
+        .attr("x", (d) => -(h / 2 + 2.6 * yMetric.length))
         .attr("y", -MARGIN.left + 20)
         .text(getMetricLabel(yMetric));
 
@@ -122,9 +122,9 @@ async function updateScatterplot(xMetric, yMetric) {
             const event = d3.event;
             getNameForFips(d["fips"]).then(label => {
                 tooltip.style("opacity", 1)
-                .style("left", (event.pageX + 15) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .html(label);
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY + 20) + "px")
+                    .html(label);
             });
         })
         .on("mouseout", (d) => {
