@@ -16,6 +16,25 @@ const states_outlines = d3.json(
     "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json");
 
 /**
+ * Calculates the specified quantile of the specified vector.
+ * @param {Array} input the input vector.
+ * @param {Number} q the quantile to be calculated.
+ * @returns the value of the quantile.
+ */
+function quantile(input, q) {
+    const sorted = input.sort((a, b) => a - b);
+    const pos = (sorted.length - 1) * q;
+    const base = Math.floor(pos);
+    const rest = pos - base;
+
+    if (sorted[base + 1] !== undefined) {
+        return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
+    } else {
+        return sorted[base];
+    }
+};
+
+/**
  * Updates the map on the specified canvas element based on the specified data source.
  * @param {string} canvas_name name of the SVG element that will contain the map.
  * @param {string} indicatorName name of the indicator column.
@@ -49,12 +68,13 @@ function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
     const indicatorValues = getMetricType(indicatorName) === "coordinate"
         ? indicators.map(v => v[indicatorName])
         : Object.values(indicators);
-    const indicatorMin = Math.min(...indicatorValues);
-    const indicatorMax = Math.max(...indicatorValues);
+
+    const quantileMin = quantile(indicatorValues, 0.01);
+    const quantileMax = quantile(indicatorValues, 0.99);
 
     let color = d3.scaleQuantize();
     color.range(palette)
-    color.domain([indicatorMin, indicatorMax])
+    color.domain([quantileMin, quantileMax])
 
     let projection = d3.geoAlbersUsa()
         .scale(width)
@@ -147,6 +167,8 @@ function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
         .style("fill", "url(#" + gradient_id + ")");
 
     // Annotate the legend
+    const indicatorMin = Math.min(...indicatorValues);
+    const indicatorMax = Math.max(...indicatorValues);
     document.getElementById(canvas_name + "_legend_left").innerHTML = `${Math.floor(indicatorMin)}`;
     document.getElementById(canvas_name + "_legend_right").innerHTML = `${Math.ceil(indicatorMax)}`;
 }
