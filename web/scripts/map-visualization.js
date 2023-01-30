@@ -124,6 +124,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
                 tooltip.style("opacity", 1)
                     .style("left", (event.pageX + 15) + "px")
                     .style("top", (event.pageY + 20) + "px")
+                    // TODO: Remove County, WA when the label is properly generated
                     .html(`<b>${label} County, WA</b><br/>Value: ${value}`);
             });
         })
