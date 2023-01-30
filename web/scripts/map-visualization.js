@@ -85,10 +85,8 @@ function renderMap(canvas_name, indicatorName, border_outlines, indicators) {
     // Clear any past svg elements
     canvas.selectAll("*").remove();
 
-    // Add tooltips
-    let tooltip = d3.select('#' + canvas_name + '_container')
-        .append("div")
-        .attr("class", "tooltip");
+    // Select the tooltip element
+    let tooltip = d3.select('#' + canvas_name + '_tooltip');
 
     // Draw the map
     canvas.append("g")
