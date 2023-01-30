@@ -124,8 +124,8 @@ const METRICS = [
     { "id": "hospital_beds_per_100000", "label": "Hospital Beds per 100,000", "desc": "Hospital beds per 100,000 residents", "type": "county" },
     { "id": "median_aqi", "label": "Median AQI", "desc": "Median AQI", "type": "county" },
     // State level
-    { "id": "cervical_cancer_incidence_rate_per_100000", "label": "Cervical Incidence Rate", "desc": "Cervical Incidence Rate", "type": "state" },
-    { "id": "cervical_cancer_mortality_rate_per_100000", "label": "Cervical Mortality Rate", "desc": "Cervical Mortality Rate", "type": "state" },
+    { "id": "cervical_cancer_incidence_rate_per_100000", "label": "Cervical Cancer Incidence Rate", "desc": "Cervical Incidence Rate", "type": "state" },
+    { "id": "cervical_cancer_mortality_rate_per_100000", "label": "Cervical Cancer Mortality Rate", "desc": "Cervical Mortality Rate", "type": "state" },
     { "id": "hodgkins_lymphoma_cancer_incidence_rate_per_100000", "label": "Hodgkin's Lymphoma Incidence Rate", "desc": "Hodgkin's Lymphoma Incidence Rate", "type": "state" },
     { "id": "hodgkins_lymphoma_cancer_mortality_rate_per_100000", "label": "Hodgkin's Lymphoma Mortality Rate", "desc": "Hodgkin's Lymphoma Mortality Rate", "type": "state" },
     { "id": "melanoma_cancer_incidence_rate_per_100000", "label": "Melanoma Incidence Rate", "desc": "Melanoma Incidence Rate", "type": "state" },
