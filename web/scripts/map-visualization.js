@@ -9,11 +9,11 @@ const palette = ["#440154", "#46327e", "#365c8d", "#277f8e", "#1fa187", "#4ac16d
 
 // County borders
 const counties_outlines = d3.json(
-    "https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json");
+    "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/regions/us-counties.json");
 
 // State borders
 const states_outlines = d3.json(
-    "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json");
+    "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/regions/us-states.json");
 
 /**
  * Calculates the specified quantile of the specified vector.
@@ -120,13 +120,10 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
             const value =
                 fips in indicators ? Math.floor(indicators[fips]) : "N/A";
             const event = d3.event;
-            getNameForFips(fips).then(label => {
-                tooltip.style("opacity", 1)
-                    .style("left", (event.pageX + 15) + "px")
-                    .style("top", (event.pageY + 20) + "px")
-                    // TODO: Remove County, WA when the label is properly generated
-                    .html(`<b>${label} County, WA</b><br/>Value: ${value}`);
-            });
+            tooltip.style("opacity", 1)
+                .style("left", (event.pageX + 15) + "px")
+                .style("top", (event.pageY + 20) + "px")
+                .html(`<b>${d.properties.display_name}</b><br/>Value: ${value}`);
         })
         .on("mouseout", (d) => {
             tooltip.style("opacity", 0);
