@@ -124,7 +124,7 @@ async function updateScatterplot(xMetric, yMetric) {
                 tooltip.style("opacity", 1)
                     .style("left", (event.pageX + 15) + "px")
                     .style("top", (event.pageY + 20) + "px")
-                    .html(label);
+                    .html(`<b>${label}</b>`);
             });
         })
         .on("mouseout", (d) => {

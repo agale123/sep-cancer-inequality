@@ -7,14 +7,6 @@
 const defaultColor = "#ffffff";
 const palette = ["#440154", "#46327e", "#365c8d", "#277f8e", "#1fa187", "#4ac16d", "#a0da39", "#fde725"].reverse();
 
-// County borders
-const counties_outlines = d3.json(
-    "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/regions/us-counties.json");
-
-// State borders
-const states_outlines = d3.json(
-    "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/regions/us-states.json");
-
 /**
  * Calculates the specified quantile of the specified vector.
  * @param {Array} input the input vector.
@@ -44,12 +36,28 @@ function updateMap(canvasName, indicatorName) {
     // Load indicator data and render the map when ready.
     Promise.all([
         getMetricType(indicatorName) === "county"
-            ? counties_outlines : states_outlines,
+            ? getCountyOutlines() : getStateOutlines(),
         getMetricType(indicatorName) === "coordinate"
             ? getData(indicatorName) : getDataMap(indicatorName)
     ]).then(([outlines, data]) => {
         renderMap(canvasName, indicatorName, outlines, data);
     });
+}
+
+/**
+ * Shows the tooltip with the associated data.
+ * @param {d3.tooltip} tooltip 
+ * @param {d3.event} event 
+ * @param {string} label 
+ * @param {string} value 
+ */
+function showTooltip(tooltip, event, label, value) {
+    const valueLabel = value === "N/A"
+        ? "No data" : `Value: ${d3.format(",")(value)}`;
+    tooltip.style("opacity", 1)
+        .style("left", (event.pageX + 15) + "px")
+        .style("top", (event.pageY + 20) + "px")
+        .html(`<b>${label}</b><br/>${valueLabel}`);
 }
 
 /**
@@ -110,21 +118,20 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
             if (indicatorType === "coordinate") {
                 return defaultColor;
             }
-
-            let fips = Number(county.id);
+            const fips = Number(county.id);
             return fips in indicators ? color(indicators[fips]) : defaultColor;
         })
         .on("mouseover", (d) => {
+            if (indicatorType == "coordinate") {
+                return;
+            }
             const fips = Number(d["id"]);
             const value =
                 fips in indicators ? Math.floor(indicators[fips]) : "N/A";
             const event = d3.event;
-            tooltip.style("opacity", 1)
-                .style("left", (event.pageX + 15) + "px")
-                .style("top", (event.pageY + 20) + "px")
-                .html(`<b>${d.properties.display_name}</b><br/>Value: ${value}`);
+            showTooltip(tooltip, event, d["properties"]["display_name"], value);
         })
-        .on("mouseout", (d) => {
+        .on("mouseout", () => {
             tooltip.style("opacity", 0);
         });
 
@@ -141,11 +148,20 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
             .attr("fill-opacity", 0.8)
             .attr("r", (d) => {
                 return 1 + Math.ceil(d[indicatorName] / indicatorMax * 20);
-            });
+            }).on("mouseover", (d) => {
+                const event = d3.event;
+                getNameForFips(d["fips"]).then(label => {
+                    showTooltip(tooltip, event, label, d[indicatorName]);
+                });
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });;
     }
 
     // Set the legend title
-    document.getElementById(canvasName + "_legend_title").innerHTML = `${getMetricDescription(indicatorName)}`;
+    document.getElementById(canvasName + "_legend_title").innerHTML =
+        `${getMetricDescription(indicatorName)}`;
 
     // Draw the legend
     let gradient_id = canvasName + "_linear_gradient";
