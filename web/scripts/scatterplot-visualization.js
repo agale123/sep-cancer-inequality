@@ -81,7 +81,7 @@ async function updateScatterplot(xMetric, yMetric) {
 
     // Add X axis
     const xRange = getDataRange(data, xMetric);
-    const x = d3.scaleLinear().domain(xRange).range([0, w]);
+    const x = d3.scaleLinear().domain(xRange).range([0, w]).nice();
     scatterplot.append("g")
         .attr("transform", `translate(0,${h})`)
         .call(d3.axisBottom(x).tickFormat(d3.format("~s")));
@@ -93,7 +93,7 @@ async function updateScatterplot(xMetric, yMetric) {
 
     // Add Y axis
     const y = d3.scaleLinear()
-        .domain(getDataRange(data, yMetric)).range([h, 0]);
+        .domain(getDataRange(data, yMetric)).range([h, 0]).nice();
     scatterplot.append("g").call(d3.axisLeft(y).tickFormat(d3.format("~s")));
     scatterplot.append("text")
         .attr("text-anchor", "center")

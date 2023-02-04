@@ -79,14 +79,13 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
         ? indicators.map(v => v[indicatorName])
         : Object.values(indicators);
 
-    const indicatorMin = Math.min(...indicatorValues);
-    const indicatorMax = Math.max(...indicatorValues);
     const quantileMin = quantile(indicatorValues, 0.01);
     const quantileMax = quantile(indicatorValues, 0.99);
 
-    const color = d3.scaleQuantize();
-    color.range(palette)
-    color.domain([quantileMin, quantileMax])
+    const color = d3.scaleQuantize()
+        .range(palette)
+        .domain([quantileMin, quantileMax])
+        .nice();
 
     const projection = d3.geoAlbersUsa()
         .scale(width)
@@ -133,6 +132,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
         });
 
     if (indicatorType === "coordinate") {
+        const indicatorMax = Math.max(...indicatorValues);
         canvas.selectAll("points")
             .data(indicators
                 .sort((a, b) => a[indicatorName] - b[indicatorName]))
@@ -157,13 +157,10 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     let linearGradient = defs.append("linearGradient")
         .attr("id", gradient_id);
 
-    let colorScale = d3.scaleLinear()
-        .range(palette);
-
     linearGradient.selectAll("stop")
-        .data(colorScale.range())
+        .data(palette)
         .enter().append("stop")
-        .attr("offset", (d, i) => i / (colorScale.range().length - 1))
+        .attr("offset", (d, i) => i / (palette.length - 1))
         .attr("stop-color", (d) => d);
 
     legend.append("rect")
@@ -172,7 +169,11 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
         .style("fill", "url(#" + gradient_id + ")");
 
     // Annotate the legend
-
-    document.getElementById(canvasName + "_legend_left").innerHTML = `${Math.floor(indicatorMin)}`;
-    document.getElementById(canvasName + "_legend_right").innerHTML = `${Math.ceil(indicatorMax)}`;
+    // The thresholds are the gaps between the color range so we should ideally
+    // render all the color squares with ticks between them. 
+    const thresholds = color.thresholds();
+    document.getElementById(canvasName + "_legend_left").innerHTML =
+        `${d3.format(".2s")(thresholds[0])}`;
+    document.getElementById(canvasName + "_legend_right").innerHTML =
+        `${d3.format(".2s")(thresholds[thresholds.length - 1])}`;
 }
