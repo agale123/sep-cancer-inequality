@@ -2,6 +2,31 @@
  * This file is responsible for providing data for rendering the plots.
  */
 
+const countyOutlines = d3.json(
+    "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/regions/us-counties.json");
+const stateOutlines = d3.json(
+    "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/regions/us-states.json");
+
+// Generate a mapping from fips to display name for labeling purposes.
+const fipsToLabel = Promise.all([countyOutlines, stateOutlines])
+    .then((outlines) => Object.fromEntries(new Map(
+        outlines.map(o => o["features"]).flat()
+            .map(f => [f["id"], f["properties"]["display_name"]]))));
+
+/**
+ * @returns geojson format for county outlines.
+ */
+function getCountyOutlines() {
+    return countyOutlines;
+}
+
+/**
+ * @returns geojson format for state outlines.
+ */
+function getStateOutlines() {
+    return stateOutlines;
+}
+
 /** Helper to create a promise to request a dataset. */
 function createDataPromise(url) {
     return new Promise((resolve, reject) => {
@@ -177,5 +202,7 @@ function getMetricType(metric) {
  * county (i.e. King County, WA).
  */
 function getNameForFips(fips) {
-    return Promise.resolve(`${fips}`);
+    return fipsToLabel.then(fipsMap => {
+        return fipsMap[`${fips}`];
+    });
 }
