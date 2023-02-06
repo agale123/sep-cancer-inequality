@@ -44,6 +44,19 @@ function updateMap(canvasName, indicatorName) {
     });
 }
 
+function formatNumber(num) {
+    if (num === undefined) {
+        return "No data";
+    } else {
+        return d3.format(num >= 10 ? (!(num % 1) ? "," : ",.2f") : ".2f")(num)
+            .replace(".00");
+    }
+}
+
+function formatShortNumber(num) {
+    return d3.format(num >= 1 ? ".2s" : ".2")(num);
+}
+
 /**
  * Shows the tooltip with the associated data.
  * @param {d3.tooltip} tooltip 
@@ -52,8 +65,7 @@ function updateMap(canvasName, indicatorName) {
  * @param {string} value 
  */
 function showTooltip(tooltip, event, label, value) {
-    const valueLabel = value === "N/A"
-        ? "No data" : `Value: ${d3.format(",")(value)}`;
+    const valueLabel = formatNumber(value);
     tooltip.style("opacity", 1)
         .style("left", (event.pageX + 15) + "px")
         .style("top", (event.pageY + 20) + "px")
@@ -125,9 +137,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
             if (indicatorType == "coordinate") {
                 return;
             }
-            const fips = Number(d["id"]);
-            const value =
-                fips in indicators ? Math.floor(indicators[fips]) : "N/A";
+            const value = indicators[Number(d["id"])];
             const event = d3.event;
             showTooltip(tooltip, event, d["properties"]["display_name"], value);
         })
@@ -186,7 +196,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     // render all the color squares with ticks between them. 
     const thresholds = color.thresholds();
     document.getElementById(canvasName + "_legend_left").innerHTML =
-        `${d3.format(".2s")(thresholds[0])}`;
+        `${formatShortNumber(thresholds[0])}`;
     document.getElementById(canvasName + "_legend_right").innerHTML =
-        `${d3.format(".2s")(thresholds[thresholds.length - 1])}`;
+        `${formatShortNumber(thresholds[thresholds.length - 1])}`;
 }

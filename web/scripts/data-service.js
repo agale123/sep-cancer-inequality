@@ -11,7 +11,7 @@ const stateOutlines = d3.json(
 const fipsToLabel = Promise.all([countyOutlines, stateOutlines])
     .then((outlines) => Object.fromEntries(new Map(
         outlines.map(o => o["features"]).flat()
-            .map(f => [f["id"], f["properties"]["display_name"]]))));
+            .map(f => [Number(f["id"]), f["properties"]["display_name"]]))));
 
 /**
  * @returns geojson format for county outlines.
@@ -214,6 +214,6 @@ function getMetricType(metric) {
  */
 function getNameForFips(fips) {
     return fipsToLabel.then(fipsMap => {
-        return fipsMap[`${fips}`];
+        return fipsMap[fips];
     });
 }
