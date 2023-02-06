@@ -142,7 +142,7 @@ async function updateScatterplot(xMetric, yMetric) {
     const linReg = d3.regressionLinear()
         .x(d => d[xMetric])
         .y(d => d[yMetric])
-        .domain(xRange);
+        .domain(x.domain());
     scatterplot.append("g").append("line")
         .attr("class", "regression")
         .datum(linReg(data))
