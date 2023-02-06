@@ -161,7 +161,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
 
     // Set the legend title
     document.getElementById(canvasName + "_legend_title").innerHTML =
-        `${getMetricDescription(indicatorName)}`;
+        `${getMetricLegend(indicatorName)}`;
 
     // Draw the legend
     let gradient_id = canvasName + "_linear_gradient";

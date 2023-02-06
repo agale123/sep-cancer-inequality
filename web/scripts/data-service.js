@@ -122,44 +122,44 @@ function getDataMap(metric) {
 
 const METRICS = [
     // County level
-    { "id": "cancer_incidence_rate_per_100000", "label": "Cancer Incidence Rate", "desc": "The age-adjusted number of cancer cases per 100,000 residents. This data comes from NCI.", "type": "county" },
-    { "id": "cancer_mortality_rate_per_100000", "label": "Cancer Mortality Rate", "desc": "The age-adjusted number of cancer deaths per 100,000 residents. This data comes from NCI.", "type": "county" },
-    { "id": "breast_cancer_incidence_rate_per_100000", "label": "Breast Cancer Incidence Rate", "desc": "Breast Cancer Incidence Rate", "type": "county" },
-    { "id": "breast_cancer_mortality_rate_per_100000", "label": "Breast Cancer Mortality Rate", "desc": "Breast Cancer Mortality Rate", "type": "county" },
-    { "id": "colorectal_cancer_incidence_rate_per_100000", "label": "Colorectal Cancer Incidence Rate", "desc": "Colorectal Cancer Incidence Rate", "type": "county" },
-    { "id": "colorectal_cancer_mortality_rate_per_100000", "label": "Colorectal Cancer Mortality Rate", "desc": "Colorectal Cancer Mortality Rate", "type": "county" },
-    { "id": "leukemia_cancer_incidence_rate_per_100000", "label": "Leukemia Incidence Rate", "desc": "Leukemia Incidence Rate", "type": "county" },
-    { "id": "leukemia_cancer_mortality_rate_per_100000", "label": "Leukemia Mortality Rate", "desc": "Leukemia Mortality Rate", "type": "county" },
-    { "id": "lung_cancer_incidence_rate_per_100000", "label": "Lung Cancer Incidence Rate", "desc": "Lung Cancer Incidence Rate", "type": "county" },
-    { "id": "lung_cancer_mortality_rate_per_100000", "label": "Lung Cancer Mortality Rate", "desc": "Lung Cancer Mortality Rate", "type": "county" },
-    { "id": "non_hodgkin_lymphoma_cancer_incidence_rate_per_100000", "label": "Non-Hodgkin Lymphoma Incidence Rate", "desc": "Non-Hodgkin Lymphoma Incidence Rate", "type": "county" },
-    { "id": "non_hodgkin_lymphoma_cancer_mortality_rate_per_100000", "label": "Non-Hodgkin Lymphoma Mortality Rate", "desc": "Non-Hodgkin Lymphoma Mortality Rate", "type": "county" },
-    { "id": "prostate_cancer_incidence_rate_per_100000", "label": "Prostate Cancer Incidence Rate", "desc": "Prostate Cancer Incidence Rate", "type": "county" },
-    { "id": "prostate_cancer_mortality_rate_per_100000", "label": "Prostate Cancer Mortality Rate", "desc": "Prostate Cancer Mortality Rate", "type": "county" },
-    { "id": "median_household_income", "label": "Median Household Income", "desc": "The median household income for the area.", "type": "county" },
-    { "id": "over_65_percent", "label": "Over 65 Percent", "desc": "Over 65 Percent", "type": "county" },
-    { "id": "uv_exposure", "label": "UV Exposure Index", "desc": "UV Exposure Index", "type": "county" },
-    { "id": "low_income_low_access_share", "label": "Low Income and Low Access to Food", "desc": "Low Income and Low Access to Food", "type": "county" },
-    { "id": "non_english_speaking", "label": "Non English Speaking Percent", "desc": "Non English Speaking Percent", "type": "county" },
-    { "id": "population_in_poverty_percent", "label": "Below Poverty Percent", "desc": "The percent of residents who live below the poverty level.", "type": "county" },
-    { "id": "population_over_25_no_high_school_diploma_percent", "label": "Percent Without High School Diploma", "desc": "Percent Without High School Diploma", "type": "county" },
-    { "id": "population_uninsured_percent", "label": "Uninsured Percent", "desc": "Uninsured Percent", "type": "county" },
-    { "id": "population_minority_percent", "label": "Minority Population Percent", "desc": "Minority Population Percent", "type": "county" },
-    { "id": "walkability_index", "label": "Walkability Index", "desc": "Walkability Index", "type": "county" },
-    { "id": "hospital_beds_per_100000", "label": "Hospital Beds per 100,000", "desc": "Hospital beds per 100,000 residents", "type": "county" },
-    { "id": "median_aqi", "label": "Median AQI", "desc": "Median AQI", "type": "county" },
+    { "id": "cancer_incidence_rate_per_100000", "label": "Cancer Incidence Rate", "desc": "The age-adjusted number of cancer cases per 100,000 residents. This data comes from NCI.", "legend": "The age-adjusted number of cases per 100,000 residents", "type": "county" },
+    { "id": "cancer_mortality_rate_per_100000", "label": "Cancer Mortality Rate", "desc": "The age-adjusted number of cancer deaths per 100,000 residents. This data comes from NCI.", "legend": "The age-adjusted number of deaths per 100,000 residents", "type": "county" },
+    { "id": "breast_cancer_incidence_rate_per_100000", "label": "Breast Cancer Incidence Rate", "desc": "Breast Cancer Incidence Rate", "legend": "The number of breast cancer cases per 100,000 residents", "type": "county" },
+    { "id": "breast_cancer_mortality_rate_per_100000", "label": "Breast Cancer Mortality Rate", "desc": "Breast Cancer Mortality Rate", "legend": "The number of breast cancer deaths per 100,000 residents", "type": "county" },
+    { "id": "colorectal_cancer_incidence_rate_per_100000", "label": "Colorectal Cancer Incidence Rate", "desc": "Colorectal Cancer Incidence Rate", "legend": "The number of colorectal cancer cases per 100,000 residents", "type": "county" },
+    { "id": "colorectal_cancer_mortality_rate_per_100000", "label": "Colorectal Cancer Mortality Rate", "desc": "Colorectal Cancer Mortality Rate", "legend": "The number of colorectal cancer deaths per 100,000 residents","type": "county" },
+    { "id": "leukemia_cancer_incidence_rate_per_100000", "label": "Leukemia Incidence Rate", "desc": "Leukemia Incidence Rate", "legend": "The number of leukemia cases per 100,000 residents", "type": "county" },
+    { "id": "leukemia_cancer_mortality_rate_per_100000", "label": "Leukemia Mortality Rate", "desc": "Leukemia Mortality Rate", "legend": "The number of leukemia deaths per 100,000 residents", "type": "county" },
+    { "id": "lung_cancer_incidence_rate_per_100000", "label": "Lung Cancer Incidence Rate", "desc": "Lung Cancer Incidence Rate", "legend": "The number of lung cancer cases per 100,000 residents", "type": "county" },
+    { "id": "lung_cancer_mortality_rate_per_100000", "label": "Lung Cancer Mortality Rate", "desc": "Lung Cancer Mortality Rate", "legend": "The number of lung cancer deaths per 100,000 residents", "type": "county" },
+    { "id": "non_hodgkin_lymphoma_cancer_incidence_rate_per_100000", "label": "Non-Hodgkin Lymphoma Incidence Rate", "desc": "Non-Hodgkin Lymphoma Incidence Rate", "legend": "The number of non-Hodgkin's lymphoma cases per 100,000 residents", "type": "county" },
+    { "id": "non_hodgkin_lymphoma_cancer_mortality_rate_per_100000", "label": "Non-Hodgkin Lymphoma Mortality Rate", "desc": "Non-Hodgkin Lymphoma Mortality Rate", "legend": "The number of non-Hodgkin's lymphoma deaths per 100,000 residents", "type": "county" },
+    { "id": "prostate_cancer_incidence_rate_per_100000", "label": "Prostate Cancer Incidence Rate", "desc": "Prostate Cancer Incidence Rate", "legend": "The number of prostate cancer cases per 100,000 residents", "type": "county" },
+    { "id": "prostate_cancer_mortality_rate_per_100000", "label": "Prostate Cancer Mortality Rate", "desc": "Prostate Cancer Mortality Rate", "legend": "The number of prostate cancer deaths per 100,000 residents", "type": "county" },
+    { "id": "median_household_income", "label": "Median Household Income", "desc": "The median household income for the area.", "legend": "The median household income", "type": "county" },
+    { "id": "over_65_percent", "label": "Over 65 Percent", "desc": "Over 65 Percent", "legend": "The percent of residents who are 65 years or older", "type": "county" },
+    { "id": "uv_exposure", "label": "UV Exposure Index", "desc": "UV Exposure Index", "legend": "UV exposure index", "type": "county" },
+    { "id": "low_income_low_access_share", "label": "Low Income and Low Access to Food", "desc": "Low Income and Low Access to Food", "legend": "The percentage of residents in low income category", "type": "county" },
+    { "id": "non_english_speaking", "label": "Non English Speaking Percent", "desc": "Non English Speaking Percent", "legend": "The percentage of non-english speaking residents", "type": "county" },
+    { "id": "population_in_poverty_percent", "label": "Below Poverty Percent", "desc": "The percent of residents who live below the poverty level.", "legend": "The percent of residents who live below the poverty level", "type": "county" },
+    { "id": "population_over_25_no_high_school_diploma_percent", "label": "Percent Without High School Diploma", "desc": "Percent Without High School Diploma", "legend": "The percentage of residents without high school diploma", "type": "county" },
+    { "id": "population_uninsured_percent", "label": "Uninsured Percent", "desc": "Uninsured Percent", "legend": "The percentage of uninsured residents", "type": "county" },
+    { "id": "population_minority_percent", "label": "Minority Population Percent", "desc": "Minority Population Percent", "legend": "The percentage of residents who are part of minority groups", "type": "county" },
+    { "id": "walkability_index", "label": "Walkability Index", "desc": "Walkability Index", "legend": "The walkability index", "type": "county" },
+    { "id": "hospital_beds_per_100000", "label": "Hospital Beds per 100,000", "desc": "Hospital beds per 100,000 residents", "legend": "The number of hospital beds per 100,000 residents", "type": "county" },
+    { "id": "median_aqi", "label": "Median AQI", "desc": "Median AQI", "legend": "The median AQI", "type": "county" },
     // State level
-    { "id": "cervical_cancer_incidence_rate_per_100000", "label": "Cervical Cancer Incidence Rate", "desc": "Cervical Incidence Rate", "type": "state" },
-    { "id": "cervical_cancer_mortality_rate_per_100000", "label": "Cervical Cancer Mortality Rate", "desc": "Cervical Mortality Rate", "type": "state" },
-    { "id": "hodgkins_lymphoma_cancer_incidence_rate_per_100000", "label": "Hodgkin's Lymphoma Incidence Rate", "desc": "Hodgkin's Lymphoma Incidence Rate", "type": "state" },
-    { "id": "hodgkins_lymphoma_cancer_mortality_rate_per_100000", "label": "Hodgkin's Lymphoma Mortality Rate", "desc": "Hodgkin's Lymphoma Mortality Rate", "type": "state" },
-    { "id": "melanoma_cancer_incidence_rate_per_100000", "label": "Melanoma Incidence Rate", "desc": "Melanoma Incidence Rate", "type": "state" },
-    { "id": "melanoma_cancer_mortality_rate_per_100000", "label": "Melanoma Mortality Rate", "desc": "Melanoma Mortality Rate", "type": "state" },
-    { "id": "colorectal_screening_percent", "label": "Colon Cancer Screening Percent", "desc": "Colon Cancer Screening Percent", "type": "state" },
-    { "id": "smoking_percent", "label": "Smoking Percent", "desc": "Smoking percent", "type": "state" },
-    { "id": "hpv_vaccine_percent", "label": "HPV Vaccine Percent", "desc": "HPV Vaccine Percent", "type": "state" },
+    { "id": "cervical_cancer_incidence_rate_per_100000", "label": "Cervical Cancer Incidence Rate", "desc": "Cervical Incidence Rate", "legend": "The number of cervical cancer cases per 100,000 residents", "type": "state" },
+    { "id": "cervical_cancer_mortality_rate_per_100000", "label": "Cervical Cancer Mortality Rate", "desc": "Cervical Mortality Rate", "legend": "The number of cervical cancer deaths per 100,000 residents", "type": "state" },
+    { "id": "hodgkins_lymphoma_cancer_incidence_rate_per_100000", "label": "Hodgkin's Lymphoma Incidence Rate", "desc": "Hodgkin's Lymphoma Incidence Rate", "legend": "The number of Hodgkin's lymphoma cases per 100,000 residents", "type": "state" },
+    { "id": "hodgkins_lymphoma_cancer_mortality_rate_per_100000", "label": "Hodgkin's Lymphoma Mortality Rate", "desc": "Hodgkin's Lymphoma Mortality Rate", "legend": "The number of Hodgkin's lymphoma deaths per 100,000 residents", "type": "state" },
+    { "id": "melanoma_cancer_incidence_rate_per_100000", "label": "Melanoma Incidence Rate", "desc": "Melanoma Incidence Rate", "legend": "The number of melanoma cases per 100,000 residents", "type": "state" },
+    { "id": "melanoma_cancer_mortality_rate_per_100000", "label": "Melanoma Mortality Rate", "desc": "Melanoma Mortality Rate", "legend": "The number of melanoma deaths per 100,000 residents", "type": "state" },
+    { "id": "colorectal_screening_percent", "label": "Colon Cancer Screening Percent", "desc": "Colon Cancer Screening Percent", "legend": "The percentage of residents screened for colon cancer", "type": "state" },
+    { "id": "smoking_percent", "label": "Smoking Percent", "desc": "Smoking percent", "legend": "The percentage of residents who are active smokers", "type": "state" },
+    { "id": "hpv_vaccine_percent", "label": "HPV Vaccine Percent", "desc": "HPV Vaccine Percent", "legend": "The percentage of residents who received HPV vaccine", "type": "state" },
     // Coordinate data
-    { "id": "oil_barrels_spilled", "label": "Oil Barrels Spilled", "desc": "Oil barrels spilled", "type": "coordinate" },
+    { "id": "oil_barrels_spilled", "label": "Oil Barrels Spilled", "desc": "Oil barrels spilled", "legend": "The number of oil barrels spilled", "type": "coordinate" },
 ];
 
 const METRIC_LABELS =
@@ -183,6 +183,17 @@ const METRIC_DESCRIPTIONS =
  */
 function getMetricDescription(metric) {
     return METRIC_DESCRIPTIONS[metric];
+}
+
+const METRIC_LEGENDS =
+    Object.fromEntries(new Map(METRICS.map(m => [m.id, m.legend])));
+
+/**
+ * @param {string} metric 
+ * @returns a formatted description for the metric's legend
+ */
+function getMetricLegend(metric) {
+    return METRIC_LEGENDS[metric];
 }
 
 const METRIC_TYPES =
