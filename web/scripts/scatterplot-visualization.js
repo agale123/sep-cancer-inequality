@@ -97,8 +97,8 @@ async function updateScatterplot(xMetric, yMetric) {
         .text(getMetricLabel(xMetric));
 
     // Add Y axis
-    const y = d3.scaleLinear()
-        .domain(getDataRange(data, yMetric)).range([h, 0]).nice();
+    const yRange = getDataRange(data, yMetric);
+    const y = d3.scaleLinear().domain(yRange).range([h, 0]).nice();
     scatterplot.append("g").call(d3.axisLeft(y).tickFormat(d3.format("~s")));
     scatterplot.append("text")
         .attr("text-anchor", "center")
@@ -178,11 +178,15 @@ async function updateScatterplot(xMetric, yMetric) {
 
 
     // Render a text summary of the relationship
+    const m = linReg(regressionData).a;
+    const magnitude =
+        Math.abs(m * (xRange[1] - xRange[0]) / (yRange[1] - yRange[0]));
+    const slopeDesc = (magnitude >= 0.1 ? "strong" : "weak") + " "
+        + (m > 0 ? "positive" : "negative");
     document.getElementById("scatter_relationship").innerHTML = `
         Use this scatterplot to understand how these two variables are 
         correlated. Based on the slope of the line, there is a
-        <b>${linReg(data).a > 0 ? "positive" : "negative"}</b> relationship
-        between the variables.`;
+        <b>${slopeDesc}</b> relationship between the variables.`;
 
     // Render metric descriptions
     document.getElementById("scatter_x").innerHTML =
