@@ -82,11 +82,11 @@ function getCoordinateData(metric) {
  */
 function getData(metric) {
     const type = getMetricType(metric);
-    if (type === "county") {
+    if (type === "county" || metric === "population") {
         return getCountyData().then(data => data.map(d => {
             return { "fips": d["fips"], [metric]: d[metric] };
         }));
-    } else if (type === "state") {
+    } else if (type === "state" || metric === "state_population") {
         return getStateData().then(data => data.map(d => {
             return { "fips": d["fips"], [metric]: d[metric] };
         }));

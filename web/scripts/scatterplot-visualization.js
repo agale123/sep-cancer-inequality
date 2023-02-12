@@ -59,14 +59,19 @@ async function updateScatterplot(xMetric, yMetric) {
         .append("g")
         .attr("transform", `translate(${MARGIN.left}, ${MARGIN.top})`);
 
+    const xType = getMetricType(xMetric);
+    const yType = getMetricType(yMetric);
+
     // Read the data
-    const [xData, yData] =
-        await Promise.all([getDataMap(xMetric), getDataMap(yMetric)]);
+    const [xData, yData, popData] = await Promise.all([
+        getDataMap(xMetric),
+        getDataMap(yMetric),
+        getDataMap((xType === "state" && yType === "state")
+            ? "state_population" : "population")
+    ]);
 
     // Join the data
     let data = [];
-    const xType = getMetricType(xMetric);
-    const yType = getMetricType(yMetric);
     if ((xType !== "state" && yType !== "state")
         || (xType === "state" && yType === "state")) {
         data = joinData(xMetric, xData, yMetric, yData, false);
@@ -92,8 +97,8 @@ async function updateScatterplot(xMetric, yMetric) {
         .text(getMetricLabel(xMetric));
 
     // Add Y axis
-    const y = d3.scaleLinear()
-        .domain(getDataRange(data, yMetric)).range([h, 0]).nice();
+    const yRange = getDataRange(data, yMetric);
+    const y = d3.scaleLinear().domain(yRange).range([h, 0]).nice();
     scatterplot.append("g").call(d3.axisLeft(y).tickFormat(d3.format("~s")));
     scatterplot.append("text")
         .attr("text-anchor", "center")
@@ -109,6 +114,13 @@ async function updateScatterplot(xMetric, yMetric) {
         .style("opacity", 0);
 
     // Add dots
+    const popDomain = [
+        Math.min(...Object.values(popData)),
+        Math.max(...Object.values(popData))
+    ];
+    // Use scaleSqrt so the area of circles are proportional to population.
+    const r = d3.scaleSqrt().domain(popDomain).range([1, 10]);
+    // Purple: #aa4ac4 Gold: #ffb500 Teal: #00c1d5 Navy: #1b365d
     scatterplot.append("g")
         .selectAll("dot")
         .data(data)
@@ -116,8 +128,12 @@ async function updateScatterplot(xMetric, yMetric) {
         .append("circle")
         .attr("cx", d => x(d[xMetric]))
         .attr("cy", d => y(d[yMetric]))
-        .attr("r", 1.5)
-        .style("fill", "#aa4ac4")
+        .attr("r", d => r(popData[d["fips"]]))
+        .style("fill", "#00c1d5")
+        .style("fill-opacity", 0.5)
+        .style("stroke", "#1b365d")
+        .attr("stroke-width", 1)
+        .style("stroke-opacity", 1.0)
         .on("mouseover", (d) => {
             const event = d3.event;
             getNameForFips(d["fips"]).then(label => {
@@ -138,6 +154,12 @@ async function updateScatterplot(xMetric, yMetric) {
         .attr("width", w)
         .attr("height", h);
 
+
+    // Repeat each county proportional to its population to make a weighted
+    // best fit line.
+    const regressionData = data
+        .map(d => Array(Math.ceil(popData[d["fips"]] / 1000)).fill(d))
+        .flat();
     // Add linear regression line
     const linReg = d3.regressionLinear()
         .x(d => d[xMetric])
@@ -145,22 +167,26 @@ async function updateScatterplot(xMetric, yMetric) {
         .domain(x.domain());
     scatterplot.append("g").append("line")
         .attr("class", "regression")
-        .datum(linReg(data))
+        .datum(linReg(regressionData))
         .attr("x1", d => x(d[0][0]))
         .attr("x2", d => x(d[1][0]))
         .attr("y1", d => y(d[0][1]))
         .attr("y2", d => y(d[1][1]))
         .attr("stroke-width", 1)
-        .attr("stroke", "black")
+        .attr("stroke", "#1b365d")
         .attr("clip-path", "url(#clip)");
 
 
     // Render a text summary of the relationship
+    const m = linReg(regressionData).a;
+    const magnitude =
+        Math.abs(m * (xRange[1] - xRange[0]) / (yRange[1] - yRange[0]));
+    const slopeDesc = (magnitude >= 0.1 ? "strong" : "weak") + " "
+        + (m > 0 ? "positive" : "negative");
     document.getElementById("scatter_relationship").innerHTML = `
         Use this scatterplot to understand how these two variables are 
         correlated. Based on the slope of the line, there is a
-        <b>${linReg(data).a > 0 ? "positive" : "negative"}</b> relationship
-        between the variables.`;
+        <b>${slopeDesc}</b> relationship between the variables.`;
 
     // Render metric descriptions
     document.getElementById("scatter_x").innerHTML =
