@@ -56,43 +56,22 @@
         <div class="columns m-0 column is-multiline">
             <!-- Left column -->
             <div class="column is-half-desktop is-full-tablet">
-                <section class="section px-5 py-3">
+                <section class="section px-5 py-2">
                     <!-- Dropdown for the first indicator -->
                     <div class="field">
                         <div class="select is-rounded w-100">
                             <select class="w-100" id="first-select"></select>
                         </div>
                     </div>
-                    <section class="section px-2 py-1">
+                    <section class="section p-0">
                         <!-- Create an element where the first map will be rendered. -->
                         <div id="canvas_map_one" class="map-canvas"></div>
                     </section>
-                    <section class="section px-2 py-1">
-                        <div class="columns p-0">
-                            <!-- Create a placeholder element for the first map's legend title. -->
-                            <div class="column p-0 is-half"></div>
-                            <div class="column p-0 m-0 is-half">
-                                <p class="legend-label has-text-centered m-0" id="canvas_map_one_legend_title"></p>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="section px-2 py-1">
+                    <section class="section px-2 py-4">
                         <div class="columns p-0">
                             <!-- Create an SVG element for the first map's legend. -->
                             <div class="column p-0 is-half"></div>
-                            <div class="column p-0"><svg id="canvas_map_one_legend" width="100%" height="15"></svg>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="section p-0 m-0">
-                        <div class="columns p-0 m-0">
-                            <div class="column p-0 m-0 is-half"></div>
-                            <div class="column p-0 m-0">
-                                <p class="is-size-7 has-text-left" id="canvas_map_one_legend_left"></p>
-                            </div>
-                            <div class="column p-0 m-0">
-                                <p class="is-size-7 has-text-right" id="canvas_map_one_legend_right"></p>
-                            </div>
+                            <div id="canvas_map_one_legend" class="column p-0 is-half" style="height: 10px;"></div>
                         </div>
                     </section>
                 </section>
@@ -107,39 +86,18 @@
                         <!-- Create an element where the second map will be rendered. -->
                         <div id="canvas_map_two" class="map-canvas"></div>
                     </section>
-                    <section class="section px-2 py-1">
-                        <div class="columns p-0">
-                            <!-- Create a placeholder element for the second map's legend title. -->
-                            <div class="column p-0 is-half"></div>
-                            <div class="column p-0 m-0 is-half">
-                                <p class="legend-label has-text-centered m-0" id="canvas_map_two_legend_title"></p>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="section px-2 py-1">
+                    <section class="section px-2 py-4">
                         <div class="columns p-0">
                             <!-- Create an SVG element for the second map's legend. -->
                             <div class="column p-0 is-half"></div>
-                            <div class="column p-0"><svg id="canvas_map_two_legend" width="100%" height="15"></svg>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="section p-0 m-0">
-                        <div class="columns p-0 m-0">
-                            <div class="column p-0 m-0 is-half"></div>
-                            <div class="column p-0 m-0">
-                                <p class="is-size-7 has-text-left" id="canvas_map_two_legend_left"></p>
-                            </div>
-                            <div class="column p-0 m-0">
-                                <p class="is-size-7 has-text-right" id="canvas_map_two_legend_right"></p>
-                            </div>
+                            <div id="canvas_map_two_legend" class="column p-0 is-half" style="height: 10px;"></div>
                         </div>
                     </section>
                 </section>
             </div>
             <!-- Right column -->
             <div class="column is-half-desktop is-full-tablet">
-                <section class="section">
+                <section class="section m-0 p-0">
                     <!-- Placeholder for summary of the scatterplot. -->
                     <div id="scatter_relationship"></div>
                     <!-- Create an element where the scatterplot and regression results will be rendered. -->

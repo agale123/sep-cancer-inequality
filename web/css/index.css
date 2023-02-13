@@ -36,8 +36,3 @@ div.tooltip {
     box-shadow: 0px 0px 2px 0px #c3bcbc;
     position: absolute;
 }
-
-p.legend-label {
-    font-size: 0.6em;
-    width: 100%;
-}

@@ -108,8 +108,10 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
         .nice();
 
     const projection = d3.geoAlbersUsa()
-        .scale(width)
-        .translate([width / 2, height / 2]);
+        .translate([width * 0.5, height * 0.45])
+        .scale(width);
+
+    projection.fitSize([width, height], borderOutlines);
 
     // Select the tooltip element
     const tooltip = d3.select('#' + canvasName)
@@ -169,34 +171,58 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
             });;
     }
 
-    // Set the legend title
-    document.getElementById(canvasName + "_legend_title").innerHTML =
-        `${getMetricLegend(indicatorName)}`;
-
     // Draw the legend
-    let gradient_id = canvasName + "_linear_gradient";
     let legend = d3.select('#' + canvasName + "_legend");
-    let defs = legend.append("defs");
-    let linearGradient = defs.append("linearGradient")
-        .attr("id", gradient_id);
+    legend.selectAll("*").remove();
 
-    linearGradient.selectAll("stop")
-        .data(palette)
-        .enter().append("stop")
-        .attr("offset", (d, i) => i / (palette.length - 1))
-        .attr("stop-color", (d) => d);
+    const legend_width = document.getElementById(canvasName + "_legend").clientWidth;
+    const legend_height = document.getElementById(canvasName + "_legend").clientHeight;
 
-    legend.append("rect")
-        .attr("width", "100%")
-        .attr("height", 10)
-        .style("fill", "url(#" + gradient_id + ")");
+    const svg = legend
+        .append("svg")
+        .attr("width", legend_width)
+        .attr("height", legend_height)
+        .attr("viewBox", [0, 0, legend_width, legend_height])
+        .style("overflow", "visible")
+        .style("display", "block");
 
-    // Annotate the legend
-    // The thresholds are the gaps between the color range so we should ideally
-    // render all the color squares with ticks between them. 
+    const tickSize = 6;
+    const marginTop = 0;
+    const marginBottom = tickSize;
+    const marginLeft = 0;
+    const marginRight = 0;
+
     const thresholds = color.thresholds();
-    document.getElementById(canvasName + "_legend_left").innerHTML =
-        `${formatShortNumber(thresholds[0])}`;
-    document.getElementById(canvasName + "_legend_right").innerHTML =
-        `${formatShortNumber(thresholds[thresholds.length - 1])}`;
+
+    const x = d3.scaleLinear()
+        .domain([-1, color.range().length - 1])
+        .rangeRound([marginLeft, legend_width - marginRight]);
+
+    svg.append("g")
+        .selectAll("rect")
+        .data(color.range())
+        .join("rect")
+            .attr("x", (d, i) => x(i - 1))
+            .attr("y", marginTop)
+            .attr("width", (d, i) => x(i) - x(i - 1))
+            .attr("height", legend_height - marginTop - marginBottom)
+            .attr("height", legend_height)
+            .attr("fill", d => d);
+
+    // Set the legend title and draw the ticks.
+    svg.append("g")
+      .attr("transform", `translate(0,${legend_height - marginBottom})`)
+      .call(d3.axisBottom(x)
+        .tickFormat(i => (i == -1 || i == thresholds.length) ? "" : formatShortNumber(thresholds[i]))
+        .tickSize(tickSize))
+      .call(g => g.selectAll(".tick line").attr("y1", marginTop + marginBottom - legend_height))
+      .call(g => g.select(".domain").remove())
+      .call(g => g.append("text")
+        .attr("x", marginLeft)
+        .attr("y", marginTop + marginBottom - legend_height - 2)
+        .attr("fill", "currentColor")
+        .attr("text-anchor", "start")
+        .attr("display", "block")
+        .attr("white-space", "nowrap")
+        .text(getMetricLegend(indicatorName)));
 }
