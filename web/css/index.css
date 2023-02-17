@@ -36,3 +36,17 @@ div.tooltip {
     box-shadow: 0px 0px 2px 0px #c3bcbc;
     position: absolute;
 }
+
+g.zoom-controls {
+    cursor: pointer;
+    pointer-events: all;
+}
+g.zoom-controls rect {
+    fill: white;
+    stroke: #596877;
+    stroke-width: 1;
+}
+g.zoom-controls line {
+    stroke: #596877;
+    stroke-width: 2;
+}

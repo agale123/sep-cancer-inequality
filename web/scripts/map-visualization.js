@@ -83,12 +83,9 @@ function showTooltip(tooltip, event, label, value) {
  */
 function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     // Clear any past svg elements
-    d3.select("#" + canvasName).selectAll("*").remove();
+    d3.select("#" + canvasName + " svg .map").selectAll("*").remove();
 
-    const canvas = d3.select('#' + canvasName)
-        .append("svg")
-        .attr("width", "100%")
-        .attr("height", "300px");
+    const canvas = d3.select("#" + canvasName + " svg");
 
     const width = document.getElementById(canvasName).clientWidth;
     const height = document.getElementById(canvasName).clientHeight;
@@ -114,13 +111,11 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     projection.fitSize([width, height], borderOutlines);
 
     // Select the tooltip element
-    const tooltip = d3.select('#' + canvasName)
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
+    const tooltip = d3.select('#' + canvasName + " .tooltip");
 
     // Draw the map
-    canvas.append("g")
+    canvas.insert("g", ":first-child")
+        .attr("class", "map")
         .selectAll("path")
         .data(borderOutlines.features)
         .enter()
@@ -139,8 +134,8 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
             if (indicatorType == "coordinate") {
                 return;
             }
-            const value = indicators[Number(d["id"])];
             const event = d3.event;
+            const value = indicators[Number(d["id"])];
             showTooltip(tooltip, event, d["properties"]["display_name"], value);
         })
         .on("mouseout", () => {
@@ -168,8 +163,24 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
             })
             .on("mouseout", () => {
                 tooltip.style("opacity", 0);
-            });;
+            });
     }
+
+    // Add pan and zoom listeners.
+    const zoom = d3.zoom()
+        .scaleExtent([1, 5])
+        .translateExtent([[0, 0], [width, height]])
+        .on("zoom", () => {
+            const event = d3.event;
+            d3.selectAll(".map").attr("transform", event.transform);
+        });
+    d3.select("#" + canvasName + " svg").call(zoom);
+    canvas.select(".zoom-in").on("click", () => {
+        zoom.scaleBy(d3.select("#" + canvasName + " svg"), 1.3);
+    });
+    canvas.select(".zoom-out").on("click", () => {
+        zoom.scaleBy(d3.select("#" + canvasName + " svg"), 1 / 1.3);
+    });
 
     // Draw the legend
     let legend = d3.select('#' + canvasName + "_legend");
@@ -202,27 +213,27 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
         .selectAll("rect")
         .data(color.range())
         .join("rect")
-            .attr("x", (d, i) => x(i - 1))
-            .attr("y", marginTop)
-            .attr("width", (d, i) => x(i) - x(i - 1))
-            .attr("height", legend_height - marginTop - marginBottom)
-            .attr("height", legend_height)
-            .attr("fill", d => d);
+        .attr("x", (d, i) => x(i - 1))
+        .attr("y", marginTop)
+        .attr("width", (d, i) => x(i) - x(i - 1))
+        .attr("height", legend_height - marginTop - marginBottom)
+        .attr("height", legend_height)
+        .attr("fill", d => d);
 
     // Set the legend title and draw the ticks.
     svg.append("g")
-      .attr("transform", `translate(0,${legend_height - marginBottom})`)
-      .call(d3.axisBottom(x)
-        .tickFormat(i => (i == -1 || i == thresholds.length) ? "" : formatShortNumber(thresholds[i]))
-        .tickSize(tickSize))
-      .call(g => g.selectAll(".tick line").attr("y1", marginTop + marginBottom - legend_height))
-      .call(g => g.select(".domain").remove())
-      .call(g => g.append("text")
-        .attr("x", marginLeft)
-        .attr("y", marginTop + marginBottom - legend_height - 2)
-        .attr("fill", "currentColor")
-        .attr("text-anchor", "start")
-        .attr("display", "block")
-        .attr("white-space", "nowrap")
-        .text(getMetricLegend(indicatorName)));
+        .attr("transform", `translate(0,${legend_height - marginBottom})`)
+        .call(d3.axisBottom(x)
+            .tickFormat(i => (i == -1 || i == thresholds.length) ? "" : formatShortNumber(thresholds[i]))
+            .tickSize(tickSize))
+        .call(g => g.selectAll(".tick line").attr("y1", marginTop + marginBottom - legend_height))
+        .call(g => g.select(".domain").remove())
+        .call(g => g.append("text")
+            .attr("x", marginLeft)
+            .attr("y", marginTop + marginBottom - legend_height - 2)
+            .attr("fill", "currentColor")
+            .attr("text-anchor", "start")
+            .attr("display", "block")
+            .attr("white-space", "nowrap")
+            .text(getMetricLegend(indicatorName)));
 }
