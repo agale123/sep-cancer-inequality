@@ -144,7 +144,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
 
     if (indicatorType === "coordinate") {
         const indicatorMax = Math.max(...indicatorValues);
-        canvas.selectAll("points")
+        canvas.select(".map").selectAll("points")
             .data(indicators
                 .sort((a, b) => a[indicatorName] - b[indicatorName]))
             .enter()
