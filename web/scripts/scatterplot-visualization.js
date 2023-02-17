@@ -143,7 +143,7 @@ async function updateScatterplot(xMetric, yMetric) {
                     .html(`<b>${label}</b>`);
             });
         })
-        .on("mouseout", (d) => {
+        .on("mouseout", () => {
             tooltip.style("opacity", 0);
         });
 
