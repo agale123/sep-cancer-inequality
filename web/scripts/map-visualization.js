@@ -5,7 +5,16 @@
 // Color Settings
 // Viridis palette from https://observablehq.com/@d3/color-schemes
 const defaultColor = "#ffffff";
-const palette = ["#440154", "#46327e", "#365c8d", "#277f8e", "#1fa187", "#4ac16d", "#a0da39", "#fde725"].reverse();
+const palette = [
+    "#440154",
+    "#46327e",
+    "#365c8d",
+    "#277f8e",
+    "#1fa187",
+    "#4ac16d",
+    "#a0da39",
+    "#fde725",
+].reverse();
 
 /**
  * Calculates the specified quantile of the specified vector.
@@ -27,7 +36,8 @@ function quantile(input, q) {
 };
 
 /**
- * Updates the map on the specified canvas element based on the specified data source.
+ * Updates the map on the specified canvas element based on the specified data
+ * source.
  * @param {string} canvasName name of the SVG element that will contain the map.
  * @param {string} indicatorName name of the indicator column.
  */
@@ -54,6 +64,9 @@ function formatNumber(num) {
 }
 
 function formatShortNumber(num) {
+    if (!num) {
+        return "";
+    }
     return d3.format(num >= 1 ? ".2s" : ".2")(num);
 }
 
@@ -71,6 +84,8 @@ function showTooltip(tooltip, event, label, value) {
         .style("top", (event.pageY + 20) + "px")
         .html(`<b>${label}</b><br/>${valueLabel}`);
 }
+
+let currentTransform = "translate(0,0) scale(1)";
 
 /**
  * Render a map on the specified canvas element, given the specified geographic
@@ -116,6 +131,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     // Draw the map
     canvas.insert("g", ":first-child")
         .attr("class", "map")
+        .attr("transform", currentTransform)
         .selectAll("path")
         .data(borderOutlines.features)
         .enter()
@@ -172,6 +188,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
         .translateExtent([[0, 0], [width, height]])
         .on("zoom", () => {
             const event = d3.event;
+            currentTransform = event.transform;
             d3.selectAll(".map").attr("transform", event.transform);
         });
     d3.select("#" + canvasName + " svg").call(zoom);
@@ -186,8 +203,9 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     let legend = d3.select('#' + canvasName + "_legend");
     legend.selectAll("*").remove();
 
-    const legend_width = document.getElementById(canvasName + "_legend").clientWidth;
-    const legend_height = document.getElementById(canvasName + "_legend").clientHeight;
+    const legendElement = document.getElementById(canvasName + "_legend");
+    const legend_width = legendElement.clientWidth;
+    const legend_height = legendElement.clientHeight;
 
     const svg = legend
         .append("svg")
@@ -224,9 +242,10 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     svg.append("g")
         .attr("transform", `translate(0,${legend_height - marginBottom})`)
         .call(d3.axisBottom(x)
-            .tickFormat(i => (i == -1 || i == thresholds.length) ? "" : formatShortNumber(thresholds[i]))
+            .tickFormat(i => formatShortNumber(thresholds?.[i]))
             .tickSize(tickSize))
-        .call(g => g.selectAll(".tick line").attr("y1", marginTop + marginBottom - legend_height))
+        .call(g => g.selectAll(".tick line")
+            .attr("y1", marginTop + marginBottom - legend_height))
         .call(g => g.select(".domain").remove())
         .call(g => g.append("text")
             .attr("x", marginLeft)
