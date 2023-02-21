@@ -55,21 +55,33 @@ function updateMap(canvasName, indicatorName) {
   });
 }
 
-function formatNumber(num) {
+function addUnits(formatted, unit) {
+  if (unit === "percent") {
+    return formatted + "%";
+  } else if (unit === "dollars") {
+    return "$" + formatted;
+  }
+  return formatted;
+}
+
+function formatNumber(num, unit) {
   if (num === undefined) {
     return "No data";
   } else {
-    return d3
+    const formatted = d3
       .format(num >= 10 ? (!(num % 1) ? "," : ",.2f") : ".2f")(num)
       .replace(".00");
+    return addUnits(formatted, unit);
   }
 }
 
-function formatShortNumber(num) {
+function formatShortNumber(num, unit) {
   if (!num) {
     return "";
   }
-  return d3.format(num >= 1 ? ".2s" : ".2")(num);
+
+  const formatted = d3.format(num >= 1 ? ".2s" : ".2")(num);
+  return addUnits(formatted, unit);
 }
 
 /**
@@ -78,9 +90,10 @@ function formatShortNumber(num) {
  * @param {d3.event} event
  * @param {string} label
  * @param {string} value
+ * @param {string} unit
  */
-function showTooltip(tooltip, event, label, value) {
-  const valueLabel = formatNumber(value);
+function showTooltip(tooltip, event, label, value, unit) {
+  const valueLabel = formatNumber(value, unit);
   tooltip
     .style("opacity", 1)
     .style("left", event.pageX + 15 + "px")
@@ -136,6 +149,8 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
   // Select the tooltip element
   const tooltip = d3.select("#" + canvasName + " .tooltip");
 
+  const metricUnit = getMetricUnit(indicatorName);
+
   // Draw the map
   canvas
     .insert("g", ":first-child")
@@ -161,7 +176,13 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
       }
       const event = d3.event;
       const value = indicators[Number(d["id"])];
-      showTooltip(tooltip, event, d["properties"]["display_name"], value);
+      showTooltip(
+        tooltip,
+        event,
+        d["properties"]["display_name"],
+        value,
+        metricUnit
+      );
     })
     .on("mouseout", () => {
       tooltip.style("opacity", 0);
@@ -262,7 +283,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     .call(
       d3
         .axisBottom(x)
-        .tickFormat((i) => formatShortNumber(thresholds?.[i]))
+        .tickFormat((i) => formatShortNumber(thresholds?.[i], metricUnit))
         .tickSize(tickSize)
     )
     .call((g) =>

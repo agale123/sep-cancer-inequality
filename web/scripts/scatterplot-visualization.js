@@ -36,6 +36,16 @@ function joinData(metric1, data1, metric2, data2, adjustState) {
   });
 }
 
+function getTickFormat(metric) {
+  const unit = getMetricUnit(metric);
+  if (unit === "percent") {
+    return (val) => d3.format("~s")(val) + "%";
+  } else if (unit === "dollars") {
+    return (val) => "$" + d3.format("~s")(val);
+  }
+  return d3.format("~s");
+}
+
 /**
  * Update the scatterplot to show the relationship between the two variables.
  * @param {string} xMetric
@@ -96,7 +106,7 @@ async function updateScatterplot(xMetric, yMetric) {
   scatterplot
     .append("g")
     .attr("transform", `translate(0,${h})`)
-    .call(d3.axisBottom(x).tickFormat(d3.format("~s")));
+    .call(d3.axisBottom(x).tickFormat(getTickFormat(xMetric)));
   scatterplot
     .append("text")
     .attr("text-anchor", "middle")
@@ -107,7 +117,9 @@ async function updateScatterplot(xMetric, yMetric) {
   // Add Y axis
   const yRange = getDataRange(data, yMetric);
   const y = d3.scaleLinear().domain(yRange).range([h, 0]).nice();
-  scatterplot.append("g").call(d3.axisLeft(y).tickFormat(d3.format("~s")));
+  scatterplot
+    .append("g")
+    .call(d3.axisLeft(y).tickFormat(getTickFormat(yMetric)));
   scatterplot
     .append("text")
     .attr("text-anchor", "center")

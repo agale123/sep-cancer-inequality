@@ -239,6 +239,7 @@ const METRICS = [
     desc: "The median household income, in dollars, for the county. This data comes from NCI.",
     legend: "Median household income, in dollars",
     type: "county",
+    unit: "dollars",
   },
   {
     id: "over_65_percent",
@@ -246,6 +247,7 @@ const METRICS = [
     desc: "Percent of the total population that is 65 or older. This data comes from the Social Vulnerability Index.",
     legend: "Percent of residents who are 65 years or older",
     type: "county",
+    unit: "percent",
   },
   {
     id: "uv_exposure",
@@ -260,6 +262,7 @@ const METRICS = [
     desc: "The percent of residents who are low income and have low access to food. This data comes from USDA.",
     legend: "Percent of residents with low income and low food access",
     type: "county",
+    unit: "percent",
   },
   {
     id: "non_english_speaking",
@@ -267,6 +270,7 @@ const METRICS = [
     desc: "The percent of residents who are non-English-speaking. This data comes from the US Census.",
     legend: "Percent of residents who are non-English-speaking",
     type: "county",
+    unit: "percent",
   },
   {
     id: "population_in_poverty_percent",
@@ -274,6 +278,7 @@ const METRICS = [
     desc: "The percent of residents who live below the poverty level. This data comes from the Social Vulnerability Index.",
     legend: "Percent of residents who live below the poverty level",
     type: "county",
+    unit: "percent",
   },
   {
     id: "population_over_25_no_high_school_diploma_percent",
@@ -281,13 +286,15 @@ const METRICS = [
     desc: "The percent of residents over 25 without a high school diploma. This data comes from the Social Vulnerability Index.",
     legend: "Percent of residents without high school diploma",
     type: "county",
+    unit: "percent",
   },
   {
     id: "population_uninsured_percent",
     label: "Uninsured Percent",
     desc: "The percent of residents without insurance. This data comes from the Social Vulnerability Index.",
-    legend: "TPercent of residents without insurance",
+    legend: "Percent of residents without insurance",
     type: "county",
+    unit: "percent",
   },
   {
     id: "population_minority_percent",
@@ -295,6 +302,7 @@ const METRICS = [
     desc: "The percent of residents belonging to a racial or ethnic minority. This data comes from the Social Vulnerability Index.",
     legend: "Percent of residents who are part of minority groups",
     type: "county",
+    unit: "percent",
   },
   {
     id: "walkability_index",
@@ -370,6 +378,7 @@ const METRICS = [
     desc: "The percent of residents (50 years and older) who have recently been screened for colon cancer. his data comes from NCI.",
     legend: "Percent of residents screened for colon cancer",
     type: "state",
+    unit: "percent",
   },
   {
     id: "smoking_percent",
@@ -377,6 +386,7 @@ const METRICS = [
     desc: "The percent of residents (18 years and older) who have ever smoked 100 ciagrettes. This data comes from NCI.",
     legend: "Percent of residents who have smoked",
     type: "state",
+    unit: "percent",
   },
   {
     id: "hpv_vaccine_percent",
@@ -384,6 +394,7 @@ const METRICS = [
     desc: "The percent of residents (ages 13-17) who have recieved 3 doses of the HPV vaccine. This data comes from NCI.",
     legend: "Percent of residents who received HPV vaccine",
     type: "state",
+    unit: "percent",
   },
   // Coordinate data
   {
@@ -442,6 +453,18 @@ const METRIC_TYPES = Object.fromEntries(
 function getMetricType(metric) {
   return METRIC_TYPES[metric];
 }
+
+const METRIC_UNITS = Object.fromEntries(
+    new Map(METRICS.map((m) => [m.id, m.unit]))
+  );
+
+/**
+ * @param {string} metric
+ * @returns a string representing the metric unit (percent or dollars)
+ */
+function getMetricUnit(metric) {
+    return METRIC_UNITS[metric];
+  }
 
 /**
  * @param {number} fips
