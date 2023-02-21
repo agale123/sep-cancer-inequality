@@ -317,6 +317,13 @@ const METRICS = [
     legend: "Median annual AQI",
     type: "county",
   },
+  {
+    id: "pesticide_mass",
+    label: "Pesticide Usage",
+    desc: "The mass of pesticides used in the county.",
+    legend: "Mass in Kg",
+    type: "county",
+  },
   // State level
   {
     id: "cervical_cancer_incidence_rate_per_100000",
