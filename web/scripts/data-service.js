@@ -328,8 +328,8 @@ const METRICS = [
   {
     id: "pesticide_mass",
     label: "Pesticide Usage",
-    desc: "The mass of pesticides used in the county.",
-    legend: "Mass in Kg",
+    desc: "The mass of pesticides used in the county. This data comes from the United States Geological Survey.",
+    legend: "Mass in kilograms",
     type: "county",
   },
   // State level
