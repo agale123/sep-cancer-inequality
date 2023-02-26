@@ -134,11 +134,21 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     .select("#" + canvasName + " svg")
     .attr("width", width + MAP_MARGIN.left + MAP_MARGIN.right)
     .attr("height", height + MAP_MARGIN.top + MAP_MARGIN.bottom);
-  const mapCanvas = canvas
-    .insert("g")
-    .attr("transform", `translate(${MAP_MARGIN.left}, ${MAP_MARGIN.top})`)
+
+  canvas
+    .append("defs")
+    .append("clipPath")
+    .attr("id", "map-clip")
+    .append("rect")
     .attr("width", width)
     .attr("height", height);
+  const mapCanvas = canvas
+    .insert("g", ":first-child")
+    .attr("class", "map-canvas")
+    .attr("transform", `translate(${MAP_MARGIN.left}, ${MAP_MARGIN.top})`)
+    .attr("width", width)
+    .attr("height", height)
+    .attr("clip-path", "url(#map-clip)");
 
   const indicatorType = getMetricType(indicatorName);
 
@@ -170,7 +180,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
 
   // Draw the map
   mapCanvas
-    .insert("g", ":first-child")
+    .insert("g")
     .attr("class", "map")
     .attr("transform", currentTransform)
     .selectAll("path")
@@ -236,7 +246,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     .zoom()
     .scaleExtent([1, 5])
     .translateExtent([
-      [0, 0],
+      [MAP_MARGIN.left, MAP_MARGIN.bottom],
       [width, height],
     ])
     .on("zoom", () => {
@@ -246,10 +256,10 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     });
   d3.select("#" + canvasName + " svg").call(zoom);
   canvas.select(".zoom-in").on("click", () => {
-    zoom.scaleBy(d3.select("#" + canvasName + " svg"), 1.3);
+    zoom.scaleBy(d3.select("#" + canvasName + " svg .map-canvas"), 1.3);
   });
   canvas.select(".zoom-out").on("click", () => {
-    zoom.scaleBy(d3.select("#" + canvasName + " svg"), 1 / 1.3);
+    zoom.scaleBy(d3.select("#" + canvasName + " svg .map-canvas"), 1 / 1.3);
   });
 
   // Draw the legend
