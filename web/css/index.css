@@ -23,7 +23,7 @@ body > div:nth-child(2) {
 
 .map-canvas {
     width: 100%;
-    height: 335px;
+    height: 330px;
 }
 
 div.tooltip {
@@ -48,4 +48,9 @@ g.zoom-controls rect {
 g.zoom-controls line {
     stroke: #596877;
     stroke-width: 2;
+}
+
+.title {
+    color: #1b365d !important;
+    font-weight: bold;
 }

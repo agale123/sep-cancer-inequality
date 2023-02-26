@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cancer Inequality Data Explorer: About</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.svg" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        Cancer Inequality Data Explorer: About
-    </title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.svg">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    
     <!-- SEO tags -->
     <meta
       property="og:url"
@@ -25,7 +29,10 @@
       content="Which factors impact cancer incidence and mortality rates?"
     />
     <!-- TODO(Alison): update this to point to the final URL. -->
-    <meta property="og:image" content="https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/web/images/preview-tw.png" />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/web/images/preview-tw.png"
+    />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@fredhutch" />
@@ -34,150 +41,205 @@
       name="twitter:description"
       content="Which factors impact cancer incidence and mortality rates?"
     />
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/web/images/preview-fb.png" />
-    </head>
+    <meta
+      name="twitter:image"
+      content="https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/web/images/preview-fb.png"
+    />
+  </head>
 
-<body>
+  <body>
     <!-- Top navigation bar -->
     <div>
-        <header class="navbar justify-content-center border-bottom px-2">
-            <a href="index.html" class="d-flex me-md-auto text-dark text-decoration-none">
-                <img class="ms-3 me-3" src="images/fred-hutch.svg" width="180px" />
-                <span class="fs-5 d-flex align-items-center" style="color: #1b365d">Cancer Inequality Data Explorer</span>
+      <header class="navbar justify-content-center border-bottom px-2">
+        <a
+          href="index.html"
+          class="d-flex me-md-auto text-dark text-decoration-none"
+        >
+          <img class="ms-3 me-3" src="images/fred-hutch.svg" width="180px" />
+          <span class="fs-5 d-flex align-items-center title"
+            >Cancer Inequality Data Explorer</span
+          >
+        </a>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link link-secondary">
+              Visualization
             </a>
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link link-secondary">
-                        Visualization
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="about.html" class="nav-link link-dark" aria-current="page">
-                        About
-                    </a>
-                </li>
-            </ul>
-        </header>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link link-dark" aria-current="page">
+              About
+            </a>
+          </li>
+        </ul>
+      </header>
     </div>
 
     <!-- Main page content -->
     <div class="columns">
-        <div class="column">
-            <section class="section">
-                <h3>Fred Hutchinson Cancer Center</h3>
-                <p><a href="https://www.fredhutch.org">Fred Hutchinson Cancer Center</a> unites comprehensive care and
-                    advanced research to provide the latest
-                    cancer treatment options and accelerate discoveries that prevent, treat and defeat cancer and
-                    infectious diseases worldwide.
+      <div class="column">
+        <section class="section">
+          <h3>Fred Hutchinson Cancer Center</h3>
+          <p>
+            <a href="https://www.fredhutch.org"
+              >Fred Hutchinson Cancer Center</a
+            >
+            unites comprehensive care and advanced research to provide the
+            latest cancer treatment options and accelerate discoveries that
+            prevent, treat and defeat cancer and infectious diseases worldwide.
+            Based in Seattle, Fred Hutch is an independent, nonprofit
+            organization and the only National Cancer Institute-designated
+            cancer center in Washington. We have earned a global reputation for
+            our track record of discoveries in cancer, infectious disease and
+            basic research, including important advances in bone marrow
+            transplantation, HIV/AIDS prevention, immunotherapy and COVID-19
+            vaccines. Fred Hutch operates eight clinical care sites that provide
+            medical oncology, infusion, radiation, proton therapy and related
+            services and has network affiliations with hospitals in four states.
+            Fred Hutch also serves as UW Medicine's cancer program.
+          </p>
 
-                    Based in Seattle, Fred Hutch is an independent, nonprofit organization and the only National Cancer
-                    Institute-designated cancer center in Washington. We have earned a global reputation for our track
-                    record of discoveries in cancer, infectious disease and basic research, including important advances
-                    in bone marrow transplantation, HIV/AIDS prevention, immunotherapy and COVID-19 vaccines. Fred Hutch
-                    operates eight clinical care sites that provide medical oncology, infusion, radiation, proton
-                    therapy and related services and has network affiliations with hospitals in four states. Fred Hutch
-                    also serves as UW Medicine's cancer program.</p>
+          <h3>Science Education Partnership</h3>
+          <p>
+            The
+            <a
+              href="https://www.fredhutch.org/en/about/education-outreach/science-education-partnership.html"
+              >Science Education Partnership (SEP)</a
+            >
+            at Fred Hutchinson Cancer Center is a professional development
+            program for secondary science teachers that has been sponsored by
+            Fred Hutch since 1990. SEP has a strong commitment to diversity,
+            equity, and inclusion and makes the resources for hands-on biology
+            available to schools that could otherwise not afford them. Since its
+            inception, over 600 science teachers have participated, reaching
+            over 400,000 students.
+          </p>
 
-                <h3>Science Education Partnership</h3>
-                <p>The <a
-                        href="https://www.fredhutch.org/en/about/education-outreach/science-education-partnership.html">Science
-                        Education Partnership (SEP)</a> at Fred Hutchinson Cancer Center is a professional
-                    development program for secondary science teachers that has been sponsored by Fred Hutch since 1990.
-                    SEP has a strong commitment to diversity, equity, and inclusion and makes the resources for hands-on
-                    biology available to schools that could otherwise not afford them. Since its inception, over 600
-                    science teachers have participated, reaching over 400,000 students.
-                </p>
+          <h3>Development</h3>
+          <div class="columns mb-0">
+            <div class="column pb-0">
+              <p>
+                This website was created by Alison Gale and Danilo Benzatti as
+                part of a capstone project for the University of Washington
+                <a href="https://www.washington.edu/datasciencemasters/"
+                  >Master of Science in Data Science</a
+                >
+                program. Primary development of the application was completed in
+                the Spring of 2023.
+              </p>
+              <p>
+                This work is made possible in part by the National Institutes of
+                Health (NIH): Frontiers in Cancer Research (R25 GM129842), a
+                Science Education Partnership Award from the National Institute
+                of General Medical Sciences (NIGMS). Learn more
+                <a href="https://nihsepa.org">here</a>.
+              </p>
+              <p>
+                The contents are solely the responsibility of the SEP and do not
+                necessarily represent the official views of the NIGMS, or NIH.
+              </p>
+            </div>
+            <div class="column is-narrow pb-0">
+              <img
+                src="images/SEPA-Signage-Small.png"
+                alt="Logo got the NIH Science Education Partnership Award"
+              />
+            </div>
+          </div>
 
-                <h3>Development</h3>
-                <div class="columns mb-0">
-                    <div class="column pb-0">
-                        <p>This website was created by Alison Gale and Danilo Benzatti as part of a capstone project for
-                            the University of Washington <a href="https://www.washington.edu/datasciencemasters/">Master
-                                of Science in Data Science</a> program. Primary development of the application was
-                            completed in the Spring of 2023.</p>
-                        <p>This work is made possible in part by the National Institutes of Health (NIH): Frontiers in
-                            Cancer Research (R25 GM129842), a Science Education Partnership Award from the National
-                            Institute of General Medical Sciences (NIGMS). Learn more <a
-                                href="https://nihsepa.org">here</a>.
-                        </p>
-                        <p>
-                            The contents are solely the responsibility of the SEP and do not necessarily represent the
-                            official views of the NIGMS, or NIH.
-                        </p>
-                    </div>
-                    <div class="column is-narrow pb-0"> <img src="images/SEPA-Signage-Small.png"
-                            alt="Logo got the NIH Science Education Partnership Award">
-                    </div>
-                </div>
+          <h3>For Teachers</h3>
+          <p>
+            Create a walkthrough that provides a guided exploration of the data
+            <a href="walkthrough.html">here</a>. We have created some
+            walkthrough tutorials to highlight some of the relationships that
+            exist in the data.
+          </p>
 
+          <ul>
+            <li>
+              <a
+                href="./?m1=lung_cancer_mortality_rate_per_100000&m2=smoking_percent&mvn=Understand+the+relationship+between+smoking+rates+and+lung+cancer+mortality.&exp=%5B%22Is+this+relationship+what+you+would+expect%3F%22%5D"
+              >
+                Lung Cancer Mortality and Smoking Rates</a
+              >: This highlights a strong positive relationship between deaths
+              from lung cancer and smoking rates. This relationship is expected
+              because smoking is a known cause of lung cancer.
+            </li>
+            <br />
+            <li>
+              <a
+                href="./?m1=cervical_cancer_mortality_rate_per_100000&m2=hpv_vaccine_percent&mvn=Understand+whether+the+HPV+vaccine+can+reduce+mortality+from+cervical+cancer.&exp=%5B%22How+would+you+interpret+the+relationship+between+the+variables%3F%22%5D"
+              >
+                Cervical Cancer Mortality and HPV Vaccination Percent</a
+              >: This highlights a strong negative relationship between deaths
+              from cervical cancer and the HPV vaccination rates. This
+              relationship is expected because the HPV vaccine can help prevent
+              cervical cancer.
+            </li>
+            <br />
+            <li>
+              <a
+                href="./?m1=melanoma_cancer_mortality_rate_per_100000&m2=uv_exposure&mvn=Understand+the+relationship+between+melanoma+%28a+type+of+skin+cancer%29+and+UV+exposure.&exp=%5B%22Is+this+the+relationship+you+expected%3F+If+not%2C+what+other+factors+might+be+impacting+the+melanoma+mortality+rate%3F%22%5D"
+              >
+                Melanoma Mortality and UV Exposure</a
+              >: This highlights an unexpected negative relationship between the
+              variables. This would provide a good opportunity to explore
+              potential confounding variables.
+            </li>
+          </ul>
 
-                <h3>For Teachers</h3>
-                <p>
-                    Create a walkthrough that provides a guided exploration of the data
-                    <a href="walkthrough.html">here</a>. We have created some walkthrough tutorials to highlight some of
-                    the relationships that exist in the data.
-
-                <ul>
-                    <li>
-                        <a
-                            href="./?m1=lung_cancer_mortality_rate_per_100000&m2=smoking_percent&mvn=Understand+the+relationship+between+smoking+rates+and+lung+cancer+mortality.&exp=%5B%22Is+this+relationship+what+you+would+expect%3F%22%5D">
-                            Lung Cancer Mortality and Smoking Rates</a>: This highlights a strong positive relationship between deaths from lung cancer and smoking
-                        rates. This relationship is expected because smoking is a known cause of lung cancer.
-                    </li>
-                    <br>
-                    <li>
-                        <a
-                            href="./?m1=cervical_cancer_mortality_rate_per_100000&m2=hpv_vaccine_percent&mvn=Understand+whether+the+HPV+vaccine+can+reduce+mortality+from+cervical+cancer.&exp=%5B%22How+would+you+interpret+the+relationship+between+the+variables%3F%22%5D">
-                            Cervical Cancer Mortality and HPV Vaccination Percent</a>: This highlights a strong negative relationship between deaths from cervical cancer and the
-                        HPV vaccination rates. This relationship is expected because the HPV vaccine can help prevent
-                        cervical cancer.
-                    </li>
-                    <br>
-                    <li>
-                        <a
-                            href="./?m1=melanoma_cancer_mortality_rate_per_100000&m2=uv_exposure&mvn=Understand+the+relationship+between+melanoma+%28a+type+of+skin+cancer%29+and+UV+exposure.&exp=%5B%22Is+this+the+relationship+you+expected%3F+If+not%2C+what+other+factors+might+be+impacting+the+melanoma+mortality+rate%3F%22%5D">
-                            Melanoma Mortality and UV Exposure</a>: This highlights an unexpected negative relationship between the variables. This would
-                        provide a good opportunity to explore potential confounding variables.
-                    </li>
-                </ul>
-                </p>
-
-                <h3>Data Sources</h3>
-                <ul class="list-group">
-                    <li>
-                        <b>National Cancer Institute</b>: Cancer incidence and mortality rates for all cancers and
-                        specific cancer types. This data source also provides information about some cancer risk factors
-                        like smoking rates and preventative screening rates as well as demographic information like
-                        median household income. Most data is from 2014 through 2018.
-                    </li>
-                    <li>
-                        <b>North American Association of Central Cancer Registries</b>: Provides Hodgkin's Lymphoma
-                        incidence rates from 2015 through 2019. This data was not available from the National Cancer
-                        Institute.
-                    </li>
-                    <li><b>Environmental Protection Agency</b>: Data about walkability of each neighborhood and air
-                        quality within counties. The walkability data is from 2019 and takes into account intersection
-                        density and proximity to transit. The air quality data is from 2010.</li>
-                    <li><b>Department of Transportation</b>: Provides a list of all oil spills that occurred from 2010
-                        through 2017.</li>
-                    <li><b>Oak Ridge National Laboratory</b>: In collaboration with the National Geospatial-Intelligence
-                        Agency this dataset lists all locations of hospitals in the US as of 2022.
-                    </li>
-                    <li><b>Social Vulnerability Index</b>: Combines metrics provided by the Center for Disease Control
-                        to identify communities that may be at increased risk to natural or human-caused disasters. This
-                        data is from 2020.</li>
-                    <li><b>United States Department of Agriculture</b>: Aggregates data about access to healthy food and
-                        poverty level to get a metric called “low income and low access” which represents the proportion
-                        of residents who are in poverty and live far away from the nearest supermarket. This data is
-                        from 2019.</li>
-                    <li><b>United States Census</b>: Aggregates data on language barriers faced by residents. This data
-                        is from 2020.</li>
-                    <li><b>TODO(Danilo): Add source for pesticides.</b></li>
-                </ul>
-            </section>
-        </div>
+          <h3>Data Sources</h3>
+          <ul class="list-group">
+            <li>
+              <b>National Cancer Institute</b>: Cancer incidence and mortality
+              rates for all cancers and specific cancer types. This data source
+              also provides information about some cancer risk factors like
+              smoking rates and preventative screening rates as well as
+              demographic information like median household income. Most data is
+              from 2014 through 2018.
+            </li>
+            <li>
+              <b>North American Association of Central Cancer Registries</b>:
+              Provides Hodgkin's Lymphoma incidence rates from 2015 through
+              2019. This data was not available from the National Cancer
+              Institute.
+            </li>
+            <li>
+              <b>Environmental Protection Agency</b>: Data about walkability of
+              each neighborhood and air quality within counties. The walkability
+              data is from 2019 and takes into account intersection density and
+              proximity to transit. The air quality data is from 2010.
+            </li>
+            <li>
+              <b>Department of Transportation</b>: Provides a list of all oil
+              spills that occurred from 2010 through 2017.
+            </li>
+            <li>
+              <b>Oak Ridge National Laboratory</b>: In collaboration with the
+              National Geospatial-Intelligence Agency this dataset lists all
+              locations of hospitals in the US as of 2022.
+            </li>
+            <li>
+              <b>Social Vulnerability Index</b>: Combines metrics provided by
+              the Center for Disease Control to identify communities that may be
+              at increased risk to natural or human-caused disasters. This data
+              is from 2020.
+            </li>
+            <li>
+              <b>United States Department of Agriculture</b>: Aggregates data
+              about access to healthy food and poverty level to get a metric
+              called “low income and low access” which represents the proportion
+              of residents who are in poverty and live far away from the nearest
+              supermarket. This data is from 2019.
+            </li>
+            <li>
+              <b>United States Census</b>: Aggregates data on language barriers
+              faced by residents. This data is from 2020.
+            </li>
+            <li><b>TODO(Danilo): Add source for pesticides.</b></li>
+          </ul>
+        </section>
+      </div>
     </div>
-
-</body>
-
+  </body>
 </html>
