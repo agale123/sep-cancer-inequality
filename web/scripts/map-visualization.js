@@ -16,6 +16,8 @@ const palette = [
   "#fde725",
 ].reverse();
 
+const MAP_MARGIN = { top: 0, right: 0, bottom: 35, left: 0 };
+
 /**
  * Calculates the specified quantile of the specified vector.
  * @param {Array} input the input vector.
@@ -113,15 +115,30 @@ let currentTransform = "translate(0,0) scale(1)";
  * @param {Map|Array} indicators map from FIPS to corresponding indicator.
  */
 function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
-  // Clear any past svg elements
+  // Clear any past map elements
   d3.select("#" + canvasName + " svg .map")
     .selectAll("*")
     .remove();
+  d3.select("#" + canvasName + " svg .map").remove();
 
-  const canvas = d3.select("#" + canvasName + " svg");
+  const width =
+    document.getElementById(canvasName).clientWidth -
+    MAP_MARGIN.left -
+    MAP_MARGIN.right;
+  const height =
+    document.getElementById(canvasName).clientHeight -
+    MAP_MARGIN.top -
+    MAP_MARGIN.bottom;
 
-  const width = document.getElementById(canvasName).clientWidth;
-  const height = document.getElementById(canvasName).clientHeight;
+  const canvas = d3
+    .select("#" + canvasName + " svg")
+    .attr("width", width + MAP_MARGIN.left + MAP_MARGIN.right)
+    .attr("height", height + MAP_MARGIN.top + MAP_MARGIN.bottom);
+  const mapCanvas = canvas
+    .insert("g")
+    .attr("transform", `translate(${MAP_MARGIN.left}, ${MAP_MARGIN.top})`)
+    .attr("width", width)
+    .attr("height", height);
 
   const indicatorType = getMetricType(indicatorName);
 
@@ -152,7 +169,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
   const metricUnit = getMetricUnit(indicatorName);
 
   // Draw the map
-  canvas
+  mapCanvas
     .insert("g", ":first-child")
     .attr("class", "map")
     .attr("transform", currentTransform)
@@ -236,71 +253,62 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
   });
 
   // Draw the legend
-  let legend = d3.select("#" + canvasName + "_legend");
-  legend.selectAll("*").remove();
+  const legendWidth = (width + MAP_MARGIN.left + MAP_MARGIN.right) / 2;
+  const legendHeight = 30;
 
-  const legendElement = document.getElementById(canvasName + "_legend");
-  const legend_width = legendElement.clientWidth;
-  const legend_height = legendElement.clientHeight;
+  // Clear previous legend
+  canvas.select(".legend").remove();
 
-  const svg = legend
-    .append("svg")
-    .attr("width", legend_width)
-    .attr("height", legend_height)
-    .attr("viewBox", [0, 0, legend_width, legend_height])
-    .style("overflow", "visible")
-    .style("display", "block");
+  const legend = canvas
+    .append("g")
+    .attr("class", "legend")
+    .attr("width", legendWidth)
+    .attr("height", legendHeight)
+    .attr(
+      "transform",
+      `translate(${legendWidth}, ${
+        height + MAP_MARGIN.top + MAP_MARGIN.bottom - legendHeight
+      })`
+    );
 
-  const tickSize = 6;
-  const marginTop = 0;
-  const marginBottom = tickSize;
-  const marginLeft = 0;
-  const marginRight = 0;
-
+  const tickSize = 8;
+  const titleSize = 10;
   const thresholds = color.thresholds();
 
   const x = d3
     .scaleLinear()
     .domain([-1, color.range().length - 1])
-    .rangeRound([marginLeft, legend_width - marginRight]);
+    .rangeRound([0, legendWidth]);
 
-  svg
+  // Add the rectangles
+  legend
     .append("g")
     .selectAll("rect")
     .data(color.range())
     .join("rect")
     .attr("x", (d, i) => x(i - 1))
-    .attr("y", marginTop)
+    .attr("y", titleSize)
     .attr("width", (d, i) => x(i) - x(i - 1))
-    .attr("height", legend_height - marginTop - marginBottom)
-    .attr("height", legend_height)
+    .attr("height", tickSize)
     .attr("fill", (d) => d);
 
-  // Set the legend title and draw the ticks.
-  svg
+  // Add the ticks
+  legend
     .append("g")
-    .attr("transform", `translate(0,${legend_height - marginBottom})`)
+    .attr("transform", `translate(0, ${titleSize})`)
     .call(
       d3
         .axisBottom(x)
         .tickFormat((i) => formatShortNumber(thresholds?.[i], metricUnit))
         .tickSize(tickSize)
     )
-    .call((g) =>
-      g
-        .selectAll(".tick line")
-        .attr("y1", marginTop + marginBottom - legend_height)
-    )
-    .call((g) => g.select(".domain").remove())
-    .call((g) =>
-      g
-        .append("text")
-        .attr("x", marginLeft)
-        .attr("y", marginTop + marginBottom - legend_height - 2)
-        .attr("fill", "currentColor")
-        .attr("text-anchor", "start")
-        .attr("display", "block")
-        .attr("white-space", "nowrap")
-        .text(getMetricLegend(indicatorName))
-    );
+    .call((g) => g.select(".domain").remove());
+
+  // Add the legend title
+  legend
+    .append("text")
+    .attr("x", 0)
+    .attr("y", tickSize)
+    .attr("font-size", "10")
+    .text(getMetricLegend(indicatorName));
 }
