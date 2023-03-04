@@ -116,10 +116,11 @@ let currentTransform = "translate(0,0) scale(1)";
  */
 function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
   // Clear any past map elements
-  d3.select("#" + canvasName + " svg .map")
+  d3.select("#" + canvasName + " svg .map-canvas")
     .selectAll("*")
     .remove();
-  d3.select("#" + canvasName + " svg .map").remove();
+  d3.select("#" + canvasName + " svg .map-canvas").remove();
+  d3.select("#" + canvasName + " svg .clip-path").remove();
 
   const width =
     document.getElementById(canvasName).clientWidth -
@@ -137,6 +138,7 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
 
   canvas
     .append("defs")
+    .attr("class", "clip-path")
     .append("clipPath")
     .attr("id", "map-clip")
     .append("rect")
@@ -198,10 +200,10 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
       return fips in indicators ? color(indicators[fips]) : defaultColor;
     })
     .on("mouseover", (d) => {
+      const event = d3.event;
       if (indicatorType == "coordinate") {
         return;
       }
-      const event = d3.event;
       const value = indicators[Number(d["id"])];
       showTooltip(
         tooltip,
@@ -246,8 +248,8 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     .zoom()
     .scaleExtent([1, 5])
     .translateExtent([
-      [MAP_MARGIN.left, MAP_MARGIN.bottom],
-      [width, height],
+      [MAP_MARGIN.left, MAP_MARGIN.top],
+      [width + MAP_MARGIN.left, height + MAP_MARGIN.bottom],
     ])
     .on("zoom", () => {
       const event = d3.event;
@@ -256,10 +258,10 @@ function renderMap(canvasName, indicatorName, borderOutlines, indicators) {
     });
   d3.select("#" + canvasName + " svg").call(zoom);
   canvas.select(".zoom-in").on("click", () => {
-    zoom.scaleBy(d3.select("#" + canvasName + " svg .map-canvas"), 1.3);
+    zoom.scaleBy(d3.select("#" + canvasName + " svg"), 1.3);
   });
   canvas.select(".zoom-out").on("click", () => {
-    zoom.scaleBy(d3.select("#" + canvasName + " svg .map-canvas"), 1 / 1.3);
+    zoom.scaleBy(d3.select("#" + canvasName + " svg"), 1 / 1.3);
   });
 
   // Draw the legend

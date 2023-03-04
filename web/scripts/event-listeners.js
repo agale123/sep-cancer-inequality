@@ -38,6 +38,7 @@ function hideWalkthrough() {
   const columns = document.querySelector(".columns.column");
   columns.classList.remove("is-three-quarters-desktop");
   columns.classList.remove("is-two-thirds-tablet");
+  updateCharts();
 }
 
 // Show the walkthrough if there are query parameters
