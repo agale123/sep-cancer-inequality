@@ -43,7 +43,7 @@ function getTickFormat(metric) {
   } else if (unit === "dollars") {
     return (val) => "$" + d3.format("~s")(val);
   }
-  return d3.format("~s");
+  return (val) => d3.format(val < 1 ? "~r" : "~s")(val);
 }
 
 /**
