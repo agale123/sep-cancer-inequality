@@ -96,7 +96,3 @@ This data is provided by the Environmental Protection Agency. This dataset is fo
 This data is provided by the Oak Ridge National Laboratory (ORNL) and the National Geospatial-Intelligence Agency (NGA) Homeland Security Infrastructure Program (HSIP) Team.
 
 * `Hospitals.csv`
-
-## Replacement for Targeted Advertising for Tobacco
-
-TODO(Danilo)
