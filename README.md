@@ -19,7 +19,7 @@ During development, the application can be previewed [here](https://agale123.git
 ├── notebooks
 │   ├── cleaning
 │   └── exploration
-└── web
+└── docs (web directory renamed for GitHub pages compatibility)
     ├── css
     ├── images
     └── scripts
