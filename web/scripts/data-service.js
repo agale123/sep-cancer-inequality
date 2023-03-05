@@ -132,35 +132,35 @@ const METRICS = [
   {
     id: "cancer_incidence_rate_per_100000",
     label: "Cancer Incidence Rate",
-    desc: "The age-adjusted number of cancer cases per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of cancer cases per 100,000 residents. This data comes from NCI (2013-2017).",
     legend: "Age-adjusted number of cases per 100,000 residents",
     type: "county",
   },
   {
     id: "cancer_mortality_rate_per_100000",
     label: "Cancer Mortality Rate",
-    desc: "The age-adjusted number of cancer deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of cancer deaths per 100,000 residents. This data comes from NCI (2013-2017).",
     legend: "Age-adjusted number of deaths per 100,000 residents",
     type: "county",
   },
   {
     id: "breast_cancer_incidence_rate_per_100000",
     label: "Breast Cancer Incidence Rate",
-    desc: "The age-adjusted number of breast cancer incidences per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of breast cancer incidences per 100,000 residents. This data comes from NCI (2013-2017).",
     legend: "Age-adjusted number of breast cancer cases per 100,000 residents",
     type: "county",
   },
   {
     id: "breast_cancer_mortality_rate_per_100000",
     label: "Breast Cancer Mortality Rate",
-    desc: "The age-adjusted number of breast cancer deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of breast cancer deaths per 100,000 residents. This data comes from NCI (2013-2017).",
     legend: "Age-adjusted number of breast cancer deaths per 100,000 residents",
     type: "county",
   },
   {
     id: "cervical_cancer_incidence_rate_per_100000",
     label: "Cervical Cancer Incidence Rate",
-    desc: "The age-adjusted number of cervical cancer incidences per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of cervical cancer incidences per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of cervical cancer cases per 100,000 residents",
     type: "state",
@@ -168,7 +168,7 @@ const METRICS = [
   {
     id: "cervical_cancer_mortality_rate_per_100000",
     label: "Cervical Cancer Mortality Rate",
-    desc: "The age-adjusted number of cervical cancer deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of cervical cancer deaths per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of cervical cancer deaths per 100,000 residents",
     type: "state",
@@ -176,7 +176,7 @@ const METRICS = [
   {
     id: "colorectal_cancer_incidence_rate_per_100000",
     label: "Colorectal Cancer Incidence Rate",
-    desc: "The age-adjusted number of colorectal cancer cases per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of colorectal cancer cases per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of colorectal cancer cases per 100,000 residents",
     type: "county",
@@ -184,7 +184,7 @@ const METRICS = [
   {
     id: "colorectal_cancer_mortality_rate_per_100000",
     label: "Colorectal Cancer Mortality Rate",
-    desc: "The age-adjusted number of colorectal cancer deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of colorectal cancer deaths per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of colorectal cancer deaths per 100,000 residents",
     type: "county",
@@ -192,35 +192,35 @@ const METRICS = [
   {
     id: "leukemia_cancer_incidence_rate_per_100000",
     label: "Leukemia Incidence Rate",
-    desc: "The age-adjusted number of leukemia cases per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of leukemia cases per 100,000 residents. This data comes from NCI (2014-2018).",
     legend: "Age-adjusted number of leukemia cases per 100,000 residents",
     type: "county",
   },
   {
     id: "leukemia_cancer_mortality_rate_per_100000",
     label: "Leukemia Mortality Rate",
-    desc: "The age-adjusted number of leukemia deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of leukemia deaths per 100,000 residents. This data comes from NCI (2014-2018).",
     legend: "Age-adjusted number of leukemia deaths per 100,000 residents",
     type: "county",
   },
   {
     id: "lung_cancer_incidence_rate_per_100000",
     label: "Lung Cancer Incidence Rate",
-    desc: "The age-adjusted number of lung cancer cases per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of lung cancer cases per 100,000 residents. This data comes from NCI (2013-2017).",
     legend: "Age-adjusted number of lung cancer cases per 100,000 residents",
     type: "county",
   },
   {
     id: "lung_cancer_mortality_rate_per_100000",
     label: "Lung Cancer Mortality Rate",
-    desc: "The age-adjusted number of lung cancer deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of lung cancer deaths per 100,000 residents. This data comes from NCI (2013-2017).",
     legend: "Age-adjusted number of lung cancer deaths per 100,000 residents",
     type: "county",
   },
   {
     id: "hodgkins_lymphoma_cancer_incidence_rate_per_100000",
     label: "Lymphoma (Hodgkin's) Incidence Rate",
-    desc: "The age-adjusted number of Hodgkin's lymphoma incidences per 100,000 residents. This data comes from NAACCR.",
+    desc: "The age-adjusted number of Hodgkin's lymphoma incidences per 100,000 residents. This data comes from NCI (2014-2018).",
     legend:
       "Age-adjusted number of Hodgkin's lymphoma cases per 100,000 residents",
     type: "state",
@@ -228,7 +228,7 @@ const METRICS = [
   {
     id: "hodgkins_lymphoma_cancer_mortality_rate_per_100000",
     label: "Lymphoma (Hodgkin's) Mortality Rate",
-    desc: "The age-adjusted number of Hodgkin's lymphoma deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of Hodgkin's lymphoma deaths per 100,000 residents. This data comes from NCI (2014-2018).",
     legend:
       "Age-adjusted number of Hodgkin's lymphoma deaths per 100,000 residents",
     type: "state",
@@ -236,7 +236,7 @@ const METRICS = [
   {
     id: "non_hodgkin_lymphoma_cancer_incidence_rate_per_100000",
     label: "Lymphoma (Non-Hodgkin's) Incidence Rate",
-    desc: "The age-adjusted number of non-Hodgkin lymphoma cases per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of non-Hodgkin lymphoma cases per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of non-Hodgkin lymphoma cases per 100,000 residents",
     type: "county",
@@ -244,7 +244,7 @@ const METRICS = [
   {
     id: "non_hodgkin_lymphoma_cancer_mortality_rate_per_100000",
     label: "Lymphoma (Non-Hodgkin's) Mortality Rate",
-    desc: "The age-adjusted number of non-Hodgkin lymphoma deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of non-Hodgkin lymphoma deaths per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of non-Hodgkin lymphoma deaths per 100,000 residents",
     type: "county",
@@ -252,21 +252,21 @@ const METRICS = [
   {
     id: "melanoma_cancer_incidence_rate_per_100000",
     label: "Melanoma Incidence Rate",
-    desc: "The age-adjusted number of melanoma incidences per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of melanoma incidences per 100,000 residents. This data comes from NCI (2013-2017).",
     legend: "Age-adjusted number of melanoma cases per 100,000 residents",
     type: "state",
   },
   {
     id: "melanoma_cancer_mortality_rate_per_100000",
     label: "Melanoma Mortality Rate",
-    desc: "The age-adjusted number of melanoma deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of melanoma deaths per 100,000 residents. This data comes from NCI (2013-2017).",
     legend: "Age-adjusted number of melanoma deaths per 100,000 residents",
     type: "state",
   },
   {
     id: "prostate_cancer_incidence_rate_per_100000",
     label: "Prostate Cancer Incidence Rate",
-    desc: "The age-adjusted number of prostate cancer cases per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of prostate cancer cases per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of prostate cancer cases per 100,000 residents",
     type: "county",
@@ -274,7 +274,7 @@ const METRICS = [
   {
     id: "prostate_cancer_mortality_rate_per_100000",
     label: "Prostate Cancer Mortality Rate",
-    desc: "The age-adjusted number of prostate cancer deaths per 100,000 residents. This data comes from NCI.",
+    desc: "The age-adjusted number of prostate cancer deaths per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of prostate cancer deaths per 100,000 residents",
     type: "county",
@@ -283,7 +283,7 @@ const METRICS = [
   {
     id: "population_in_poverty_percent",
     label: "Below Poverty Percentage",
-    desc: "The percentage of residents who live below the poverty level. This data comes from the Social Vulnerability Index.",
+    desc: "The percentage of residents who live below the poverty level. This data comes from the Social Vulnerability Index (2014-2018).",
     legend: "Percentage of residents who live below the poverty level",
     type: "county",
     unit: "percent",
@@ -291,7 +291,7 @@ const METRICS = [
   {
     id: "colorectal_screening_percent",
     label: "Colon Cancer Screening Percentage",
-    desc: "The percentage of residents (50 years and older) who have recently been screened for colon cancer. This data comes from NCI.",
+    desc: "The percentage of residents (50 years and older) who have recently been screened for colon cancer. This data comes from NCI (2018).",
     legend: "Percentage of residents screened for colon cancer",
     type: "state",
     unit: "percent",
@@ -299,14 +299,14 @@ const METRICS = [
   {
     id: "hospital_beds_per_100000",
     label: "Hospital Beds",
-    desc: "The number of hospital beds per 100,000 residents. This data comes from Oak Ridge National Laboratory.",
+    desc: "The number of hospital beds per 100,000 residents. This data comes from Oak Ridge National Laboratory (2022).",
     legend: "Hospital beds per 100,000 residents",
     type: "county",
   },
   {
     id: "hpv_vaccine_percent",
     label: "HPV Vaccine Percentage",
-    desc: "The percentage of residents (ages 13-17) who have recieved 3 doses of the HPV vaccine. This data comes from NCI.",
+    desc: "The percentage of residents (ages 13-17) who have recieved 3 doses of the HPV vaccine. This data comes from NCI (2018).",
     legend: "Percentage of residents who received HPV vaccine",
     type: "state",
     unit: "percent",
@@ -314,22 +314,22 @@ const METRICS = [
   {
     id: "low_income_low_access_share",
     label: "Low Income and Low Access to Food",
-    desc: "The percentage of residents with low income and have low access to food. This data comes from USDA.",
+    desc: "The percentage of residents with low income and have low access to food. This data comes from USDA (2019).",
     legend: "Percentage of residents with low income and low food access",
     type: "county",
     unit: "percent",
   },
   {
     id: "median_aqi",
-    label: "Median AQI",
-    desc: "The median air quality in a county over the duration of a year. This data comes from the EPA.",
+    label: "Median Air Quality Index",
+    desc: "The median air quality in a county over the duration of a year. This data comes from the EPA (2010).",
     legend: "Median annual AQI",
     type: "county",
   },
   {
     id: "median_household_income",
     label: "Median Household Income",
-    desc: "The median household income, in dollars, for the county. This data comes from NCI.",
+    desc: "The median household income, in dollars, for the county. This data comes from NCI (2014-2018).",
     legend: "Median household income, in dollars",
     type: "county",
     unit: "dollars",
@@ -337,7 +337,7 @@ const METRICS = [
   {
     id: "population_minority_percent",
     label: "Minority Population Percentage",
-    desc: "The percentage of residents belonging to a racial or ethnic minority. This data comes from the Social Vulnerability Index.",
+    desc: "The percentage of residents belonging to a racial or ethnic minority. This data comes from the Social Vulnerability Index (2020).",
     legend: "Percentage of residents who are part of minority groups",
     type: "county",
     unit: "percent",
@@ -345,7 +345,7 @@ const METRICS = [
   {
     id: "non_english_speaking",
     label: "Non-English-Speaking Percentage",
-    desc: "The percentage of residents who are non-English-speaking. This data comes from the US Census.",
+    desc: "The percentage of residents who are non-English-speaking. This data comes from the US Census (2014-2018).",
     legend: "Percentage of residents who are non-English-speaking",
     type: "county",
     unit: "percent",
@@ -353,7 +353,7 @@ const METRICS = [
   {
     id: "population_over_25_no_high_school_diploma_percent",
     label: "Percentage Without High School Diploma",
-    desc: "The percentage of residents over 25 without a high school diploma. This data comes from the Social Vulnerability Index.",
+    desc: "The percentage of residents over 25 without a high school diploma. This data comes from the Social Vulnerability Index (2020).",
     legend: "Percentage of residents without high school diploma",
     type: "county",
     unit: "percent",
@@ -361,14 +361,14 @@ const METRICS = [
   {
     id: "pesticide_mass",
     label: "Pesticide Usage",
-    desc: "The mass of pesticides used in the county. This data comes from the United States Geological Survey.",
+    desc: "The mass of pesticides used in the county. This data comes from the United States Geological Survey (2013-2017).",
     legend: "Mass in kilograms",
     type: "county",
   },
   {
     id: "smoking_percent",
     label: "Smoking Percent",
-    desc: "The percent of residents (18 years and older) who have ever smoked 100 ciagrettes. This data comes from NCI.",
+    desc: "The percent of residents (18 years and older) who have ever smoked 100 cigarettes. This data comes from NCI (2018).",
     legend: "Percent of residents who have smoked",
     type: "state",
     unit: "percent",
@@ -376,7 +376,7 @@ const METRICS = [
   {
     id: "population_uninsured_percent",
     label: "Uninsured Percent",
-    desc: "The percent of residents without insurance. This data comes from the Social Vulnerability Index.",
+    desc: "The percent of residents without insurance. This data comes from the Social Vulnerability Index (2018).",
     legend: "Percent of residents without insurance",
     type: "county",
     unit: "percent",
@@ -391,7 +391,7 @@ const METRICS = [
   {
     id: "walkability_index",
     label: "Walkability Index",
-    desc: "A measure of how walkable an area is. Scores range from 1 to 20. This data comes from the EPA.",
+    desc: "A measure of how walkable an area is. Scores range from 1 to 20. This data comes from the EPA (2021).",
     legend: "Index of county walkability",
     type: "county",
   },
