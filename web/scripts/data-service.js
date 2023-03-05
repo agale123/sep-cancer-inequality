@@ -2,12 +2,8 @@
  * This file is responsible for providing data for rendering the plots.
  */
 
-const countyOutlines = d3.json(
-  "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/regions/us-counties.json");
-const stateOutlines = d3.json(
-  "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/regions/us-states.json");
-//const countyOutlines = d3.json("data/us-counties.json");
-//const stateOutlines = d3.json("data/us-states.json");
+const countyOutlines = d3.json("data/us-counties.json");
+const stateOutlines = d3.json("data/us-states.json");
 
 // Generate a mapping from fips to display name for labeling purposes.
 const fipsToLabel = Promise.all([countyOutlines, stateOutlines]).then(
@@ -61,18 +57,14 @@ let dataPromises = {};
 
 function getCountyData() {
   if (!dataPromises["county"]) {
-    //dataPromises["county"] = createDataPromise("data/county_data.csv");
-    dataPromises["county"] = createDataPromise(
-      "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/county_data.csv");
+    dataPromises["county"] = createDataPromise("data/county_data.csv");
   }
   return dataPromises["county"];
 }
 
 function getStateData() {
   if (!dataPromises["state"]) {
-    //dataPromises["state"] = createDataPromise("data/state_data.csv");
-    dataPromises["state"] = createDataPromise(
-      "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/data/final/state_data.csv");
+    dataPromises["state"] = createDataPromise("data/state_data.csv");
   }
   return dataPromises["state"];
 }
@@ -84,8 +76,7 @@ const COORDINATE_FILES = {
 function getCoordinateData(metric) {
   if (!dataPromises[metric]) {
     dataPromises[metric] = createDataPromise(
-      "https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/" +
-      "data/final/" + COORDINATE_FILES[metric]
+      "data/" + COORDINATE_FILES[metric]
     );
   }
   return dataPromises[metric];
