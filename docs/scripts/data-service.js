@@ -220,7 +220,7 @@ const METRICS = [
   {
     id: "hodgkins_lymphoma_cancer_incidence_rate_per_100000",
     label: "Lymphoma (Hodgkin's) Incidence Rate",
-    desc: "The age-adjusted number of Hodgkin's lymphoma incidences per 100,000 residents. This data comes from NCI (2014-2018).",
+    desc: "The age-adjusted number of Hodgkin's lymphoma incidences per 100,000 residents. This data comes from NAACCR (2015-2019).",
     legend:
       "Age-adjusted number of Hodgkin's lymphoma cases per 100,000 residents",
     type: "state",
@@ -228,7 +228,7 @@ const METRICS = [
   {
     id: "hodgkins_lymphoma_cancer_mortality_rate_per_100000",
     label: "Lymphoma (Hodgkin's) Mortality Rate",
-    desc: "The age-adjusted number of Hodgkin's lymphoma deaths per 100,000 residents. This data comes from NCI (2014-2018).",
+    desc: "The age-adjusted number of Hodgkin's lymphoma deaths per 100,000 residents. This data comes from NAACCR (2015-2019).",
     legend:
       "Age-adjusted number of Hodgkin's lymphoma deaths per 100,000 residents",
     type: "state",
