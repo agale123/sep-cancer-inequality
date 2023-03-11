@@ -235,7 +235,7 @@ const METRICS = [
   },
   {
     id: "non_hodgkin_lymphoma_cancer_incidence_rate_per_100000",
-    label: "Lymphoma (Non-Hodgkin's) Incidence Rate",
+    label: "Lymphoma (Non-Hodgkin) Incidence Rate",
     desc: "The age-adjusted number of non-Hodgkin lymphoma cases per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of non-Hodgkin lymphoma cases per 100,000 residents",
@@ -243,7 +243,7 @@ const METRICS = [
   },
   {
     id: "non_hodgkin_lymphoma_cancer_mortality_rate_per_100000",
-    label: "Lymphoma (Non-Hodgkin's) Mortality Rate",
+    label: "Lymphoma (Non-Hodgkin) Mortality Rate",
     desc: "The age-adjusted number of non-Hodgkin lymphoma deaths per 100,000 residents. This data comes from NCI (2013-2017).",
     legend:
       "Age-adjusted number of non-Hodgkin lymphoma deaths per 100,000 residents",

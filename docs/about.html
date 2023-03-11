@@ -20,7 +20,7 @@
     <!-- SEO tags -->
     <meta
       property="og:url"
-      content="https://www.cancerinequalities.org/index.html"
+      content="https://cancerdataexplorer.org/about.html"
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Cancer Inequality Data Explorer" />
@@ -28,10 +28,9 @@
       property="og:description"
       content="Which factors impact cancer incidence and mortality rates?"
     />
-    <!-- TODO(Alison): update this to point to the final URL. -->
     <meta
       property="og:image"
-      content="https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/web/images/preview-tw.png"
+      content="https://cancerdataexplorer.org/images/preview-fb.png"
     />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -43,7 +42,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://raw.githubusercontent.com/agale123/sep-cancer-inequality/main/web/images/preview-fb.png"
+      content="https://cancerdataexplorer.org/images/preview-tw.png"
     />
   </head>
 
@@ -189,12 +188,26 @@
           </ul>
 
           <h3>Data Sources</h3>
+          <p>
+            Data for this website came from a variety of sources that are all
+            listed below. To account for the outliers that many of these
+            datasets contain, the top and bottom 1% of data are ignored when
+            choosing the color scale for the maps. The outliers are still
+            rendered.
+          </p>
           <ul class="list-group">
             <li>
               <b>National Cancer Institute</b>: Cancer incidence and mortality
-              rates for all cancers and specific cancer types. This data source
-              also provides information about some cancer risk factors like
-              smoking rates and preventative screening rates as well as
+              rates for all cancers and specific cancer types. All cancer rates
+              are age-adjusted which means that the rate is adjusted to take
+              into account the ages of the residents in each county or state.
+              This allows values to be compared across counties with very
+              different age demographics. There are cases where county-level
+              data is not very complete but the state data is complete. In those
+              cases, the values for counties with missing data are extrapolated
+              based on the state and county values that we do have. This data
+              source also provides information about some cancer risk factors
+              like smoking rates and preventative screening rates as well as
               demographic information like median household income. Most data is
               from 2014 through 2018.
             </li>

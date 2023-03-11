@@ -1,5 +1,5 @@
 // Set the dimensions and margins of the graph
-const MARGIN = { top: 30, right: 30, bottom: 60, left: 60 };
+const MARGIN = { top: 30, right: 60, bottom: 60, left: 60 };
 
 // Max width, in pixels, for the scatterplot.
 const MAX_WIDTH = 600;
@@ -203,6 +203,47 @@ async function updateScatterplot(xMetric, yMetric) {
     .attr("stroke", "#1b365d")
     .attr("clip-path", "url(#clip)");
 
+  // Add a legend
+  const domain = r.domain();
+  const midPoint = Math.pow(
+    (Math.sqrt(domain[0]) + Math.sqrt(domain[1])) / 2,
+    2
+  );
+  scatterplot
+    .selectAll("legend-dots")
+    .data([domain[0], midPoint, domain[1]])
+    .enter()
+    .append("circle")
+    .attr("cx", clientWidth - MARGIN.right - MARGIN.left + 10)
+    .attr("cy", (d, i) => i * 25 + 15)
+    .attr("r", (d) => r(d))
+    .style("fill", "#00c1d5")
+    .style("fill-opacity", 0.5)
+    .style("stroke", "#1b365d")
+    .attr("stroke-width", 1)
+    .style("stroke-opacity", 1.0);
+
+  scatterplot
+    .selectAll("legend-labels")
+    .data([domain[0], midPoint, domain[1]])
+    .enter()
+    .append("text")
+    .attr("x", clientWidth - MARGIN.right - MARGIN.left + 22)
+    .attr("y", (d, i) => i * 25 + 15)
+    .attr("font-size", "10")
+    .attr("dominant-baseline", "middle")
+    .text((d) => {
+      return d3.format(".1s")(d);
+    });
+
+  scatterplot
+    .append("text")
+    .attr("x", clientWidth - MARGIN.right - MARGIN.left)
+    .attr("y", 0)
+    .attr("font-weight", "bold")
+    .attr("font-size", "10")
+    .text("Population");
+
   // Render a text summary of the relationship
   const m = linReg(regressionData).a;
   const magnitude = Math.abs(
@@ -212,10 +253,14 @@ async function updateScatterplot(xMetric, yMetric) {
     (magnitude >= 0.1 ? "strong" : "weak") +
     " " +
     (m > 0 ? "positive" : "negative");
+  const granularity =
+    xType === "state" && yType === "state" ? "state" : "county";
   document.getElementById("scatter_relationship").innerHTML = `
-        Use this scatterplot to understand how these two variables are 
-        correlated. Based on the slope of the line, there is a
-        <b>${slopeDesc}</b> relationship between the variables.`;
+        <p>Use this scatterplot to understand how these two variables are 
+        correlated. Each circle represents a ${granularity} and the size of  
+        circle represents the population of that area.</p>
+        <p>Based on the slope of the line, there is a <b>${slopeDesc}</b>
+        relationship between the variables.</p>`;
 
   // Render metric descriptions
   document.getElementById("scatter_x").innerHTML = `<b>${getMetricLabel(
