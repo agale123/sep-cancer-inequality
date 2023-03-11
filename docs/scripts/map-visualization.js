@@ -72,7 +72,7 @@ function formatNumber(num, unit) {
   } else {
     const formatted = d3
       .format(num >= 10 ? (!(num % 1) ? "," : ",.2f") : ".2f")(num)
-      .replace(".00");
+      .replace(".00", "");
     return addUnits(formatted, unit);
   }
 }
