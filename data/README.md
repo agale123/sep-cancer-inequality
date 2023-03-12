@@ -1,4 +1,5 @@
-# Data
+# Data Pipeline
+The Data Pipeline encapsulates all the processing necessary to take data from its original raw file to a final, merged table of all the metrics in a format that can be used by the Data Explorer.
 
 ## Raw
 
@@ -19,7 +20,7 @@ Follow these steps to add a new dataset to the Data Explorer.
 - Add the raw data source to `data/raw`. For instance, `data/raw/new_metric_raw.csv`
 - Describe the data source, relevant details and schema of the raw file in the [README.md](raw/README.md) located in the `raw` directory.
 - Add a new python notebook to `notebooks/cleaning`, for instance `notebooks/cleaning/new_metric.ipynb`. In this notebook, clean up the raw data and output the result to `data/processed`. The output should be formatted as csv, and it must include a column called 'fips' and one or more columns for corresponding metrics. For instance, `[fips new_metric_01]`.
-- Update `notebooks/merge.ipynb` to include the new processed data source in the final output.
+- Update `notebooks/cleaning/merge.ipynb` to include the new processed data source in the final output.
 ```diff python
 files = [
     "food_access.csv",
@@ -32,7 +33,7 @@ files = [
 +   "new_metric.csv"
 ]
 ```
-- Still in `notebooks/merge.ipynb`, add the new metric to the list of columns that should be part of the final dataset.
+- Still in `notebooks/cleaning/merge.ipynb`, add the new metric to the list of columns that should be part of the final dataset.
 ```diff python
 df = df[
     [
@@ -45,8 +46,8 @@ df = df[
     ]
 ]
 ```
-- Run `notebooks/merge.ipynb` and verify that the new metrics have been added to the table in `data/county_data.csv`.
-- In `web/scripts/data-service.js`, add the new metric with a corresponding label and legend description. The type should indicate whether the metric is available per county or per state.
+- Run `notebooks/cleaning/merge.ipynb` and verify that the new metrics have been added to the table in `data/final/county_data.csv`.
+- In `docs/scripts/data-service.js`, add the new metric with a corresponding label and legend description. The type should indicate whether the metric is available per county or per state.
 ```diff javascript
 const METRICS = [
   ...
