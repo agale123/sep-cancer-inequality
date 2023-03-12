@@ -28,16 +28,10 @@ for (const [key, value] of Object.entries(METRIC_LABELS)) {
 
 function showWalkthrough() {
   document.getElementById("walkthrough").classList.remove("d-none");
-  const columns = document.querySelector(".columns.column");
-  columns.classList.add("is-three-quarters-desktop");
-  columns.classList.add("is-two-thirds-tablet");
 }
 
 function hideWalkthrough() {
   document.getElementById("walkthrough").classList.add("d-none");
-  const columns = document.querySelector(".columns.column");
-  columns.classList.remove("is-three-quarters-desktop");
-  columns.classList.remove("is-two-thirds-tablet");
   updateCharts();
 }
 

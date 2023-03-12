@@ -4,7 +4,7 @@ Capstone project for the UW MSDS program. Working with Fred Hutch Cancer Center 
 
 ## Preview
 
-During development, the application can be previewed [here](https://agale123.github.io/sep-cancer-inequality/web/index.html).
+During development, the application can be previewed [here](https://agale123.github.io/sep-cancer-inequality/index.html).
 
 ## Directory structure
 

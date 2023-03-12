@@ -7,19 +7,6 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.svg" />
     <link rel="stylesheet" href="css/index.css" />
 
-    <!-- Bulma.io -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
     <!-- Bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -80,7 +67,11 @@
         </a>
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a href="visualization.html" class="nav-link link-dark" aria-current="page">
+            <a
+              href="visualization.html"
+              class="nav-link link-dark"
+              aria-current="page"
+            >
               Visualization
             </a>
           </li>
@@ -92,67 +83,51 @@
     </div>
 
     <!-- Main page content -->
-    <div class="columns m-0 is-fullheight">
-      <div class="columns m-0 column is-multiline">
+    <div class="row h-100 w-100">
+      <div class="col row m-4">
         <!-- Left column -->
-        <div class="column is-half-desktop is-full-tablet">
-          <section class="section m-0 p-0">
-            <!-- Dropdown for the first indicator -->
-            <div class="field">
-              <div class="select is-rounded w-100">
-                <select class="w-100" id="first-select"></select>
-              </div>
-            </div>
-            <section class="section px-2 pt-0 pb-2">
-              <!-- Create an element where the first map will be rendered. -->
-              <div id="canvas_map_one" class="map-canvas">
-                <div class="tooltip" style="opacity: 0%"></div>
-                <svg>
-                  <g class="zoom-controls" transform="translate(1, 1)">
-                    <g class="zoom-in" transform="translate(0, 0)">
-                      <rect width="20" height="20"></rect>
-                      <line x1="3" y1="10" x2="17" y2="10"></line>
-                      <line x1="10" y1="3" x2="10" y2="17"></line>
-                    </g>
-                    <g class="zoom-out" transform="translate(0, 20)">
-                      <rect width="20" height="20"></rect>
-                      <line x1="3" y1="10" x2="17" y2="10"></line>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-            </section>
-          </section>
-          <section class="section m-0 p-0">
-            <!-- Dropdown for the second indicator -->
-            <div class="field">
-              <div class="select is-rounded w-100">
-                <select class="w-100" id="second-select"></select>
-              </div>
-            </div>
-            <section class="section px-2 py-0">
-              <!-- Create an element where the second map will be rendered. -->
-              <div id="canvas_map_two" class="map-canvas">
-                <div class="tooltip" style="opacity: 0%"></div>
-                <svg>
-                  <g class="zoom-controls" transform="translate(1, 1)">
-                    <g class="zoom-in" transform="translate(0, 0)">
-                      <rect width="20" height="20"></rect>
-                      <line x1="3" y1="10" x2="17" y2="10"></line>
-                      <line x1="10" y1="3" x2="10" y2="17"></line>
-                    </g>
-                    <g class="zoom-out" transform="translate(0, 20)">
-                      <rect width="20" height="20"></rect>
-                      <line x1="3" y1="10" x2="17" y2="10"></line>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-            </section>
-          </section>
+        <div class="col-12 col-lg-6">
+          <!-- Dropdown for the first indicator -->
+          <select class="form-select mb-2" id="first-select"></select>
+          <!-- Create an element where the first map will be rendered. -->
+          <div id="canvas_map_one" class="map-canvas">
+            <div class="tooltip" style="opacity: 0%"></div>
+            <svg>
+              <g class="zoom-controls" transform="translate(1, 1)">
+                <g class="zoom-in" transform="translate(0, 0)">
+                  <rect width="20" height="20"></rect>
+                  <line x1="3" y1="10" x2="17" y2="10"></line>
+                  <line x1="10" y1="3" x2="10" y2="17"></line>
+                </g>
+                <g class="zoom-out" transform="translate(0, 20)">
+                  <rect width="20" height="20"></rect>
+                  <line x1="3" y1="10" x2="17" y2="10"></line>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <!-- Dropdown for the second indicator -->
+          <select class="form-select mb-2" id="second-select"></select>
+          <!-- Create an element where the second map will be rendered. -->
+          <div id="canvas_map_two" class="map-canvas">
+            <div class="tooltip" style="opacity: 0%"></div>
+            <svg>
+              <g class="zoom-controls" transform="translate(1, 1)">
+                <g class="zoom-in" transform="translate(0, 0)">
+                  <rect width="20" height="20"></rect>
+                  <line x1="3" y1="10" x2="17" y2="10"></line>
+                  <line x1="10" y1="3" x2="10" y2="17"></line>
+                </g>
+                <g class="zoom-out" transform="translate(0, 20)">
+                  <rect width="20" height="20"></rect>
+                  <line x1="3" y1="10" x2="17" y2="10"></line>
+                </g>
+              </g>
+            </svg>
+          </div>
         </div>
         <!-- Right column -->
-        <div class="column is-half-desktop is-full-tablet">
+        <div class="col-12 col-lg-6">
           <section class="section m-0 p-0">
             <!-- Placeholder for summary of the scatterplot. -->
             <div id="scatter_relationship"></div>
@@ -165,14 +140,9 @@
         </div>
       </div>
       <!-- Walkthrough content -->
-      <div
-        class="column is-one-quarter-desktop is-one-third-tablet d-none"
-        id="walkthrough"
-      >
-        <div class="p-2">
-          <div
-            class="is-flex is-justify-content-space-between is-align-items-center"
-          >
+      <div class="col-4 col-lg-3 p-0 d-none" id="walkthrough">
+        <div class="p-3">
+          <div class="d-flex justify-content-between align-items-center">
             <h3>Walkthrough</h3>
             <button
               class="btn-close"

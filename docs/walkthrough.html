@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="css/index.css" />
 
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
@@ -84,69 +80,85 @@
     </div>
 
     <!-- Main page content -->
-    <div class="columns">
-      <div class="column">
-        <section class="section">
-          <h2>Walkthrough Creator</h2>
-          <form>
-            <!-- Text input for the motivation -->
-            <div class="field">
-              <label class="label">Motivation for the walkthrough:</label>
-              <textarea
-                class="textarea"
-                type="text"
-                id="motivation"
-                placeholder="Text input"
-              ></textarea>
-            </div>
-            <!-- Dropdown for the first indicator -->
-            <div class="field">
-              <label class="label">First metric:</label>
-              <div class="select is-rounded">
-                <select class="" id="first-select"></select>
-              </div>
-            </div>
-            <!-- Dropdown for the second indicator -->
-            <div class="field">
-              <label class="label">Second metric:</label>
-              <div class="select is-rounded">
-                <select class="" id="second-select"></select>
-              </div>
-            </div>
-            <!-- Text input for the followup question -->
-            <label class="label">Exploration question(s):</label>
-            <div id="explorations">
-              <div class="field mb-3">
-                <div class="control is-expanded">
-                  <input
-                    class="input exploration"
-                    type="text"
-                    placeholder="Text input"
-                  />
-                </div>
-              </div>
-            </div>
-            <div>
-              <button class="button mb-2" id="exploration-add">+ Add</button>
-            </div>
-          </form>
-
-          <!-- Generated URL to copy -->
-          <label class="label">Generated URL:</label>
-          <div class="field has-addons">
-            <div class="control is-flex-grow-1">
-              <input class="input" type="text" id="generated-url" />
-            </div>
-            <div class="control">
-              <button class="button" id="copy-button">
-                <span class="icon">
-                  <i class="fa-solid fa-copy"></i>
-                </span>
-                <span>Copy</span>
-              </button>
-            </div>
+    <div class="container-fluid p-5">
+      <h2>Walkthrough Creator</h2>
+      <form>
+        <!-- Text input for the motivation -->
+        <div class="mb-3">
+          <label for="motivation" class="form-label"
+            ><b>Motivation for the walkthrough:</b></label
+          >
+          <div class="input-group">
+            <textarea
+              class="form-control"
+              type="text"
+              id="motivation"
+              placeholder="Text input"
+              rows="4"
+            ></textarea>
           </div>
-        </section>
+        </div>
+        <!-- Dropdown for the first indicator -->
+        <div class="mb-3">
+          <label for="first-select" class="form-label"
+            ><b>First metric:</b></label
+          >
+          <select
+            class="form-select"
+            id="first-select"
+            style="width: auto"
+          ></select>
+        </div>
+        <!-- Dropdown for the second indicator -->
+        <div class="mb-3">
+          <label for="second-select" class="form-label"
+            ><b>Second metric:</b></label
+          >
+          <select
+            class="form-select"
+            id="second-select"
+            style="width: auto"
+          ></select>
+        </div>
+        <!-- Text input for the followup question -->
+        <div class="mb-3">
+          <label for="exploration" class="form-label"
+            ><b>Exploration question(s):</b></label
+          >
+          <div id="explorations">
+            <input
+              class="form-control exploration"
+              type="text"
+              id="exploration"
+              placeholder="Text input"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn btn-outline-secondary mb-2"
+            id="exploration-add"
+          >
+            + Add
+          </button>
+        </div>
+      </form>
+
+      <!-- Generated URL to copy -->
+      <div class="mb-3">
+        <label for="generated-url" class="form-label"
+          ><b>Generated URL:</b></label
+        >
+        <div class="input-group">
+          <input class="form-control" type="text" id="generated-url" />
+          <button class="btn btn-outline-secondary" id="copy-button">
+            <span class="icon">
+              <i class="fa-solid fa-copy"></i>
+            </span>
+            <span>Copy</span>
+          </button>
+        </div>
       </div>
     </div>
 
