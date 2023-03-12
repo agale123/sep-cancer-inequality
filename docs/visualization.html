@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cancer Inequality Data Explorer</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.svg" />
+    <link rel="stylesheet" href="css/index.css" />
+
+    <!-- Bulma.io -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+
+    <!-- Load d3.js for visualizations -->
+    <script src="https://unpkg.com/d3-regression@1.3.10/dist/d3-regression.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-format.v3.min.js"></script>
+    <script src="https://d3js.org/d3-zoom.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v4.min.js"></script>
+
+    <!-- SEO tags -->
+    <meta
+      property="og:url"
+      content="https://cancerdataexplorer.org/index.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Cancer Inequality Data Explorer" />
+    <meta
+      property="og:description"
+      content="Which factors impact cancer incidence and mortality rates?"
+    />
+    <meta
+      property="og:image"
+      content="https://cancerdataexplorer.org/images/preview-fb.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@fredhutch" />
+    <meta name="twitter:title" content="Cancer Inequality Data Explorer" />
+    <meta
+      name="twitter:description"
+      content="Which factors impact cancer incidence and mortality rates?"
+    />
+    <meta
+      name="twitter:image"
+      content="https://cancerdataexplorer.org/images/preview-tw.png"
+    />
+  </head>
+
+  <body>
+    <!-- Top navigation bar -->
+    <div>
+      <header class="navbar justify-content-center border-bottom px-2">
+        <a
+          href="visualization.html"
+          class="d-flex me-md-auto text-dark text-decoration-none"
+        >
+          <img class="ms-3 me-3" src="images/fred-hutch.svg" width="180px" />
+          <span class="fs-5 d-flex align-items-center title"
+            >Cancer Inequality Data Explorer</span
+          >
+        </a>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a href="visualization.html" class="nav-link link-dark" aria-current="page">
+              Visualization
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link link-secondary"> About </a>
+          </li>
+        </ul>
+      </header>
+    </div>
+
+    <!-- Main page content -->
+    <div class="columns m-0 is-fullheight">
+      <div class="columns m-0 column is-multiline">
+        <!-- Left column -->
+        <div class="column is-half-desktop is-full-tablet">
+          <section class="section m-0 p-0">
+            <!-- Dropdown for the first indicator -->
+            <div class="field">
+              <div class="select is-rounded w-100">
+                <select class="w-100" id="first-select"></select>
+              </div>
+            </div>
+            <section class="section px-2 pt-0 pb-2">
+              <!-- Create an element where the first map will be rendered. -->
+              <div id="canvas_map_one" class="map-canvas">
+                <div class="tooltip" style="opacity: 0%"></div>
+                <svg>
+                  <g class="zoom-controls" transform="translate(1, 1)">
+                    <g class="zoom-in" transform="translate(0, 0)">
+                      <rect width="20" height="20"></rect>
+                      <line x1="3" y1="10" x2="17" y2="10"></line>
+                      <line x1="10" y1="3" x2="10" y2="17"></line>
+                    </g>
+                    <g class="zoom-out" transform="translate(0, 20)">
+                      <rect width="20" height="20"></rect>
+                      <line x1="3" y1="10" x2="17" y2="10"></line>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </section>
+          </section>
+          <section class="section m-0 p-0">
+            <!-- Dropdown for the second indicator -->
+            <div class="field">
+              <div class="select is-rounded w-100">
+                <select class="w-100" id="second-select"></select>
+              </div>
+            </div>
+            <section class="section px-2 py-0">
+              <!-- Create an element where the second map will be rendered. -->
+              <div id="canvas_map_two" class="map-canvas">
+                <div class="tooltip" style="opacity: 0%"></div>
+                <svg>
+                  <g class="zoom-controls" transform="translate(1, 1)">
+                    <g class="zoom-in" transform="translate(0, 0)">
+                      <rect width="20" height="20"></rect>
+                      <line x1="3" y1="10" x2="17" y2="10"></line>
+                      <line x1="10" y1="3" x2="10" y2="17"></line>
+                    </g>
+                    <g class="zoom-out" transform="translate(0, 20)">
+                      <rect width="20" height="20"></rect>
+                      <line x1="3" y1="10" x2="17" y2="10"></line>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </section>
+          </section>
+        </div>
+        <!-- Right column -->
+        <div class="column is-half-desktop is-full-tablet">
+          <section class="section m-0 p-0">
+            <!-- Placeholder for summary of the scatterplot. -->
+            <div id="scatter_relationship"></div>
+            <!-- Create an element where the scatterplot and regression results will be rendered. -->
+            <div id="canvas_scatterplot"></div>
+            <!-- Placeholder for the metric descriptions. -->
+            <div id="scatter_y"></div>
+            <div id="scatter_x"></div>
+          </section>
+        </div>
+      </div>
+      <!-- Walkthrough content -->
+      <div
+        class="column is-one-quarter-desktop is-one-third-tablet d-none"
+        id="walkthrough"
+      >
+        <div class="p-2">
+          <div
+            class="is-flex is-justify-content-space-between is-align-items-center"
+          >
+            <h3>Walkthrough</h3>
+            <button
+              class="btn-close"
+              id="close-button"
+              aria-label="Close"
+            ></button>
+          </div>
+          <p id="mvn"></p>
+          <ol id="questions">
+            <li id="m1"></li>
+            <li id="m2"></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Initialize the data needed for the visualizations -->
+    <script src="scripts/data-service.js"></script>
+
+    <!-- Render the visualizations -->
+    <script src="scripts/map-visualization.js"></script>
+    <script src="scripts/scatterplot-visualization.js"></script>
+
+    <!-- Setup callbacks for the dropdowns and resize events -->
+    <script src="scripts/event-listeners.js"></script>
+  </body>
+</html>
