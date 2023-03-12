@@ -25,18 +25,14 @@ document.getElementById("exploration-add").addEventListener("click", (e) => {
   e.preventDefault();
   const div = document.createElement("div");
   div.innerHTML = `
-        <div class="control is-expanded">
-            <input class="input exploration" type="text" placeholder="Text input">
-        </div>
-        <div class="control">
-            <button class="button">
-                <span class="icon">
-                    <i class="fa-solid fa-close"></i>
-                </span>
-            </button>
-        </div>
+          <input class="form-control exploration" type="text" placeholder="Text input" />
+          <button class="btn btn-outline-secondary">
+            <span class="icon">
+              <i class="fa-solid fa-close"></i>
+            </span>
+          </button>
     `;
-  div.className = "field has-addons mb-3";
+  div.className = "input-group mt-3";
   // Remove the element when the close button is clicked.
   div.querySelector("button").addEventListener("click", (e) => {
     e.preventDefault();
@@ -50,7 +46,10 @@ document.getElementById("exploration-add").addEventListener("click", (e) => {
 function updateGeneratedURL() {
   const url = new URL(window.location.href);
   // Clear path
-  url.pathname = url.pathname.replace("/walkthrough.html", "");
+  url.pathname = url.pathname.replace(
+    "/walkthrough.html",
+    "/visualization.html"
+  );
   // Add metrics
   const m1 = document.getElementById("first-select").value;
   const m2 = document.getElementById("second-select").value;
