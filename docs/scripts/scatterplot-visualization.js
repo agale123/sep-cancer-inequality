@@ -2,7 +2,7 @@
 const MARGIN = { top: 30, right: 60, bottom: 60, left: 60 };
 
 // Max width, in pixels, for the scatterplot.
-const MAX_WIDTH = 600;
+const MAX_WIDTH = 630;
 
 /**
  * @param {Array<Object>} data

@@ -70,7 +70,7 @@
     <div>
       <header class="navbar justify-content-center border-bottom px-2">
         <a
-          href="index.html"
+          href="visualization.html"
           class="d-flex me-md-auto text-dark text-decoration-none"
         >
           <img class="ms-3 me-3" src="images/fred-hutch.svg" width="180px" />
@@ -80,7 +80,11 @@
         </a>
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a href="index.html" class="nav-link link-dark" aria-current="page">
+            <a
+              href="visualization.html"
+              class="nav-link link-dark"
+              aria-current="page"
+            >
               Visualization
             </a>
           </li>
@@ -92,99 +96,17 @@
     </div>
 
     <!-- Main page content -->
-    <div class="columns m-0 is-fullheight">
-      <div class="columns m-0 column is-multiline">
-        <!-- Left column -->
-        <div class="column is-half-desktop is-full-tablet">
-          <section class="section m-0 p-0">
-            <!-- Dropdown for the first indicator -->
-            <div class="field">
-              <div class="select is-rounded w-100">
-                <select class="w-100" id="first-select"></select>
-              </div>
-            </div>
-            <section class="section px-2 pt-0 pb-2">
-              <!-- Create an element where the first map will be rendered. -->
-              <div id="canvas_map_one" class="map-canvas">
-                <div class="tooltip" style="opacity: 0%"></div>
-                <svg>
-                  <g class="zoom-controls" transform="translate(1, 1)">
-                    <g class="zoom-in" transform="translate(0, 0)">
-                      <rect width="20" height="20"></rect>
-                      <line x1="3" y1="10" x2="17" y2="10"></line>
-                      <line x1="10" y1="3" x2="10" y2="17"></line>
-                    </g>
-                    <g class="zoom-out" transform="translate(0, 20)">
-                      <rect width="20" height="20"></rect>
-                      <line x1="3" y1="10" x2="17" y2="10"></line>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-            </section>
-          </section>
-          <section class="section m-0 p-0">
-            <!-- Dropdown for the second indicator -->
-            <div class="field">
-              <div class="select is-rounded w-100">
-                <select class="w-100" id="second-select"></select>
-              </div>
-            </div>
-            <section class="section px-2 py-0">
-              <!-- Create an element where the second map will be rendered. -->
-              <div id="canvas_map_two" class="map-canvas">
-                <div class="tooltip" style="opacity: 0%"></div>
-                <svg>
-                  <g class="zoom-controls" transform="translate(1, 1)">
-                    <g class="zoom-in" transform="translate(0, 0)">
-                      <rect width="20" height="20"></rect>
-                      <line x1="3" y1="10" x2="17" y2="10"></line>
-                      <line x1="10" y1="3" x2="10" y2="17"></line>
-                    </g>
-                    <g class="zoom-out" transform="translate(0, 20)">
-                      <rect width="20" height="20"></rect>
-                      <line x1="3" y1="10" x2="17" y2="10"></line>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-            </section>
-          </section>
-        </div>
-        <!-- Right column -->
-        <div class="column is-half-desktop is-full-tablet">
-          <section class="section m-0 p-0">
-            <!-- Placeholder for summary of the scatterplot. -->
-            <div id="scatter_relationship"></div>
-            <!-- Create an element where the scatterplot and regression results will be rendered. -->
-            <div id="canvas_scatterplot"></div>
-            <!-- Placeholder for the metric descriptions. -->
-            <div id="scatter_y"></div>
-            <div id="scatter_x"></div>
-          </section>
-        </div>
-      </div>
-      <!-- Walkthrough content -->
-      <div
-        class="column is-one-quarter-desktop is-one-third-tablet d-none"
-        id="walkthrough"
-      >
-        <div class="p-2">
-          <div
-            class="is-flex is-justify-content-space-between is-align-items-center"
-          >
-            <h3>Walkthrough</h3>
-            <button
-              class="btn-close"
-              id="close-button"
-              aria-label="Close"
-            ></button>
-          </div>
-          <p id="mvn"></p>
-          <ol id="questions">
-            <li id="m1"></li>
-            <li id="m2"></li>
-          </ol>
+    <div class="m-0 d-flex align-items-center justify-content-center">
+        <div class="card" style="width: 30rem">
+          <div class="card-body">
+            <h5 class="card-title">Disclaimer</h5>
+            <p class="card-text">
+              This tool is designed to bring together a number of different data
+              sources for easier exploration and comparison. The relationships
+              between these variables are complicated and this data may not tell
+              the whole story.
+            </p>
+            <a href="visualization.html" class="btn btn-primary">Continue</a>
         </div>
       </div>
     </div>
