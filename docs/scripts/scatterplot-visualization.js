@@ -257,10 +257,10 @@ async function updateScatterplot(xMetric, yMetric) {
     xType === "state" && yType === "state" ? "state" : "county";
   document.getElementById("scatter_relationship").innerHTML = `
         <p>Use this scatterplot to understand how these two variables are 
-        correlated. Each circle represents a ${granularity} and the size of  
-        circle represents the population of that area.</p>
-        <p>Based on the slope of the line, there is a <b>${slopeDesc}</b>
-        relationship between the variables.</p>`;
+        correlated. Based on the slope of the line, there is a <b>${slopeDesc}</b>
+        relationship between the variables.</p>
+        <p>Each circle represents a ${granularity} and the size of  
+        circle represents the population of that area.</p>`;
 
   // Render metric descriptions
   document.getElementById("scatter_x").innerHTML = `<b>${getMetricLabel(
