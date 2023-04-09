@@ -1,0 +1,13 @@
+service: cancer-inequality
+runtime: python310
+
+handlers:
+- url: /
+  static_files: docs/index.html
+  upload: docs/index.html
+  secure: always
+
+- url: /(.*)
+  static_files: docs/\1
+  upload: docs/(.*)
+  secure: always
